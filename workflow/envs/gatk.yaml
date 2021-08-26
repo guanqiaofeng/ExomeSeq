@@ -3,4 +3,5 @@ channels:
   - conda-forge
   - defaults
 dependencies:
-  - gatk4 ==4.1.4.1
+  - gatk ==3.8
+  - vcftools ==0.1.16

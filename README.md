@@ -29,10 +29,10 @@
 
 ## About
 
-This workflow performs a differential gene expression analysis with STAR and Deseq2.
+This workflow performs a ExomeSeq analysis with bwa, Mutect2, Mutect, Strelka, Varscan, Sequenza.
 It has been customized to work on the HPC4Health Slurm cluster and includes extra analysis to do genotype matching.
 
-Link to the original snakemake workflow: [snakemake-workflows/rna-seq-star-deseq2](https://github.com/snakemake-workflows/rna-seq-star-deseq2)
+Link to the original snakemake workflow: [RNAseq-Exome-snakemake/Snakemake/exome/](https://github.com/pmcc-modil/pipelines/tree/main/RNAseq-Exome-snakemake/Snakemake/exome)
 
 ## Updates
 
@@ -57,16 +57,16 @@ salloc --partition=build -c 1 -t 2:0:0 --mem 2G
 conda activate snakemake
 
 cd ~/workflows
-git clone git@github.com:mcgahalab/rna-seq-star-deseq2.git
+git clone git@github.com:elsamah/ExomeSeq.git
 ```
 
 ### 2. Setup a blank analysis directory (Build/Project node)
 The basic idea of this workflow is that we set up all the conda-envs using a set output path in our home directory. However, to run the `--create-env-only` command, we need to have a directory set up with all the files needed to execute the entire workflow. In the future, I will add a script to do this automatically, but for now, it must be made manually:
 
 ```
-wflowdir='~/workflow/rna-seq-star-deseq2'
-mkdir -p ~/workflows/intialize/rnaseq-star
-cd ~/workflows/intialize/rnaseq-star
+wflowdir='~/workflow/ExomeSeq'
+mkdir -p ~/workflows/intialize/ExomeSeq
+cd ~/workflows/intialize/ExomeSeq
 
 mkdir config data resources
 ln -s $(readlink -f ${wflowdir}/scripts) .
@@ -104,13 +104,13 @@ Now that you have your "intialize" and your "project" directory set up, you can 
 Before you build your conda-envs, you'll need to switch the `workdir:` path in your `workflow/Snakefile`:
 ```
 > workflow/Snakefile
-workdir: "/path/to/workflows/intialize/rnaseq-star"
+workdir: "/path/to/workflows/intialize/ExomeSeq"
 ```
 
 Once the Snakefile workdir path has been changed, you can run the entire snakemake workflow using `conda-create-envs-only`:
 
 ```
-cd ~/workflow/rna-seq-star-deseq2
+cd ~/workflow/ExomeSeq
 condaprefix=$(readlink -f .snakemake/conda)
 
 snakemake \
@@ -137,8 +137,8 @@ workdir: "/path/to/group_directory/project"
 
 The `scheduler.sh` script runs the following command in a 5-day long job, with its main purpose to track the job queue and job submission on the slurm cluster.
 ```
-cd /cluster/home/quever/workflows/rna-seq-star-deseq2
-condaprefix='/cluster/home/quever/workflows/rna-seq-star-deseq2/.snakemake/conda'
+cd /cluster/home/quever/workflows/ExomeSeq
+condaprefix='/cluster/home/selghamr/workflows/ExomeSeq/.snakemake/conda'
 
 snakemake \
 --jobs 6 \
