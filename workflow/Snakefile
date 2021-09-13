@@ -14,9 +14,9 @@ samples = pd.read_table(
 
 output_dir = os.environ.get("output_dir")
 
-known_mills="/cluster/tools/data/genomes/human/hg19/variantcallingdata/Mills_and_1000G_gold_standard.indels.hg19.vcf"
-known_1000G="/cluster/tools/data/genomes/human/hg19/variantcallingdata/1000G_phase1.indels.hg19.vcf"
-region="/cluster/projects/hakemgroup/pipelines/RNAseq-Exome-snakemake/Snakemake/exome/step1/S04380110_Covered.headless.bed"
+known_mills="/cluster/tools/data/genomes/human/hg38/variantcallingdata/Mills_and_1000G_gold_standard.indels.hg19.vcf"
+known_1000G="/cluster/tools/data/genomes/human/hg38/variantcallingdata/1000G_phase1.indels.hg19.vcf"
+region="resources/TargetRegions/S04380110_Covered.headless.bed"
 dbsnp="/cluster/tools/data/genomes/human/hg19/variantcallingdata/dbsnp_138.hg19.vcf"
 ref_genome="hg19"
 
@@ -25,11 +25,14 @@ workdir: "/cluster/home/quever/workflows/rnaseq_test/"
 
 ##### load rules #####
 include: "rules/common.smk"
-include: "rules/mapFASTQ.smk"
 include: "rules/align.smk"
+include: "rules/haplogatk.smk"
 include: "rules/mutect2.smk"
-include: "rules/diffexp.smk"
-include: "rules/genotyping.smk"
+include: "rules/mutect1.smk"
+include: "rules/varscan.smk"
+include: "rules/Strelka.smk"
+include: "rules/Sequenza.smk"
+include: "rules/vcfIntersectSNV.smk"
 
 
 ##### target rules #####
@@ -40,16 +43,30 @@ def get_r1(wildcards):
 def get_r2(wildcards):
     return samples.read2[wildcards.sample]
 
+
+
 rule all:
-    input: expand("{output_dir}/alignment/{sample}/{sample}.realigned.recal.bam", sample = samples["sample"], output_dir=output_dir),
-    params:
-        runtime="120:00:00"
-    threads: 1
-    resources: mem_mb=6000
-    shell:
-     """
-     module load igenome-human/hg19
-     """
+  input:
+
+    expand("{output_dir}/alignment/{sample}/{sample}.realigned.recal.bam", sample = samples["sample"], output_dir=output_dir),
+    expand("{output_dir}/Haplotype/{sample}/{sample}.raw.snps.indels.vcf", sample = samples["sample"], output_dir=output_dir),
+    expand("{output_dir}/MuTect1/{sample}/{sample}.mut1.vcf", sample = samples["sample"], output_dir=output_dir),
+    expand("{output_dir}/MuTect1/{sample}/{sample}.call_stats", sample = samples["sample"], output_dir=output_dir),
+    expand("{output_dir}/MuTect1/{sample}/{sample}.wig.txt", sample = samples["sample"], output_dir=output_dir),
+    expand("{output_dir}/MuTect2/{sample}/{sample}_{interval}.mut2.vcf", sample = samples["sample"] ,output_dir=output_dir, interval=intervals["interval"]),
+    expand("{output_dir}/MuTect2Merge/{sample}/{sample}_merged_mut2.vcf", sample = samples["sample"] ,output_dir=output_dir),
+    expand("{output_dir}/MuTect2Merge/{sample}/{sample}.snvs.recode.vcf", sample = samples["sample"], output_dir=output_dir),
+    expand("{output_dir}/MuTect2Merge/{sample}/{sample}.indels.recode.vcf", sample = samples["sample"], output_dir=output_dir),
+    expand("{output_dir}/Sequenza/{sample}", sample = samples["sample"], output_dir=output_dir),
+    expand("{output_dir}/Strelka/{sample}/{sample}.myAnalysis", sample = samples["sample"], output_dir=output_dir),
+    expand("{output_dir}/Varscan/cnv/{sample}/{sample}.vscn.copynumber", sample = samples["sample"], output_dir=output_dir),
+    expand("{output_dir}/Varscan/snv/{sample}/{sample}.snp", sample = samples["sample"], output_dir=output_dir),
+    expand("{output_dir}/Varscan/snv/{sample}/{sample}.indel", sample = samples["sample"], output_dir=output_dir),
+    expand("{output_dir}/Varscan/snv/{sample}/{sample}.snp.Somatic.hc", sample = samples["sample"], output_dir=output_dir),
+    expand("{output_dir}/Varscan/snv/{sample}/{sample}.indel.Somatic.hc", sample = samples["sample"], output_dir=output_dir),
+    expand("{output_dir}/vcfIntersect/{sample}_intersect_snv", sample = samples["sample"], output_dir=output_dir),
+    expand("{output_dir}/MAF_38_f/indel/{sample}/{indel}.maf", sample = samples["sample"], output_dir=output_dir, indel=indel_vcfs["indel"]),
+    expand("{output_dir}/MAF_38_final/snv/{sample}/{snv}.maf", sample = samples["sample"], output_dir=output_dir, snv=snv_vcfs["snv"]),
 
 
 rule all:
