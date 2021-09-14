@@ -80,7 +80,7 @@ rule gatkIndelRealigner:
     ref= '/cluster/tools/data/genomes/human/hg38/iGenomes/Sequence/WholeGenomeFasta/genome.fa',
     interval="{output_dir}/alignment/{sample}/{sample}.IndelRealigner.intervals",
     known1=known_mills,
-    known2=known_1000G,"
+    known2=known_1000G,
   output: "{output_dir}/alignment/{sample}/{sample}.realigned.bam"
   threads: 2
   conda:
