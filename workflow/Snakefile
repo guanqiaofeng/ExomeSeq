@@ -37,15 +37,6 @@ include: "rules/vcfIntersectSNV.smk"
 
 
 ##### target rules #####
-
-def get_r1(wildcards):
-    return samples.read1[wildcards.sample]
-
-def get_r2(wildcards):
-    return samples.read2[wildcards.sample]
-
-
-
 rule all:
   input:
     expand("{output_dir}/alignment/{sample}/{sample}.realigned.recal.bam", sample = samples["sample"], output_dir=output_dir),
