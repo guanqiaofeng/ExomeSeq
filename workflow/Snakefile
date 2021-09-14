@@ -2,7 +2,7 @@
 # with --use-conda --use-singularity
 #container: "docker://continuumio/miniconda3"
 
-configfile: "config.yaml"
+configfile: "config/config.yaml"
 
 import pandas as pd
 import os
