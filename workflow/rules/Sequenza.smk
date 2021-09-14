@@ -8,7 +8,7 @@ rule Sequenza:
   threads: 4
   conda:
     "../envs/sequenza.yaml",
-    shell:
+  shell:
      """
      Rscript {params.script} -s {input.snp} -c {input.copynum} -o {output}
      """
