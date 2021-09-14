@@ -18,10 +18,10 @@ known_mills="/cluster/tools/data/genomes/human/hg38/hg38bundle/Mills_and_1000G_g
 known_1000G="/cluster/tools/data/genomes/human/hg38/variantcallingdata/1000G_phase1.indels.hg19.vcf"
 region="resources/TargetRegions/S04380110_Covered.headless.bed"
 dbsnp="/cluster/tools/data/genomes/human/hg38/hg38bundle/dbsnp_144.hg38.vcf "
-ref_genome="hg19"
+ref_genome="hg38"
 
 #workdir: "/cluster/projects/mcgahalab/data/mcgahalab/wither_mcgaha_ram/snakemake_workflow/"
-workdir: "/cluster/home/quever/workflows/rnaseq_test/"
+workdir: "/cluster/home/selghamr/workflows/ExomeSeq/"
 
 ##### load rules #####
 include: "rules/common.smk"
@@ -47,7 +47,6 @@ def get_r2(wildcards):
 
 rule all:
   input:
-
     expand("{output_dir}/alignment/{sample}/{sample}.realigned.recal.bam", sample = samples["sample"], output_dir=output_dir),
     expand("{output_dir}/Haplotype/{sample}/{sample}.raw.snps.indels.vcf", sample = samples["sample"], output_dir=output_dir),
     expand("{output_dir}/MuTect1/{sample}/{sample}.mut1.vcf", sample = samples["sample"], output_dir=output_dir),
