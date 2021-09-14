@@ -14,10 +14,10 @@ samples = pd.read_table(
 
 output_dir = os.environ.get("output_dir")
 
-known_mills="/cluster/tools/data/genomes/human/hg38/variantcallingdata/Mills_and_1000G_gold_standard.indels.hg19.vcf"
+known_mills="/cluster/tools/data/genomes/human/hg38/hg38bundle/Mills_and_1000G_gold_standard.indels.hg38.vcf"
 known_1000G="/cluster/tools/data/genomes/human/hg38/variantcallingdata/1000G_phase1.indels.hg19.vcf"
 region="resources/TargetRegions/S04380110_Covered.headless.bed"
-dbsnp="/cluster/tools/data/genomes/human/hg19/variantcallingdata/dbsnp_138.hg19.vcf"
+dbsnp="/cluster/tools/data/genomes/human/hg38/hg38bundle/dbsnp_144.hg38.vcf "
 ref_genome="hg19"
 
 #workdir: "/cluster/projects/mcgahalab/data/mcgahalab/wither_mcgaha_ram/snakemake_workflow/"
@@ -67,17 +67,3 @@ rule all:
     expand("{output_dir}/vcfIntersect/{sample}_intersect_snv", sample = samples["sample"], output_dir=output_dir),
     expand("{output_dir}/MAF_38_f/indel/{sample}/{indel}.maf", sample = samples["sample"], output_dir=output_dir, indel=indel_vcfs["indel"]),
     expand("{output_dir}/MAF_38_final/snv/{sample}/{snv}.maf", sample = samples["sample"], output_dir=output_dir, snv=snv_vcfs["snv"]),
-
-
-rule all:
-    input:
-        "results/pca.svg",
-        #"../report/diffexp.rst",
-        "results/deseq2/normcounts.tsv",
-        "results/counts/all.tsv",
-        expand("results/star/se/{sample}-merged/Aligned.sortedByCoord.out.bam", sample=samples.index),
-        "results/qc/multiqc_report.html",
-        expand("results/genotyping/{sample}-merged.allelicCounts.tsv", sample=samples.index),
-
-        #expand("results/trimmed/{sample}_merged_single.fastq.gz", sample=samples.index)
-        #get_final_output(),
