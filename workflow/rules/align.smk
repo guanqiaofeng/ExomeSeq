@@ -4,26 +4,20 @@ rule mapFASTQ:
     f1 =  get_r1,
     f2 =  get_r2,
     ref = '/cluster/tools/data/genomes/human/hg38/iGenomes/Sequence/WholeGenomeFasta/genome.fa'
-  params:
-    runtime="72:00:00"
   output: temp("{output_dir}/alignment/{sample}/{sample}.sam")
   threads: 4
   conda:
     "../envs/bwa.yaml",
-  resources: mem_mb=12000
   shell:
     """
     bwa mem -p -t4 -R "@RG\\tID:{wildcards.sample}\\tLB:Exome\\tSM:{wildcards.sample}\\tPL:ILLUMINA" {input.ref} {input.f1} {input.f2} > {output}
     """
 rule samtoolsSORT:
   input: "{output_dir}/alignment/{sample}/{sample}.sam"
-  params:
-    runtime="5:00:00"
   output: "{output_dir}/alignment/{sample}/{sample}_sorted.bam"
   threads: 4
   conda:
     "../envs/bwa.yaml",
-  resources: mem_mb=8000
   shell:
     """
     samtools sort -@4 {input} > {output}
@@ -31,13 +25,10 @@ rule samtoolsSORT:
 
 rule samtoolsINDEX:
   input: "{output_dir}/alignment/{sample}/{sample}_sorted.bam"
-  params:
-    runtime="5:00:00"
   output: "{output_dir}/alignment/{sample}/{sample}_sorted.bam.bai"
   threads: 2
   conda:
     "../envs/bwa.yaml",
-  resources: mem_mb=8000
   shell:
     """
     samtools index {input} > {output}
@@ -47,15 +38,12 @@ rule picardMarkDuplicates:
   input:
     bam="{output_dir}/alignment/{sample}/{sample}_sorted.bam",
     bai="{output_dir}/alignment/{sample}/{sample}_sorted.bam.bai",
-  params:
-  runtime="24:00:00"
   output:
     dedup="{output_dir}/alignment/{sample}/{sample}_sorted.dedup.bam",
     metrics="{output_dir}/alignment/{sample}/{sample}_picardmetrics.txt"
   threads: 4
   conda:
     "../envs/bwa.yaml",
-  resources: mem_mb=20000
   shell:
     """
     java -Xmx12g -jar $picard_dir/picard.jar MarkDuplicates INPUT={input.bam} OUTPUT={output.dedup} METRICS_FILE={output.metrics} ASSUME_SORTED=true MAX_RECORDS_IN_RAM=100000 VALIDATION_STRINGENCY=SILENT CREATE_INDEX=true USE_JDK_DEFLATER=true USE_JDK_INFLATER=true
@@ -63,17 +51,14 @@ rule picardMarkDuplicates:
 rule gatkRealignerTargetCreator:
   input:
     bam="{output_dir}/alignment/{sample}/{sample}_sorted.dedup.bam",
-    ref= '/cluster/tools/data/genomes/human/hg19/iGenomes/Sequence/WholeGenomeFasta/genome.fa',
+    ref= '/cluster/tools/data/genomes/human/hg38/iGenomes/Sequence/WholeGenomeFasta/genome.fa',
     region=region,
     known1=known_mills,
     known2=known_1000G,
-  params:
-    runtime="24:00:00"
   output: "{output_dir}/alignment/{sample}/{sample}.IndelRealigner.intervals"
   threads: 4
   conda:
     "../envs/gatk.yaml",
-  resources: mem_mb=8000
   shell:
     """
     java -Xmx8g -jar $gatk_dir/GenomeAnalysisTK.jar -T RealignerTargetCreator \
@@ -92,17 +77,14 @@ rule gatkRealignerTargetCreator:
 rule gatkIndelRealigner:
   input:
     bam="{output_dir}/alignment/{sample}/{sample}_sorted.dedup.bam",
-    ref= '/cluster/tools/data/genomes/human/hg19/iGenomes/Sequence/WholeGenomeFasta/genome.fa',
+    ref= '/cluster/tools/data/genomes/human/hg38/iGenomes/Sequence/WholeGenomeFasta/genome.fa',
     interval="{output_dir}/alignment/{sample}/{sample}.IndelRealigner.intervals",
     known1=known_mills,
-    known2=known_1000G,
-  params:
-    runtime="24:00:00"
+    known2=known_1000G,"
   output: "{output_dir}/alignment/{sample}/{sample}.realigned.bam"
   threads: 2
   conda:
     "../envs/gatk.yaml",
-  resources: mem_mb=12000
   shell:
     """
     java -Xmx12g -jar $gatk_dir/GenomeAnalysisTK.jar \
@@ -121,16 +103,13 @@ rule gatkIndelRealigner:
 rule gatkBaseRecalibrator:
   input:
     bam="{output_dir}/alignment/{sample}/{sample}.realigned.bam",
-    ref= '/cluster/tools/data/genomes/human/hg19/iGenomes/Sequence/WholeGenomeFasta/genome.fa',
+    ref= '/cluster/tools/data/genomes/human/hg38/iGenomes/Sequence/WholeGenomeFasta/genome.fa',
     dbsnp=dbsnp,
     region=region,
-  params:
-    runtime="24:00:00"
   output: "{output_dir}/alignment/{sample}/{sample}.recal_data.grp"
   threads: 4
   conda:
     "../envs/gatk.yaml",
-  resources: mem_mb=18000
   shell:
     """
     java -Xmx18g -jar $gatk_dir/GenomeAnalysisTK.jar \
@@ -152,15 +131,12 @@ rule gatkBaseRecalibrator:
 rule gatkPrintReads:
   input:
     bam="{output_dir}/alignment/{sample}/{sample}.realigned.bam",
-    ref= '/cluster/tools/data/genomes/human/hg19/iGenomes/Sequence/WholeGenomeFasta/genome.fa',
+    ref= '/cluster/tools/data/genomes/human/hg38/iGenomes/Sequence/WholeGenomeFasta/genome.fa',
     recal="{output_dir}/alignment/{sample}/{sample}.recal_data.grp"
-  params:
-    runtime="24:00:00"
   output: "{output_dir}/alignment/{sample}/{sample}.realigned.recal.bam"
   threads: 4
   conda:
     "../envs/gatk.yaml",
-  resources: mem_mb=18000
   shell:
     """
     java -Xmx18g -jar $gatk_dir/GenomeAnalysisTK.jar \
