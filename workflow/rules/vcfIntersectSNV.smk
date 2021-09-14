@@ -12,7 +12,7 @@ rule vcfIntersectINDEL:
     mut2_final="{output_dir}/vcfIntersectINDEL/{sample}/{sample}_mut2_indel.gz",
     strelka_final="{output_dir}/vcfIntersectINDEL/{sample}/{sample}_strelka_indel.gz",
   output: directory("{output_dir}/vcfIntersect/{sample}_intersect_indel")
-    threads: 4
+  threads: 4
   conda:
     "../envs/varscan.yaml",
   shell:
