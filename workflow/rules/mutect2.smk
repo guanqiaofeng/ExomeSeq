@@ -1,3 +1,14 @@
+intervals = pd.read_table(
+    config["bed_file"]
+).set_index(
+    "interval", drop=False
+)
+def get_intervals(wildcards):
+    inter = wildcards.interval
+    bed = "/cluster/home/selghamr/workflows/ExomeSeq/resources/hg38_bed/" + inter + ".bed"
+    return bed
+
+
 
 rule MuTect2:
   input:
