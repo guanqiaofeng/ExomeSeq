@@ -1,3 +1,12 @@
+snv_vcfs = pd.read_table(
+    config["snv_vcf"]
+,dtype={'snv': object}).set_index(
+    "snv", drop=False
+)
+def get_snvs(wildcards):
+    inter = wildcards.snv
+    snv = str(inter) + "_hg38" + ".vcf"
+    return snv
 
 rule vcftoMAFsnv
   input:
@@ -6,7 +15,6 @@ rule vcftoMAFsnv
   params:
     samp="{sample}",
     snv = get_snvs,
-    partition="himem"
   output: "{output_dir}/MAF_38_final/snv/{sample}/{snv}.maf",
   threads: 4
   run:

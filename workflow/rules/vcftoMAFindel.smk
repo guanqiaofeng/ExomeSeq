@@ -1,3 +1,13 @@
+indel_vcfs = pd.read_table(
+    config["indel_vcf"]
+,dtype={'indel': object}).set_index(
+    "indel", drop=False
+)
+def get_indels(wildcards):
+    inter = wildcards.indel
+    indel = str(inter) + "_hg38" + ".vcf"
+    return indel
+
 rule vcftoMAFindel:
   input:
     ref = '/cluster/tools/data/genomes/human/hg38/iGenomes/Sequence/WholeGenomeFasta/genome.fa',
@@ -5,7 +15,6 @@ rule vcftoMAFindel:
   params:
     samp="{sample}",
     indel = get_indels,
-    partition="himem"
   output: "{output_dir}/MAF_38_f/indel/{sample}/{indel}.maf",
     threads: 4
     conda:
