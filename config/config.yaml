@@ -1,1 +1,2 @@
 sample_file: /cluster/home/selghamr/workflows/intialize/ExomeSeq/config/samples.tsv
+bed_file: /cluster/home/selghamr/workflows/intialize/ExomeSeq/config/hg38_bed.tsv
