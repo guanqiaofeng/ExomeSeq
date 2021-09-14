@@ -1,6 +1,7 @@
 # this container defines the underlying OS for each job when using the workflow
 # with --use-conda --use-singularity
 #container: "docker://continuumio/miniconda3"
+
 configfile: "config.yaml"
 
 import pandas as pd
@@ -21,7 +22,7 @@ dbsnp="/cluster/tools/data/genomes/human/hg19/variantcallingdata/dbsnp_138.hg19.
 ref_genome="hg19"
 
 #workdir: "/cluster/projects/mcgahalab/data/mcgahalab/wither_mcgaha_ram/snakemake_workflow/"
-workdir: "/cluster/home/quever/workflows/rnaseq_test/"
+workdir: "/cluster/home/selghamr/workflows/intialize/ExomeSeq/"
 
 ##### load rules #####
 include: "rules/common.smk"
