@@ -1,3 +1,4 @@
+norm="/cluster/projects/bhklab/Data/TFRI_Exome/alignment/Pugh_INS_ex_dil_111_AGTACAAG_L005/Pugh_INS_ex_dil_111_AGTACAAG_L005.realigned.recal.bam"
 rule varscanCopyNumber:
   input:
     ref = '/cluster/tools/data/genomes/human/hg38/iGenomes/Sequence/WholeGenomeFasta/genome.fa',
