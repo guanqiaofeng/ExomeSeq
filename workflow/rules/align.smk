@@ -3,7 +3,7 @@ rule mapFASTQ:
   input:
     f1 =  get_r1,
     f2 =  get_r2,
-    ref = '/cluster/tools/data/genomes/human/hg19/iGenomes/Sequence/BWAIndex/genome.fa'
+    ref = '/cluster/tools/data/genomes/human/hg38/iGenomes/Sequence/WholeGenomeFasta/genome.fa'
   params:
     runtime="72:00:00"
   output: temp("{output_dir}/alignment/{sample}/{sample}.sam")
