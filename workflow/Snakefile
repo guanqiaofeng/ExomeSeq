@@ -22,11 +22,9 @@ dbsnp="/cluster/tools/data/genomes/human/hg38/hg38bundle/dbsnp_144.hg38.vcf "
 ref_genome="hg38"
 
 #workdir: "/cluster/projects/mcgahalab/data/mcgahalab/wither_mcgaha_ram/snakemake_workflow/"
-<<<<<<< HEAD
-workdir: "/cluster/home/selghamr/workflows/intialize/ExomeSeq/"
+
 =======
 workdir: "/cluster/home/selghamr/workflows/ExomeSeq/"
->>>>>>> 52e7fc881e2978ce24df7d3efee89e5cb95a6a4d
 
 ##### load rules #####
 include: "rules/common.smk"
