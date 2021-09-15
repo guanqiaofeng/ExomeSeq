@@ -11,11 +11,11 @@ def get_snvs(wildcards):
 rule vcftoMAFsnv
   input:
     ref = '/cluster/tools/data/genomes/human/hg38/iGenomes/Sequence/WholeGenomeFasta/genome.fa',
-    vcf_inter = "{output_dir}/vcfIntersect/{sample}_intersect_snv"
+    vcf_inter = "results/vcfIntersect/{sample}_intersect_snv"
   params:
     samp="{sample}",
     snv = get_snvs,
-  output: "{output_dir}/MAF_38_final/snv/{sample}/{snv}.maf",
+  output: "results/MAF_38_final/snv/{sample}/{snv}.maf",
   threads: 4
   run:
     if wildcards.snv != '0002':

@@ -1,12 +1,12 @@
 rule MuTect1:
   input:
-    bam = "{output_dir}/alignment/{sample}/{sample}.realigned.recal.bam",
+    bam = "results/alignment/{sample}/{sample}.realigned.recal.bam",
     ref = '/cluster/tools/data/genomes/human/hg38/iGenomes/Sequence/WholeGenomeFasta/genome.fa',
     interval = region
   output:
-    vcf="{output_dir}/MuTect1/{sample}/{sample}.mut1.vcf",
-    stats="{output_dir}/MuTect1/{sample}/{sample}.call_stats",
-    coverage="{output_dir}/MuTect1/{sample}/{sample}.wig.txt"
+    vcf="results/MuTect1/{sample}/{sample}.mut1.vcf",
+    stats="results/MuTect1/{sample}/{sample}.call_stats",
+    coverage="results/MuTect1/{sample}/{sample}.wig.txt"
   threads: 2
   conda:
     "../envs/mutect1.yaml",

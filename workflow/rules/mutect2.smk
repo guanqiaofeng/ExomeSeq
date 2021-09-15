@@ -13,11 +13,11 @@ output_dir = os.environ.get("output_dir")
 
 rule MuTect2:
   input:
-    bam = "{output_dir}/alignment/{sample}/{sample}.realigned.recal.bam",
+    bam = "results/alignment/{sample}/{sample}.realigned.recal.bam",
     ref = '/cluster/tools/data/genomes/human/hg38/iGenomes/Sequence/WholeGenomeFasta/genome.fa',
   params:
     intervals = get_intervals
-  output: "{output_dir}/MuTect2/{sample}/{sample}_{interval}.mut2.vcf"
+  output: "results/MuTect2/{sample}/{sample}_{interval}.mut2.vcf"
   threads: 2
   conda:
     "../envs/gatk.yaml",
@@ -32,12 +32,12 @@ rule MuTect2:
     """
 
 rule MuTect2Merge:
-  input: "{output_dir}/MuTect2/{sample}",
+  input: "results/MuTect2/{sample}",
   params:
     script="/cluster/home/amammoli/concatvcfs",
-    out="{output_dir}/MuTect2Merge/{sample}",
+    out="results/MuTect2Merge/{sample}",
     samp="{sample}"
-  output: "{output_dir}/MuTect2Merge/{sample}/{sample}_merged_mut2.vcf"
+  output: "results/MuTect2Merge/{sample}/{sample}_merged_mut2.vcf"
   threads: 2
   shell:
     """
@@ -49,13 +49,13 @@ rule MuTect2Merge:
 
 rule filterMuTect2:
   input:
-    vcf = "{output_dir}/MuTect2Merge/{sample}/{sample}_merged_mut2.vcf",
+    vcf = "results/MuTect2Merge/{sample}/{sample}_merged_mut2.vcf",
   params:
-    outdirsnv="{output_dir}/MuTect2Merge/{sample}/{sample}.snvs",
-    outdirindel="{output_dir}/MuTect2Merge/{sample}/{sample}.indels",
+    outdirsnv="results/MuTect2Merge/{sample}/{sample}.snvs",
+    outdirindel="results/MuTect2Merge/{sample}/{sample}.indels",
   output:
-    snv="{output_dir}/MuTect2Merge/{sample}/{sample}.snvs.recode.vcf",
-    indel="{output_dir}/MuTect2Merge/{sample}/{sample}.indels.recode.vcf"
+    snv="results/MuTect2Merge/{sample}/{sample}.snvs.recode.vcf",
+    indel="results/MuTect2Merge/{sample}/{sample}.indels.recode.vcf"
   threads: 3
   conda:
     "../envs/gatk.yaml",

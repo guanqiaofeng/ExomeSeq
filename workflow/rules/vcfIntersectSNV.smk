@@ -1,17 +1,17 @@
 rule vcfIntersectINDEL:
   input:
-    var_vcf="{output_dir}/Varscan/snv/{sample}/{sample}.indel.Somatic.hc.vcf",
-    mut2_vcf="{output_dir}/MuTect2Merge/{sample}/{sample}.indels.recode.vcf",
-    strelka_vcf="{output_dir}/Strelka/{sample}/{sample}.myAnalysis",
+    var_vcf="results/Varscan/snv/{sample}/{sample}.indel.Somatic.hc.vcf",
+    mut2_vcf="results/MuTect2Merge/{sample}/{sample}.indels.recode.vcf",
+    strelka_vcf="results/Strelka/{sample}/{sample}.myAnalysis",
     ref = '/cluster/tools/data/genomes/human/hg38/iGenomes/Sequence/WholeGenomeFasta/genome.fa',
-    sequenza="{output_dir}/Sequenza/{sample}"
+    sequenza="results//Sequenza/{sample}"
   params:
-    temp_file="{output_dir}/vcfIntersectTempINDEL/{sample}",
-    outdir="{output_dir}/vcfIntersectINDEL/{sample}",
-    var_final="{output_dir}/vcfIntersectINDEL/{sample}/{sample}_var_indel.gz",
-    mut2_final="{output_dir}/vcfIntersectINDEL/{sample}/{sample}_mut2_indel.gz",
-    strelka_final="{output_dir}/vcfIntersectINDEL/{sample}/{sample}_strelka_indel.gz",
-  output: directory("{output_dir}/vcfIntersect/{sample}_intersect_indel")
+    temp_file="results/vcfIntersectTempINDEL/{sample}",
+    outdir="results//vcfIntersectINDEL/{sample}",
+    var_final="results/vcfIntersectINDEL/{sample}/{sample}_var_indel.gz",
+    mut2_final="results/vcfIntersectINDEL/{sample}/{sample}_mut2_indel.gz",
+    strelka_final="results/vcfIntersectINDEL/{sample}/{sample}_strelka_indel.gz",
+  output: directory("results/vcfIntersect/{sample}_intersect_indel")
   threads: 4
   conda:
     "../envs/varscan.yaml",
@@ -69,22 +69,22 @@ rule vcfIntersectINDEL:
 
 rule vcfIntersectSNV:
   input:
-    mut1_vcf="{output_dir}/MuTect1/{sample}/{sample}.mut1.vcf",
-    var_vcf="{output_dir}/Varscan/snv/{sample}/{sample}.snp.Somatic.hc.vcf",
-    mut2_vcf="{output_dir}/MuTect2Merge/{sample}/{sample}.snvs.recode.vcf",
-    strelka_vcf="{output_dir}/Strelka/{sample}/{sample}.myAnalysis",
+    mut1_vcf="results/MuTect1/{sample}/{sample}.mut1.vcf",
+    var_vcf="results/Varscan/snv/{sample}/{sample}.snp.Somatic.hc.vcf",
+    mut2_vcf="results/MuTect2Merge/{sample}/{sample}.snvs.recode.vcf",
+    strelka_vcf="results/Strelka/{sample}/{sample}.myAnalysis",
     ref = '/cluster/tools/data/genomes/human/hg38/iGenomes/Sequence/WholeGenomeFasta/genome.fa',
-    sequenza="{output_dir}/Sequenza/{sample}",
-    validate = "{output_dir}/vcfIntersect/{sample}_intersect_indel",
+    sequenza="results/Sequenza/{sample}",
+    validate = "results/cfIntersect/{sample}_intersect_indel",
 
   params:
-    temp_file="{output_dir}/vcfIntersectTemp/{sample}",
-    outdir="{output_dir}/vcfIntersectSNV/{sample}",
-    mut1_final="{output_dir}/vcfIntersectSNV/{sample}/{sample}_mut1_snv.gz",
-    var_final="{output_dir}/vcfIntersectSNV/{sample}/{sample}_var_snv.gz",
-    mut2_final="{output_dir}/vcfIntersectSNV/{sample}/{sample}_mut2_snv.gz",
-    strelka_final="{output_dir}/vcfIntersectSNV/{sample}/{sample}_strelka_snv.gz",
-  output: directory("{output_dir}/vcfIntersect/{sample}_intersect_snv")
+    temp_file="results/vcfIntersectTemp/{sample}",
+    outdir="results/vcfIntersectSNV/{sample}",
+    mut1_final="results/vcfIntersectSNV/{sample}/{sample}_mut1_snv.gz",
+    var_final="results/vcfIntersectSNV/{sample}/{sample}_var_snv.gz",
+    mut2_final="results/vcfIntersectSNV/{sample}/{sample}_mut2_snv.gz",
+    strelka_final="results/vcfIntersectSNV/{sample}/{sample}_strelka_snv.gz",
+  output: directory("results/vcfIntersect/{sample}_intersect_snv")
   threads: 4
   conda:
     "../envs/varscan.yaml",

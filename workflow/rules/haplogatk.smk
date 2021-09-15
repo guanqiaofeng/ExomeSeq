@@ -1,9 +1,9 @@
 
 rule haploGATK:
   input:
-    bam="{output_dir}/alignment/{sample}/{sample}.realigned.recal.bam",
+    bam="results/alignment/{sample}/{sample}.realigned.recal.bam",
     ref = '/cluster/tools/data/genomes/human/hg38/iGenomes/Sequence/WholeGenomeFasta/genome.fa',
-  output: "{output_dir}/Haplotype/{sample}/{sample}.raw.snps.indels.vcf"
+  output: "results/Haplotype/{sample}/{sample}.raw.snps.indels.vcf"
   threads: 4
   conda:
     "../envs/gatk.yaml"

@@ -1,10 +1,10 @@
 rule Sequenza:
   input:
-    snp="{output_dir}/Varscan/snv/{sample}/{sample}.snp",
-    copynum="{output_dir}/Varscan/cnv/{sample}/{sample}.vscn.copynumber"
+    snp="results/Varscan/snv/{sample}/{sample}.snp",
+    copynum="results/Varscan/cnv/{sample}/{sample}.vscn.copynumber"
   params:
     script="/cluster/home/amammoli/SequenzaSingleSample_v2.1_hg19.R",
-  output: directory("{output_dir}/Sequenza/{sample}")
+  output: directory("results/Sequenza/{sample}")
   threads: 4
   conda:
     "../envs/sequenza.yaml",

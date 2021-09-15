@@ -11,11 +11,11 @@ def get_indels(wildcards):
 rule vcftoMAFindel:
   input:
     ref = '/cluster/tools/data/genomes/human/hg38/iGenomes/Sequence/WholeGenomeFasta/genome.fa',
-    vcf_inter = "{output_dir}/vcfIntersect/{sample}_intersect_indel"
+    vcf_inter = "results/vcfIntersect/{sample}_intersect_indel"
   params:
     samp="{sample}",
     indel = get_indels,
-  output: "{output_dir}/MAF_38_f/indel/{sample}/{indel}.maf",
+  output: "results/MAF_38_f/indel/{sample}/{indel}.maf",
     threads: 4
     conda:
       "../envs/VCFtoMAF.yaml",

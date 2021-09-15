@@ -3,11 +3,11 @@ rule varscanCopyNumber:
   input:
     ref = '/cluster/tools/data/genomes/human/hg38/iGenomes/Sequence/WholeGenomeFasta/genome.fa',
     normal = norm,
-    tumor = "{output_dir}/alignment/{sample}/{sample}.realigned.recal.bam",
+    tumor = "results/alignment/{sample}/{sample}.realigned.recal.bam",
     bed = region
   params:
-    outdir="{output_dir}/Varscan/cnv/{sample}/{sample}.vscn",
-  output: "{output_dir}/Varscan/cnv/{sample}/{sample}.vscn.copynumber"
+    outdir="results/Varscan/cnv/{sample}/{sample}.vscn",
+  output: "results/Varscan/cnv/{sample}/{sample}.vscn.copynumber"
   threads: 3
   conda:
     "../envs/varscan.yaml",
@@ -19,11 +19,11 @@ rule varscanSomatic:
   input:
     ref = '/cluster/tools/data/genomes/human/hg38/iGenomes/Sequence/WholeGenomeFasta/genome.fa',
     normal = norm,
-    tumor = "{output_dir}/alignment/{sample}/{sample}.realigned.recal.bam",
+    tumor = "results/alignment/{sample}/{sample}.realigned.recal.bam",
     bed = region
   output:
-    snp="{output_dir}/Varscan/snv/{sample}/{sample}.snp",
-    indel="{output_dir}/Varscan/snv/{sample}/{sample}.indel"
+    snp="results/Varscan/snv/{sample}/{sample}.snp",
+    indel="results/Varscan/snv/{sample}/{sample}.indel"
   threads: 3
   conda:
     "../envs/varscan.yaml",
@@ -34,11 +34,11 @@ rule varscanSomatic:
 
 rule varscanProcessSomatic:
   input:
-    snp="{output_dir}/Varscan/snv/{sample}/{sample}.snp",
-    indel="{output_dir}/Varscan/snv/{sample}/{sample}.indel"
+    snp="results/Varscan/snv/{sample}/{sample}.snp",
+    indel="results/Varscan/snv/{sample}/{sample}.indel"
   output:
-    snp="{output_dir}/Varscan/snv/{sample}/{sample}.snp.Somatic.hc",
-    indel="{output_dir}/Varscan/snv/{sample}/{sample}.indel.Somatic.hc"
+    snp="results/Varscan/snv/{sample}/{sample}.snp.Somatic.hc",
+    indel="results/Varscan/snv/{sample}/{sample}.indel.Somatic.hc"
   threads: 4
   conda:
     "../envs/varscan.yaml",
@@ -50,11 +50,11 @@ rule varscanProcessSomatic:
 
 rule varscanToVCF:
   input:
-    snp="{output_dir}/Varscan/snv/{sample}/{sample}.snp.Somatic.hc",
-    indel="{output_dir}/Varscan/snv/{sample}/{sample}.indel.Somatic.hc"
+    snp="results/Varscan/snv/{sample}/{sample}.snp.Somatic.hc",
+    indel="resultsVarscan/snv/{sample}/{sample}.indel.Somatic.hc"
   output:
-    snp="{output_dir}/Varscan/snv/{sample}/{sample}.snp.Somatic.hc.vcf",
-    indel="{output_dir}/Varscan/snv/{sample}/{sample}.indel.Somatic.hc.vcf"
+    snp="results/Varscan/snv/{sample}/{sample}.snp.Somatic.hc.vcf",
+    indel="results/Varscan/snv/{sample}/{sample}.indel.Somatic.hc.vcf"
   threads: 4
   conda:
     "../envs/varscan.yaml",
