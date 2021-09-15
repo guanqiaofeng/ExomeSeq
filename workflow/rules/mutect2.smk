@@ -32,10 +32,10 @@ rule MuTect2:
     """
 
 rule MuTect2Merge:
-  input: "results/MuTect2/{sample}",
+  input: "results/MuTect2/{sample}/",
   params:
     script="/cluster/home/amammoli/concatvcfs",
-    out="results/MuTect2Merge/{sample}",
+    out="results/MuTect2Merge/{sample}/",
     samp="{sample}"
   output: "results/MuTect2Merge/{sample}/{sample}_merged_mut2.vcf"
   threads: 2
