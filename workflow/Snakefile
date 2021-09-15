@@ -18,6 +18,11 @@ indel_vcfs = pd.read_table(
     "indel", drop=False
 )
 
+snv_vcfs = pd.read_table(
+    config["snv_vcf"]
+,dtype={'snv': object}).set_index(
+    "snv", drop=False
+)
 
 output_dir = os.environ.get("output_dir")
 
