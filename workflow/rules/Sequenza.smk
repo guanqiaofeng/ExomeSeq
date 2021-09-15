@@ -3,7 +3,7 @@ rule Sequenza:
     snp="results/Varscan/snv/{sample}/{sample}.snp",
     copynum="results/Varscan/cnv/{sample}/{sample}.vscn.copynumber"
   params:
-    script="/cluster/home/amammoli/SequenzaSingleSample_v2.1_hg19.R",
+    script="scripts/SequenzaSingleSample_v2.1_hg19.R",
   output: directory("results/Sequenza/{sample}")
   threads: 4
   conda:

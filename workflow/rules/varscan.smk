@@ -1,4 +1,6 @@
+
 norm="/cluster/projects/bhklab/Data/TFRI_Exome/alignment/Pugh_INS_ex_dil_111_AGTACAAG_L005/Pugh_INS_ex_dil_111_AGTACAAG_L005.realigned.recal.bam"
+
 rule varscanCopyNumber:
   input:
     ref = '/cluster/tools/data/genomes/human/hg38/iGenomes/Sequence/WholeGenomeFasta/genome.fa',
@@ -60,6 +62,6 @@ rule varscanToVCF:
     "../envs/varscan.yaml",
   shell:
     """
-    python /cluster/home/amammoli/varscan/hg19/varscan2vcf.py {input.snp} > {output.snp}
-    python /cluster/home/amammoli/varscan/hg19/varscan2vcf.py {input.indel} > {output.indel}
+    python scripts/varscan2vcf.py {input.snp} > {output.snp}
+    python scripts/varscan2vcf.py {input.indel} > {output.indel}
     """
