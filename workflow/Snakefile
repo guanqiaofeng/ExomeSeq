@@ -12,6 +12,7 @@ samples = pd.read_table(
 ).set_index(
     "sample", drop=False
 )
+
 indel_vcfs = pd.read_table(
     config["indel_vcf"]
 ,dtype={'indel': object}).set_index(
@@ -25,15 +26,15 @@ snv_vcfs = pd.read_table(
 )
 
 output_dir = os.environ.get("output_dir")
-
-known_mills="/cluster/tools/data/genomes/human/hg38/hg38bundle/Mills_and_1000G_gold_standard.indels.hg38.vcf"
-known_1000G="/cluster/tools/data/genomes/human/hg38/variantcallingdata/1000G_phase1.indels.hg19.vcf"
+workdir: "/cluster/home/selghamr/workflows/intialize/ExomeSeq/"
+known_mills="{workdir}/ref/Mills_and_1000G_gold_standard.indels.hg38.vcf"
+known_1000G="{workdir}/ref/1000G_phase1.indels.hg19.vcf"
 region="resources/TargetRegions/S04380110_Covered.headless.bed"
-dbsnp="/cluster/tools/data/genomes/human/hg38/hg38bundle/dbsnp_144.hg38.vcf "
+dbsnp="{workdir}/ref/dbsnp_144.hg38.vcf "
 ref_genome="hg38"
 
 #workdir: "/cluster/projects/mcgahalab/data/mcgahalab/wither_mcgaha_ram/snakemake_workflow/"
-workdir: "/cluster/home/selghamr/workflows/intialize/ExomeSeq/"
+
 
 ##### load rules #####
 #include: "rules/common.smk"
