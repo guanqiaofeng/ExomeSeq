@@ -111,7 +111,7 @@ Once the Snakefile workdir path has been changed, you can run the entire snakema
 
 ```
 cd ~/workflow/ExomeSeq
-condaprefix=$(readlink -f .snakemake/conda)
+condaprefix=$(readlink -f .)"/.snakemake/conda"
 
 snakemake \
 --use-conda \
@@ -137,7 +137,7 @@ workdir: "/path/to/group_directory/project"
 
 The `scheduler.sh` script runs the following command in a 5-day long job, with its main purpose to track the job queue and job submission on the slurm cluster.
 ```
-cd /cluster/home/quever/workflows/ExomeSeq
+cd ~/workflows/ExomeSeq
 condaprefix='/cluster/home/selghamr/workflows/ExomeSeq/.snakemake/conda'
 
 snakemake \
