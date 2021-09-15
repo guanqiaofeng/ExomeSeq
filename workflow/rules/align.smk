@@ -20,7 +20,7 @@ rule mapFASTQ:
     """
 rule samtoolsSORT:
   input: "results/alignment/{sample}/{sample}.sam"
-  output: {output_dir}/alignment/{sample}/{sample}_sorted.bam"
+  output: "results/alignment/{sample}/{sample}_sorted.bam"
   threads: 4
   conda:
     "../envs/bwa.yaml",
