@@ -10,7 +10,7 @@ rule mapFASTQ:
     f1 =  get_r1,
     f2 =  get_r2,
     ref = '/cluster/tools/data/genomes/human/hg38/iGenomes/Sequence/WholeGenomeFasta/genome.fa'
-  output: temp("{output_dir}/alignment/{sample}/{sample}.sam")
+  output: temp("results/alignment/{sample}/{sample}.sam")
   threads: 4
   conda:
     "../envs/bwa.yaml",
@@ -19,8 +19,8 @@ rule mapFASTQ:
     bwa mem -p -t4 -R "@RG\\tID:{wildcards.sample}\\tLB:Exome\\tSM:{wildcards.sample}\\tPL:ILLUMINA" {input.ref} {input.f1} {input.f2} > {output}
     """
 rule samtoolsSORT:
-  input: "{output_dir}/alignment/{sample}/{sample}.sam"
-  output: "{output_dir}/alignment/{sample}/{sample}_sorted.bam"
+  input: "results/alignment/{sample}/{sample}.sam"
+  output: {output_dir}/alignment/{sample}/{sample}_sorted.bam"
   threads: 4
   conda:
     "../envs/bwa.yaml",
@@ -30,8 +30,8 @@ rule samtoolsSORT:
     """
 
 rule samtoolsINDEX:
-  input: "{output_dir}/alignment/{sample}/{sample}_sorted.bam"
-  output: "{output_dir}/alignment/{sample}/{sample}_sorted.bam.bai"
+  input: "results/alignment/{sample}/{sample}_sorted.bam"
+  output: "results/alignment/{sample}/{sample}_sorted.bam.bai"
   threads: 2
   conda:
     "../envs/bwa.yaml",
@@ -42,11 +42,11 @@ rule samtoolsINDEX:
 
 rule picardMarkDuplicates:
   input:
-    bam="{output_dir}/alignment/{sample}/{sample}_sorted.bam",
-    bai="{output_dir}/alignment/{sample}/{sample}_sorted.bam.bai",
+    bam="results/alignment/{sample}/{sample}_sorted.bam",
+    bai="results/alignment/{sample}/{sample}_sorted.bam.bai",
   output:
-    dedup="{output_dir}/alignment/{sample}/{sample}_sorted.dedup.bam",
-    metrics="{output_dir}/alignment/{sample}/{sample}_picardmetrics.txt"
+    dedup="results/alignment/{sample}/{sample}_sorted.dedup.bam",
+    metrics="results/alignment/{sample}/{sample}_picardmetrics.txt"
   threads: 4
   conda:
     "../envs/bwa.yaml",
@@ -56,12 +56,12 @@ rule picardMarkDuplicates:
     """
 rule gatkRealignerTargetCreator:
   input:
-    bam="{output_dir}/alignment/{sample}/{sample}_sorted.dedup.bam",
+    bam="results/alignment/{sample}/{sample}_sorted.dedup.bam",
     ref= '/cluster/tools/data/genomes/human/hg38/iGenomes/Sequence/WholeGenomeFasta/genome.fa',
     region=region,
     known1=known_mills,
     known2=known_1000G,
-  output: "{output_dir}/alignment/{sample}/{sample}.IndelRealigner.intervals"
+  output: "results/alignment/{sample}/{sample}.IndelRealigner.intervals"
   threads: 4
   conda:
     "../envs/gatk.yaml",
@@ -82,12 +82,12 @@ rule gatkRealignerTargetCreator:
 
 rule gatkIndelRealigner:
   input:
-    bam="{output_dir}/alignment/{sample}/{sample}_sorted.dedup.bam",
+    bam="results/alignment/{sample}/{sample}_sorted.dedup.bam",
     ref= '/cluster/tools/data/genomes/human/hg38/iGenomes/Sequence/WholeGenomeFasta/genome.fa',
-    interval="{output_dir}/alignment/{sample}/{sample}.IndelRealigner.intervals",
+    interval="results/alignment/{sample}/{sample}.IndelRealigner.intervals",
     known1=known_mills,
     known2=known_1000G,
-  output: "{output_dir}/alignment/{sample}/{sample}.realigned.bam"
+  output: "results/alignment/{sample}/{sample}.realigned.bam"
   threads: 2
   conda:
     "../envs/gatk.yaml",
@@ -108,11 +108,11 @@ rule gatkIndelRealigner:
 
 rule gatkBaseRecalibrator:
   input:
-    bam="{output_dir}/alignment/{sample}/{sample}.realigned.bam",
+    bam="results/alignment/{sample}/{sample}.realigned.bam",
     ref= '/cluster/tools/data/genomes/human/hg38/iGenomes/Sequence/WholeGenomeFasta/genome.fa',
     dbsnp=dbsnp,
     region=region,
-  output: "{output_dir}/alignment/{sample}/{sample}.recal_data.grp"
+  output: "results/alignment/{sample}/{sample}.recal_data.grp"
   threads: 4
   conda:
     "../envs/gatk.yaml",
@@ -136,10 +136,10 @@ rule gatkBaseRecalibrator:
     """
 rule gatkPrintReads:
   input:
-    bam="{output_dir}/alignment/{sample}/{sample}.realigned.bam",
+    bam="results/alignment/{sample}/{sample}.realigned.bam",
     ref= '/cluster/tools/data/genomes/human/hg38/iGenomes/Sequence/WholeGenomeFasta/genome.fa',
-    recal="{output_dir}/alignment/{sample}/{sample}.recal_data.grp"
-  output: "{output_dir}/alignment/{sample}/{sample}.realigned.recal.bam"
+    recal="results/alignment/{sample}/{sample}.recal_data.grp"
+  output: "results/alignment/{sample}/{sample}.realigned.recal.bam"
   threads: 4
   conda:
     "../envs/gatk.yaml",
