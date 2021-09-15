@@ -32,7 +32,7 @@ rule MuTect2:
     """
 
 rule MuTect2Merge:
-  input: "results/MuTect2/{sample}/",
+  input: "results/MuTect2/A/",
   params:
     script="/cluster/home/amammoli/concatvcfs",
     out="results/MuTect2Merge/{sample}/",
