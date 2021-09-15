@@ -12,6 +12,12 @@ samples = pd.read_table(
 ).set_index(
     "sample", drop=False
 )
+indel_vcfs = pd.read_table(
+    config["indel_vcf"]
+,dtype={'indel': object}).set_index(
+    "indel", drop=False
+)
+
 
 output_dir = os.environ.get("output_dir")
 
