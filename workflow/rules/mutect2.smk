@@ -32,7 +32,7 @@ rule MuTect2:
     """
 
 rule MuTect2Merge:
-  input: "results/MuTect2/A/",
+  input: "results/MuTect2/{sample}/*.mut2.vcf",
   params:
     script="/cluster/home/amammoli/concatvcfs",
     out="results/MuTect2Merge/{sample}/",
@@ -41,7 +41,7 @@ rule MuTect2Merge:
   threads: 2
   shell:
     """
-    ff=$(find {input} -type f -name '*.mut2.vcf')
+    ff={input}
     echo 'sh {params.script}' \
     $ff$' > {output}' > {params.out}/'merge_{params.samp}_VCFs.sh'
     sh {params.out}/merge_{params.samp}_VCFs.sh
