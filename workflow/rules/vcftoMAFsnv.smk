@@ -21,7 +21,7 @@ rule vcftoMAFsnv
     if wildcards.snv != '0002':
       shell("""module load samtools vep/98
       bcftools view -f PASS {input.vcf_inter}/{params.snv} > {input.vcf_inter}/fil_{params.snv}
-      perl /cluster/projects/pughlab/bin/vcf2maf-1.6.17/vcf2maf.pl \
+      perl scripts/vcf2maf.pl \
         --input-vcf {input.vcf_inter}/fil_{params.snv} \
         --output-maf {output} \
         --vep-forks 4 \
@@ -36,7 +36,7 @@ rule vcftoMAFsnv
     else:
       shell("""module load samtools vep/98
       bcftools view -f PASS {input.vcf_inter}/{params.snv} > {input.vcf_inter}/fil_{params.snv}
-      perl /cluster/projects/pughlab/bin/vcf2maf-1.6.17/vcf2maf.pl \
+      perl scripts/vcf2maf.pl \
         --input-vcf {input.vcf_inter}/fil_{params.snv} \
         --output-maf {output} \
         --vep-forks 4 \
