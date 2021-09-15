@@ -8,6 +8,7 @@ def get_intervals(wildcards):
     bed = "/cluster/home/selghamr/workflows/ExomeSeq/resources/hg38_bed/" + inter + ".bed"
     return bed
 
+output_dir = os.environ.get("output_dir")
 
 
 rule MuTect2:
