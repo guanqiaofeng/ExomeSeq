@@ -1,5 +1,5 @@
 intervals = pd.read_table(
-    config["bed_file"]
+    config["hg38_bed"]
 ).set_index(
     "interval", drop=False
 )
@@ -9,11 +9,11 @@ def get_intervals(wildcards):
     return bed
 
 def get_MuTect2_output(wildcards):
-    outfile = "{sample}_{interval}.mut2.vcf"
     res = []
+    for i in intervals.itertuples():
         res.append(
-            "results/MuTect2/{}/{}_{}".format(
-                sample, interval, outfile
+            "results/MuTect2/{}/{}_{}.mut2.vcf".format(
+                wildcards.sample, wildcards.sample, i.interval
             )
         )
     return res
@@ -51,7 +51,8 @@ rule MuTect2Merge:
   threads: 2
   shell:
     """
-    ff= {input}
+    echo {input} > debug.tmp ;
+    ff= {input} ;
     echo 'sh {params.script}' \
     $ff$' > {output}' > {params.out}/'merge_{params.samp}_VCFs.sh'
     sh {params.out}/merge_{params.samp}_VCFs.sh
