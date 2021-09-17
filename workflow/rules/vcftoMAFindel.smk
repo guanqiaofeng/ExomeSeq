@@ -10,7 +10,7 @@ rule vcftoMAFindel:
   conda:
     "../envs/VCFtoMAF.yaml",
   shell:
-  """
+    """
     if wildcards.indel != '0001':
       bcftools view -f PASS {input.vcf_inter}/{params.indel} > {input.vcf_inter}/fil_{params.indel}
       perl scripts/vcf2maf.pl \
@@ -42,4 +42,4 @@ rule vcftoMAFindel:
         --ncbi-build GRCh38 \
         --vep-path=ref/98 \
         --vep-data=ref/98
-  """
+    """
