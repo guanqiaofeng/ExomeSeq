@@ -5,7 +5,8 @@ indel_vcfs = pd.read_table(
 )
 def get_indels(wildcards):
     inter = wildcards.indel
-    indel = str(inter) + "_hg38" + ".vcf"
+#    indel = str(inter) + "_hg38" + ".vcf"
+    indel = str(inter) + ".vcf"
     return indel
 
 rule vcftoMAFindel:
