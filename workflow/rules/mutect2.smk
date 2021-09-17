@@ -1,5 +1,5 @@
 intervals = pd.read_table(
-    config["hg38_bed"]
+    config["bed_file"]
 ).set_index(
     "interval", drop=False
 )
