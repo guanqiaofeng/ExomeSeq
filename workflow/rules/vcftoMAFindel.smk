@@ -11,7 +11,6 @@ rule vcftoMAFindel:
     "../envs/VCFtoMAF.yaml",
   shell:
     if wildcards.indel != '0001':
-      shell(
       """
       bcftools view -f PASS {input.vcf_inter}/{params.indel} > {input.vcf_inter}/fil_{params.indel}
       perl scripts/vcf2maf.pl \
@@ -27,7 +26,6 @@ rule vcftoMAFindel:
         --vep-path=ref/98 \
         --vep-data=ref/98""")
     else:
-      shell(
       """
       bcftools view -f PASS {input.vcf_inter}/{params.indel} > {input.vcf_inter}/fil_{params.indel}
       perl scripts/vcf2maf.pl \
