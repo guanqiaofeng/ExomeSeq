@@ -9,7 +9,7 @@ rule vcftoMAFindel:
   threads: 4
   conda:
     "../envs/VCFtoMAF.yaml",
- run:
+  run:
     if wildcards.indel != '0001':
       """
       bcftools view -f PASS {input.vcf_inter}/{params.indel} > {input.vcf_inter}/fil_{params.indel}
