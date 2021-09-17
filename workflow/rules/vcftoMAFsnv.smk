@@ -6,7 +6,7 @@ rule vcftoMAFsnv
   params:
     samp="{sample}",
     snv = get_snvs,
-  output: "results/MAF_38_final/snv/{sample}/{snv}.maf",
+  output: get_maf_output(type=snv),
   threads: 4
   conda:
     "../envs/VCFtoMAF.yaml",
