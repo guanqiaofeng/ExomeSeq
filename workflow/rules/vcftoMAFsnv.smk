@@ -31,8 +31,8 @@ rule vcftoMAFsnv
         --filter-vcf /cluster/projects/pughlab/references/VEP_cache/ExAC_nonTCGA.r1.sites.hg19ToHg38.vep.vcf.gz \
         --tumor-id={params.samp} \
         --ncbi-build GRCh38 \
-        --vep-path=/cluster/tools/software/centos7/vep/98 \
-        --vep-data=/cluster/projects/pughlab/references/VEP_cache/98""")
+        --vep-path=ref/98 \
+        --vep-data=ref/98""")
     else:
       shell("""module load samtools vep/98
       bcftools view -f PASS {input.vcf_inter}/{params.snv} > {input.vcf_inter}/fil_{params.snv}
@@ -49,5 +49,5 @@ rule vcftoMAFsnv
         --vcf-normal-id NORMAL \
         --tumor-id={params.samp} \
         --ncbi-build GRCh38 \
-        --vep-path=/cluster/tools/software/centos7/vep/98 \
-        --vep-data=/cluster/projects/pughlab/references/VEP_cache/98""")
+        --vep-path=ref/98 \
+        --vep-data=ref/98""")

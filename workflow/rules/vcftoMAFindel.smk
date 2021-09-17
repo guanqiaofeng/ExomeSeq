@@ -32,9 +32,9 @@ rule vcftoMAFindel:
         --ref-fasta={input.ref} \
         --tumor-id={params.samp} \
         --ncbi-build GRCh38 \
-        --filter-vcf /cluster/projects/pughlab/references/VEP_cache/ExAC_nonTCGA.r1.sites.hg19ToHg38.vep.vcf.gz \
-        --vep-path=/cluster/tools/software/centos7/vep/98 \
-        --vep-data=/cluster/projects/pughlab/references/VEP_cache/98""")
+        --filter-vcf ref/ExAC_nonTCGA.r1.sites.hg19ToHg38.vep.vcf.gz \
+        --vep-path=ref/98 \
+        --vep-data=ref/98""")
     else:
       shell("""
       bcftools view -f PASS {input.vcf_inter}/{params.indel} > {input.vcf_inter}/fil_{params.indel}
@@ -45,11 +45,11 @@ rule vcftoMAFindel:
         --species homo_sapiens \
         --buffer-size 1000 \
         --ref-fasta={input.ref} \
-        --filter-vcf /cluster/projects/pughlab/references/VEP_cache/ExAC_nonTCGA.r1.sites.hg19ToHg38.vep.vcf.gz \
+        --filter-vcf ref/ExAC_nonTCGA.r1.sites.hg19ToHg38.vep.vcf.gz \
         --normal-id unmatched \
         --vcf-tumor-id TUMOR \
         --vcf-normal-id NORMAL \
         --tumor-id={params.samp} \
         --ncbi-build GRCh38 \
-        --vep-path=/cluster/tools/software/centos7/vep/98 \
-        --vep-data=/cluster/projects/pughlab/references/VEP_cache/98""")
+        --vep-path=ref/98 \
+        --vep-data=ref/98""")

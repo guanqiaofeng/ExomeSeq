@@ -51,8 +51,6 @@ rule MuTect2Merge:
   threads: 2
   shell:
     """
-    echo {input} > debug.tmp ;
-    ff= {input} ;
     echo 'sh {params.script}' \
     $ff$' > {output}' > {params.out}/'merge_{params.samp}_VCFs.sh'
     sh {params.out}/merge_{params.samp}_VCFs.sh
