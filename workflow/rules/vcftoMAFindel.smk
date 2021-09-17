@@ -5,7 +5,7 @@ rule vcftoMAFindel:
   params:
     samp="{sample}",
     indel = get_indels,
-  output:  get_maf_output(type=indel),
+  output:  expand("results/MAF_38_final/indel/{sample}/{indel}.maf", sample = samples["sample"], indel=indel_vcfs["indel"]),
   threads: 4
   conda:
     "../envs/VCFtoMAF.yaml",

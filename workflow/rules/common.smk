@@ -1,3 +1,9 @@
+samples = pd.read_table(
+    config["sample_file"]
+).set_index(
+    "sample", drop=False
+)
+
 def get_r1(wildcards):
     return samples.read1[wildcards.sample]
 
