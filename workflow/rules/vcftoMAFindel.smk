@@ -5,9 +5,26 @@ indel_vcfs = pd.read_table(
 )
 def get_indels(wildcards):
     inter = wildcards.indel
-#    indel = str(inter) + "_hg38" + ".vcf"
-    indel = str(inter) + ".vcf"
+    indel = str(inter) + "_hg38" + ".vcf"
     return indel
+
+def get_maf_output(wildcards, type='snv'):
+    res = []
+    if type == 'snv':
+        for v in snv_vcfs.itertuples():
+            res.append(
+                "results/MAF_38_final/{}/{}/{}.maf".format(
+                    type, wildcards.sample, v.snv
+                )
+            )
+    elif type == 'indel':
+        for v in indel_vcfs.itertuples():
+            res.append(
+                "results/MAF_38_final/{}/{}/{}.maf".format(
+                    type, wildcards.sample, v.indel
+                )
+            )
+    return res
 
 rule vcftoMAFindel:
   input:
@@ -16,7 +33,7 @@ rule vcftoMAFindel:
   params:
     samp="{sample}",
     indel = get_indels,
-  output: expand("results/MAF_38_final/indel/{sample}/{indel}.maf", indel=indel_vcfs["indel"]),
+  output: get_maf_output(type=‘indel’),
   threads: 4
   conda:
     "../envs/VCFtoMAF.yaml",
