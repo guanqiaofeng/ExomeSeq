@@ -4,6 +4,7 @@ rule vcftoMAFindel:
     vcf_inter = "results/vcfIntersect/{sample}_intersect_indel/{indel}.vcf"
   params:
     samp="{sample}",
+    indelss = "{indel}",
     indel = get_indels,
   output:  "results/MAF_38_f/indel/{sample}/{indel}.maf",
   threads: 4
@@ -11,8 +12,8 @@ rule vcftoMAFindel:
     "../envs/VCFtoMAF.yaml",
   shell:
     """
-    if wildcards.indel != '0001':
-      bcftools view -f PASS {input.vcf_inter}/{params.indel} > {input.vcf_inter}/fil_{params.indel}
+    if if [ {params.indel} != '0001' ]; then
+      bcftools view -f PASS {input.vcf_inter}/{params.indel} > {input.vcf_inter}/fil_{params.indel};
       perl scripts/vcf2maf.pl \
         --input-vcf {input.vcf_inter}/fil_{params.indel} \
         --output-maf {output} \
@@ -25,8 +26,8 @@ rule vcftoMAFindel:
         --filter-vcf ref/ExAC_nonTCGA.r1.sites.hg19ToHg38.vep.vcf.gz \
         --vep-path=ref/98 \
         --vep-data=ref/98
-    else:
-      bcftools view -f PASS {input.vcf_inter}/{params.indel} > {input.vcf_inter}/fil_{params.indel}
+    else
+      bcftools view -f PASS {input.vcf_inter}/{params.indel} > {input.vcf_inter}/fil_{params.indel};
       perl scripts/vcf2maf.pl \
         --input-vcf {input.vcf_inter}/fil_{params.indel} \
         --output-maf {output} \
@@ -42,4 +43,5 @@ rule vcftoMAFindel:
         --ncbi-build GRCh38 \
         --vep-path=ref/98 \
         --vep-data=ref/98
+    fi
     """

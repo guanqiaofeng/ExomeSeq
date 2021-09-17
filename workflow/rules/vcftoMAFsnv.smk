@@ -5,16 +5,16 @@ rule vcftoMAFsnv:
     vcf_inter = "results/vcfIntersect/{sample}_intersect_snv"
   params:
     samp="{sample}",
+    snvs = "{snv}",
     snv = get_snvs,
   output:  "results/MAF_38_f/snv/{sample}/{snv}.maf",
   threads: 4
   conda:
     "../envs/VCFtoMAF.yaml",
-  run:
-    if wildcards.snv != '0002':
-      shell(
-      """
-      bcftools view -f PASS {input.vcf_inter}/{params.snv} > {input.vcf_inter}/fil_{params.snv}
+  shell:
+    """
+    if [ {params.snvs} != '0002' ]; then
+      bcftools view -f PASS {input.vcf_inter}/{params.snv} > {input.vcf_inter}/fil_{params.snv};
       perl scripts/vcf2maf.pl \
         --input-vcf {input.vcf_inter}/fil_{params.snv} \
         --output-maf {output} \
@@ -26,11 +26,9 @@ rule vcftoMAFsnv:
         --tumor-id={params.samp} \
         --ncbi-build GRCh38 \
         --vep-path=ref/98 \
-        --vep-data=ref/98""")
-    else:
-      shell(
-      """
-      bcftools view -f PASS {input.vcf_inter}/{params.snv} > {input.vcf_inter}/fil_{params.snv}
+        --vep-data=ref/98
+    else
+      bcftools view -f PASS {input.vcf_inter}/{params.snv} > {input.vcf_inter}/fil_{params.snv};
       perl scripts/vcf2maf.pl \
         --input-vcf {input.vcf_inter}/fil_{params.snv} \
         --output-maf {output} \
@@ -45,4 +43,6 @@ rule vcftoMAFsnv:
         --tumor-id={params.samp} \
         --ncbi-build GRCh38 \
         --vep-path=ref/98 \
-        --vep-data=ref/98""")
+        --vep-data=ref/98
+    fi
+        """
