@@ -8,6 +8,16 @@ def get_intervals(wildcards):
     bed = "/cluster/home/selghamr/workflows/ExomeSeq/resources/hg38_bed/" + inter + ".bed"
     return bed
 
+def get_MuTect2_output(wildcards):
+    outfile = "{sample}_{interval}.mut2.vcf"
+    res = []
+        res.append(
+            "results/MuTect2/{}/{}_{}".format(
+                sample, interval, outfile
+            )
+        )
+    return res
+
 output_dir = os.environ.get("output_dir")
 
 
@@ -32,7 +42,7 @@ rule MuTect2:
     """
 
 rule MuTect2Merge:
-  input: "results/MuTect2/{sample}/",
+  input: get_MuTect2_output,
   params:
     script="scripts/concatvcfs",
     out="results/MuTect2Merge/{sample}/",
@@ -41,7 +51,7 @@ rule MuTect2Merge:
   threads: 2
   shell:
     """
-    ff=$(find {input} -type f -name '*.mut2.vcf')
+    ff= {input}
     echo 'sh {params.script}' \
     $ff$' > {output}' > {params.out}/'merge_{params.samp}_VCFs.sh'
     sh {params.out}/merge_{params.samp}_VCFs.sh
