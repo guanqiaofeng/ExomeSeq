@@ -32,7 +32,7 @@ indel_vcfs = pd.read_table(
 def get_indels(wildcards):
     inter = wildcards.indel
     #indel = str(inter) + "_hg38" + ".vcf"
-    indel = str(inter) + "_hg38" + ".vcf"
+    indel = str(inter) + ".vcf"
     return indel
 
 snv_vcfs = pd.read_table(
@@ -40,6 +40,7 @@ snv_vcfs = pd.read_table(
 ,dtype={'snv': object}).set_index(
     "snv", drop=False
 )
+
 def get_snvs(wildcards):
     inter = wildcards.snv
     #snv = str(inter) + "_hg38" + ".vcf"
