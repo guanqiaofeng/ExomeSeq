@@ -1,5 +1,5 @@
 
-norm="/cluster/projects/bhklab/Data/TFRI_Exome/alignment/Pugh_INS_ex_dil_111_AGTACAAG_L005/Pugh_INS_ex_dil_111_AGTACAAG_L005.realigned.recal.bam"
+norm="resources/Pugh_INS_ex_dil_111_AGTACAAG_L005.realigned.recal.bam"
 
 rule varscanCopyNumber:
   input:
