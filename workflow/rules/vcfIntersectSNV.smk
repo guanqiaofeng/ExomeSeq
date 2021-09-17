@@ -76,7 +76,7 @@ rule vcfIntersectSNV:
     strelka_vcf="results/Strelka/{sample}/{sample}.myAnalysis",
     ref = 'ref/genome.fa',
     sequenza="results/Sequenza/{sample}",
-    validate = "results/vcfIntersect/{sample}_intersect_indel",
+    validate = "results/vcfIntersect/{sample}_intersect_indel/{indel}.vcf",
 
   params:
     temp_file="results/vcfIntersectTemp/{sample}",
