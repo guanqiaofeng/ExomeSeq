@@ -72,5 +72,5 @@ rule all:
     expand("results/Varscan/snv/{sample}/{sample}.indel.Somatic.hc", sample = samples["sample"]),
     expand("results/vcfIntersect/{sample}_intersect_snv", sample = samples["sample"]),
     expand("results/vcfIntersect/{sample}_intersect_indel", sample = samples["sample"]),
-    expand("results/MAF_38_final/indel/{sample}/{indel}_hg38.maf", sample = samples["sample"], indel=indel_vcfs["indel"]),
-    expand("results/MAF_38_final/snv/{sample}/{snv}_hg38.maf", sample = samples["sample"], snv=snv_vcfs["snv"]),
+    expand("results/MAF_38_final/indel/{sample}/{indel}.maf", sample = samples["sample"], indel=indel_vcfs["indel"]),
+    expand("results/MAF_38_final/snv/{sample}/{snv}.maf", sample = samples["sample"], snv=snv_vcfs["snv"]),
