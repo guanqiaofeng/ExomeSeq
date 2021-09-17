@@ -10,7 +10,7 @@ rule vcftoMAFsnv
   threads: 4
   conda:
     "../envs/VCFtoMAF.yaml",
-  run:
+  shell:
     if wildcards.snv != '0002':
       shell(
       """

@@ -9,7 +9,7 @@ rule vcftoMAFindel:
   threads: 4
   conda:
     "../envs/VCFtoMAF.yaml",
-  run:
+  shell:
     if wildcards.indel != '0001':
       shell(
       """
