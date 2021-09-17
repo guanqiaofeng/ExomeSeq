@@ -1,7 +1,7 @@
 rule MuTect1:
   input:
     bam = "results/alignment/{sample}/{sample}.realigned.recal.bam",
-    ref = '/cluster/tools/data/genomes/human/hg38/iGenomes/Sequence/WholeGenomeFasta/genome.fa',
+    ref = 'ref/genome.fa',
     interval = region
   output:
     vcf="results/MuTect1/{sample}/{sample}.mut1.vcf",

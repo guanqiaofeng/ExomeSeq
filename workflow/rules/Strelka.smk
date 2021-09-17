@@ -1,7 +1,7 @@
 rule Strelka:
   input:
     tumor="results/alignment/{sample}/{sample}.realigned.recal.bam",
-    ref = '/cluster/tools/data/genomes/human/hg38/iGenomes/Sequence/WholeGenomeFasta/genome.fa',
+    ref = 'ref/genome.fa',
     conf="config/strelka_config_bwa.ini",
     normal=norm,
   params:

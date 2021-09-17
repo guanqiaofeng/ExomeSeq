@@ -3,7 +3,7 @@ norm="resources/Pugh_INS_ex_dil_111_AGTACAAG_L005.realigned.recal.bam"
 
 rule varscanCopyNumber:
   input:
-    ref = '/cluster/tools/data/genomes/human/hg38/iGenomes/Sequence/WholeGenomeFasta/genome.fa',
+    ref = 'ref/genome.fa',
     normal = norm,
     tumor = "results/alignment/{sample}/{sample}.realigned.recal.bam",
     bed = region
@@ -19,7 +19,7 @@ rule varscanCopyNumber:
     """
 rule varscanSomatic:
   input:
-    ref = '/cluster/tools/data/genomes/human/hg38/iGenomes/Sequence/WholeGenomeFasta/genome.fa',
+    ref = 'ref/genome.fa',
     normal = norm,
     tumor = "results/alignment/{sample}/{sample}.realigned.recal.bam",
     bed = region

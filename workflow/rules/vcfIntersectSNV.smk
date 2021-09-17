@@ -3,11 +3,11 @@ rule vcfIntersectINDEL:
     var_vcf="results/Varscan/snv/{sample}/{sample}.indel.Somatic.hc.vcf",
     mut2_vcf="results/MuTect2Merge/{sample}/{sample}.indels.recode.vcf",
     strelka_vcf="results/Strelka/{sample}/{sample}.myAnalysis",
-    ref = '/cluster/tools/data/genomes/human/hg38/iGenomes/Sequence/WholeGenomeFasta/genome.fa',
+    ref = 'ref/genome.fa',
     sequenza="results/Sequenza/{sample}"
   params:
     temp_file="results/vcfIntersectTempINDEL/{sample}",
-    outdir="results//vcfIntersectINDEL/{sample}",
+    outdir="results/vcfIntersectINDEL/{sample}",
     var_final="results/vcfIntersectINDEL/{sample}/{sample}_var_indel.gz",
     mut2_final="results/vcfIntersectINDEL/{sample}/{sample}_mut2_indel.gz",
     strelka_final="results/vcfIntersectINDEL/{sample}/{sample}_strelka_indel.gz",
@@ -73,7 +73,7 @@ rule vcfIntersectSNV:
     var_vcf="results/Varscan/snv/{sample}/{sample}.snp.Somatic.hc.vcf",
     mut2_vcf="results/MuTect2Merge/{sample}/{sample}.snvs.recode.vcf",
     strelka_vcf="results/Strelka/{sample}/{sample}.myAnalysis",
-    ref = '/cluster/tools/data/genomes/human/hg38/iGenomes/Sequence/WholeGenomeFasta/genome.fa',
+    ref = 'ref/genome.fa',
     sequenza="results/Sequenza/{sample}",
     validate = "results/vcfIntersect/{sample}_intersect_indel",
 

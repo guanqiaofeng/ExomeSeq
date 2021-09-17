@@ -10,7 +10,7 @@ def get_snvs(wildcards):
 
 rule vcftoMAFsnv
   input:
-    ref = '/cluster/tools/data/genomes/human/hg38/iGenomes/Sequence/WholeGenomeFasta/genome.fa',
+    ref = 'ref/genome.fa',
     vcf_inter = "results/vcfIntersect/{sample}_intersect_snv"
   params:
     samp="{sample}",

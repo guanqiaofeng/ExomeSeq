@@ -24,7 +24,7 @@ output_dir = os.environ.get("output_dir")
 rule MuTect2:
   input:
     bam = "results/alignment/{sample}/{sample}.realigned.recal.bam",
-    ref = '/cluster/tools/data/genomes/human/hg38/iGenomes/Sequence/WholeGenomeFasta/genome.fa',
+    ref = 'ref/genome.fa',
   params:
     intervals = get_intervals
   output: "results/MuTect2/{sample}/{sample}_{interval}.mut2.vcf"

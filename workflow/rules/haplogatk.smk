@@ -2,7 +2,7 @@
 rule haploGATK:
   input:
     bam="results/alignment/{sample}/{sample}.realigned.recal.bam",
-    ref = '/cluster/tools/data/genomes/human/hg38/iGenomes/Sequence/WholeGenomeFasta/genome.fa',
+    ref = 'ref/genome.fa',
   output: "results/Haplotype/{sample}/{sample}.raw.snps.indels.vcf"
   threads: 4
   conda:
