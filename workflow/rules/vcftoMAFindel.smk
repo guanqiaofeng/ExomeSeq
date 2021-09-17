@@ -1,7 +1,7 @@
 rule vcftoMAFindel:
   input:
     ref = 'ref/genome.fa',
-    vcf_inter = "results/vcfIntersect/{sample}_intersect_indel"
+    vcf_inter = "results/vcfIntersect/{sample}_intersect_indel/{indel}.vcf"
   params:
     samp="{sample}",
     indel = get_indels,
