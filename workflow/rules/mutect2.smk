@@ -49,6 +49,8 @@ rule MuTect2Merge:
     samp="{sample}"
   output: "results/MuTect2Merge/{sample}/{sample}_merged_mut2.vcf"
   threads: 2
+  conda:
+    "../envs/gatk.yaml",
   shell:
     """
     echo 'sh {params.script}' \

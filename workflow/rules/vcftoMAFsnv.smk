@@ -17,6 +17,8 @@ rule vcftoMAFsnv
     snv = get_snvs,
   output: "results/MAF_38_final/snv/{sample}/{snv}.maf",
   threads: 4
+  conda:
+    "../envs/VCFtoMAF.yaml",
   run:
     if wildcards.snv != '0002':
       shell("""module load samtools vep/98
@@ -28,7 +30,7 @@ rule vcftoMAFsnv
         --species homo_sapiens \
         --buffer-size 1000 \
         --ref-fasta={input.ref} \
-        --filter-vcf /cluster/projects/pughlab/references/VEP_cache/ExAC_nonTCGA.r1.sites.hg19ToHg38.vep.vcf.gz \
+        --filter-vcf ref/ExAC_nonTCGA.r1.sites.hg19ToHg38.vep.vcf.gz \
         --tumor-id={params.samp} \
         --ncbi-build GRCh38 \
         --vep-path=ref/98 \
@@ -43,7 +45,7 @@ rule vcftoMAFsnv
         --species homo_sapiens \
         --buffer-size 1000 \
         --ref-fasta={input.ref} \
-        --filter-vcf /cluster/projects/pughlab/references/VEP_cache/ExAC_nonTCGA.r1.sites.hg19ToHg38.vep.vcf.gz \
+        --filter-vcf ref/ExAC_nonTCGA.r1.sites.hg19ToHg38.vep.vcf.gz \
         --normal-id unmatched \
         --vcf-tumor-id TUMOR \
         --vcf-normal-id NORMAL \
