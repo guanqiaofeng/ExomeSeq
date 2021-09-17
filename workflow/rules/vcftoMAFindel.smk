@@ -1,11 +1,11 @@
 rule vcftoMAFindel:
   input:
     ref = 'ref/genome.fa',
-    vcf_inter = expand("results/vcfIntersect/{sample}_intersect_indel", sample = samples["sample"])
+    vcf_inter = "results/vcfIntersect/{sample}_intersect_indel"
   params:
     samp="{sample}",
     indel = get_indels,
-  output:  expand("results/MAF_38_final/indel/{sample}/{indel}.maf", sample = samples["sample"], indel=indel_vcfs["indel"]),
+  output:  "results/MAF_38_f/indel/{sample}/{indel}.maf",
   threads: 4
   conda:
     "../envs/VCFtoMAF.yaml",

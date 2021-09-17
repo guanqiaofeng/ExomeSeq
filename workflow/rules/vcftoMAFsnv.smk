@@ -2,11 +2,11 @@
 rule vcftoMAFsnv
   input:
     ref = 'ref/genome.fa',
-    vcf_inter = expand("results/vcfIntersect/{sample}_intersect_snv", sample = samples["sample"])
+    vcf_inter = "results/vcfIntersect/{sample}_intersect_snv"
   params:
     samp="{sample}",
     snv = get_snvs,
-  output:     expand("results/MAF_38_final/snv/{sample}/{snv}.maf", sample = samples["sample"], snv=snv_vcfs["snv"]),
+  output:  "results/MAF_38_f/snv/{sample}/{snv}.maf",
   threads: 4
   conda:
     "../envs/VCFtoMAF.yaml",
