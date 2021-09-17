@@ -8,7 +8,7 @@ def get_indels(wildcards):
     indel = str(inter) + "_hg38" + ".vcf"
     return indel
 
-def get_maf_output(wildcards, type='snv'):
+def get_maf_output(wildcards, type='indel'):
     res = []
     if type == 'snv':
         for v in snv_vcfs.itertuples():
