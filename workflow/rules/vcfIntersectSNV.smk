@@ -1,4 +1,4 @@
-rule vcfIntersectINDEL:
+rule vcfIntersectSNV:
   input:
     var_vcf="results/Varscan/snv/{sample}/{sample}.indel.Somatic.hc.vcf",
     mut2_vcf="results/MuTect2Merge/{sample}/{sample}.indels.recode.vcf",
