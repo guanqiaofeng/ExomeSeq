@@ -1,10 +1,10 @@
-rule vcfIntersectSNV:
+rule vcfIntersectINDEL:
   input:
     var_vcf="results/Varscan/snv/{sample}/{sample}.indel.Somatic.hc.vcf",
     mut2_vcf="results/MuTect2Merge/{sample}/{sample}.indels.recode.vcf",
     strelka_vcf="results/Strelka/{sample}/{sample}.myAnalysis",
     ref = '/cluster/tools/data/genomes/human/hg38/iGenomes/Sequence/WholeGenomeFasta/genome.fa',
-    sequenza="results//Sequenza/{sample}"
+    sequenza="results/Sequenza/{sample}"
   params:
     temp_file="results/vcfIntersectTempINDEL/{sample}",
     outdir="results//vcfIntersectINDEL/{sample}",
