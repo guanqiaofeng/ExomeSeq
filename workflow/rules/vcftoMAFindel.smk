@@ -9,9 +9,9 @@ rule vcftoMAFindel:
   threads: 4
   conda:
     "../envs/VCFtoMAF.yaml",
-  run:
+  shell:
+  """
     if wildcards.indel != '0001':
-      shell("""
       bcftools view -f PASS {input.vcf_inter}/{params.indel} > {input.vcf_inter}/fil_{params.indel}
       perl scripts/vcf2maf.pl \
         --input-vcf {input.vcf_inter}/fil_{params.indel} \
@@ -24,9 +24,8 @@ rule vcftoMAFindel:
         --ncbi-build GRCh38 \
         --filter-vcf ref/ExAC_nonTCGA.r1.sites.hg19ToHg38.vep.vcf.gz \
         --vep-path=ref/98 \
-        --vep-data=ref/98""")
+        --vep-data=ref/98
     else:
-      shell("""
       bcftools view -f PASS {input.vcf_inter}/{params.indel} > {input.vcf_inter}/fil_{params.indel}
       perl scripts/vcf2maf.pl \
         --input-vcf {input.vcf_inter}/fil_{params.indel} \
@@ -42,4 +41,5 @@ rule vcftoMAFindel:
         --tumor-id={params.samp} \
         --ncbi-build GRCh38 \
         --vep-path=ref/98 \
-        --vep-data=ref/98""")
+        --vep-data=ref/98
+  """
