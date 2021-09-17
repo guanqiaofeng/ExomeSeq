@@ -53,7 +53,7 @@ rule varscanProcessSomatic:
 rule varscanToVCF:
   input:
     snp="results/Varscan/snv/{sample}/{sample}.snp.Somatic.hc",
-    indel="resultsVarscan/snv/{sample}/{sample}.indel.Somatic.hc"
+    indel="results/Varscan/snv/{sample}/{sample}.indel.Somatic.hc"
   output:
     snp="results/Varscan/snv/{sample}/{sample}.snp.Somatic.hc.vcf",
     indel="results/Varscan/snv/{sample}/{sample}.indel.Somatic.hc.vcf"
