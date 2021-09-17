@@ -53,6 +53,7 @@ rule MuTect2Merge:
     "../envs/gatk.yaml",
   shell:
     """
+    ff={input}
     echo 'sh {params.script}' \
     $ff$' > {output}' > {params.out}/'merge_{params.samp}_VCFs.sh'
     sh {params.out}/merge_{params.samp}_VCFs.sh
