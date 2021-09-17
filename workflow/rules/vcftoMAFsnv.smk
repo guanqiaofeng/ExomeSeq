@@ -2,7 +2,7 @@
 rule vcftoMAFsnv
   input:
     ref = 'ref/genome.fa',
-    vcf_inter = "results/vcfIntersect/{sample}_intersect_snv/{snv}.vcf"
+    vcf_inter = "results/vcfIntersect/{sample}_intersect_snv/{snv}_hg38.vcf"
   params:
     samp="{sample}",
     snv = get_snvs,

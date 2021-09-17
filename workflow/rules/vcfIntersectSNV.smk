@@ -11,8 +11,7 @@ rule vcfIntersectINDEL:
     var_final="results/vcfIntersectINDEL/{sample}/{sample}_var_indel.gz",
     mut2_final="results/vcfIntersectINDEL/{sample}/{sample}_mut2_indel.gz",
     strelka_final="results/vcfIntersectINDEL/{sample}/{sample}_strelka_indel.gz",
-  #output: directory("results/vcfIntersect/{sample}_intersect_indel")
-  output: "results/vcfIntersect/{sample}_intersect_indel/{indel}.vcf"
+  output: directory("results/vcfIntersect/{sample}_intersect_indel")
   threads: 4
   conda:
     "../envs/varscan.yaml",
@@ -76,7 +75,7 @@ rule vcfIntersectSNV:
     strelka_vcf="results/Strelka/{sample}/{sample}.myAnalysis",
     ref = 'ref/genome.fa',
     sequenza="results/Sequenza/{sample}",
-    validate = "results/vcfIntersect/{sample}_intersect_snv/{snv}.vcf",
+    validate = "results/vcfIntersect/{sample}_intersect_indel",
 
   params:
     temp_file="results/vcfIntersectTemp/{sample}",
@@ -85,8 +84,7 @@ rule vcfIntersectSNV:
     var_final="results/vcfIntersectSNV/{sample}/{sample}_var_snv.gz",
     mut2_final="results/vcfIntersectSNV/{sample}/{sample}_mut2_snv.gz",
     strelka_final="results/vcfIntersectSNV/{sample}/{sample}_strelka_snv.gz",
-  #output: directory("results/vcfIntersect/{sample}_intersect_snv")
-  output: "results/vcfIntersect/{sample}_intersect_snv/{snv}.vcf"
+  output: directory("results/vcfIntersect/{sample}_intersect_snv")
   threads: 4
   conda:
     "../envs/varscan.yaml",
