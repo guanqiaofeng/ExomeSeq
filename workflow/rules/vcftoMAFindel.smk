@@ -13,7 +13,7 @@ rule vcftoMAFindel:
     if wildcards.indel != '0001':
       shell(
       """
-      bcftools view -f PASS {input.vcf_inter}/{params.indel}.vcf.gz > {input.vcf_inter}/fil_{params.indel}
+      bcftools view -f PASS {input.vcf_inter}/{params.indel} > {input.vcf_inter}/fil_{params.indel}
       perl scripts/vcf2maf.pl \
         --input-vcf {input.vcf_inter}/fil_{params.indel} \
         --output-maf {output} \
@@ -29,7 +29,7 @@ rule vcftoMAFindel:
     else:
       shell(
       """
-      bcftools view -f PASS {input.vcf_inter}/{params.indel}.vcf.gz > {input.vcf_inter}/fil_{params.indel}
+      bcftools view -f PASS {input.vcf_inter}/{params.indel} > {input.vcf_inter}/fil_{params.indel}
       perl scripts/vcf2maf.pl \
         --input-vcf {input.vcf_inter}/fil_{params.indel} \
         --output-maf {output} \
