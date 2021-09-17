@@ -15,13 +15,14 @@ rule vcftoMAFindel:
   params:
     samp="{sample}",
     indel = get_indels,
-  output: "results/MAF_38_f/indel/{sample}/{indel}.maf",
-    threads: 4
-    conda:
-      "../envs/VCFtoMAF.yaml",
+  output: expand("results/MAF_38_final/indel/{sample}/{indel}.maf", indel=indel_vcfs["indel"]),
+  threads: 4
+  conda:
+    "../envs/VCFtoMAF.yaml",
   run:
     if wildcards.indel != '0001':
-      shell("""
+      shell(
+      """
       bcftools view -f PASS {input.vcf_inter}/{params.indel} > {input.vcf_inter}/fil_{params.indel}
       perl scripts/vcf2maf.pl \
         --input-vcf {input.vcf_inter}/fil_{params.indel} \
@@ -36,7 +37,8 @@ rule vcftoMAFindel:
         --vep-path=ref/98 \
         --vep-data=ref/98""")
     else:
-      shell("""
+      shell(
+      """
       bcftools view -f PASS {input.vcf_inter}/{params.indel} > {input.vcf_inter}/fil_{params.indel}
       perl scripts/vcf2maf.pl \
         --input-vcf {input.vcf_inter}/fil_{params.indel} \

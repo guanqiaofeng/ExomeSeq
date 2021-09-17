@@ -21,7 +21,8 @@ rule vcftoMAFsnv
     "../envs/VCFtoMAF.yaml",
   run:
     if wildcards.snv != '0002':
-      shell("""module load samtools vep/98
+      shell(
+      """
       bcftools view -f PASS {input.vcf_inter}/{params.snv} > {input.vcf_inter}/fil_{params.snv}
       perl scripts/vcf2maf.pl \
         --input-vcf {input.vcf_inter}/fil_{params.snv} \
@@ -36,7 +37,8 @@ rule vcftoMAFsnv
         --vep-path=ref/98 \
         --vep-data=ref/98""")
     else:
-      shell("""module load samtools vep/98
+      shell(
+      """
       bcftools view -f PASS {input.vcf_inter}/{params.snv} > {input.vcf_inter}/fil_{params.snv}
       perl scripts/vcf2maf.pl \
         --input-vcf {input.vcf_inter}/fil_{params.snv} \
