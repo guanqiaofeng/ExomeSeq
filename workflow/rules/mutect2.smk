@@ -1,26 +1,3 @@
-intervals = pd.read_table(
-    config["bed_file"]
-).set_index(
-    "interval", drop=False
-)
-def get_intervals(wildcards):
-    inter = wildcards.interval
-    bed = "/cluster/home/selghamr/workflows/ExomeSeq/resources/hg38_bed/" + inter + ".bed"
-    return bed
-
-def get_MuTect2_output(wildcards):
-    res = []
-    for i in intervals.itertuples():
-        res.append(
-            "results/MuTect2/{}/{}_{}.mut2.vcf".format(
-                wildcards.sample, wildcards.sample, i.interval
-            )
-        )
-    return res
-
-output_dir = os.environ.get("output_dir")
-
-
 rule MuTect2:
   input:
     bam = "results/alignment/{sample}/{sample}.realigned.recal.bam",

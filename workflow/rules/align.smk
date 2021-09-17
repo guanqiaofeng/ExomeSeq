@@ -1,10 +1,3 @@
-
-def get_r1(wildcards):
-    return samples.read1[wildcards.sample]
-
-def get_r2(wildcards):
-    return samples.read2[wildcards.sample]
-
 rule mapFASTQ:
   input:
     f1 =  get_r1,

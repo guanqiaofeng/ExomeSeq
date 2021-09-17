@@ -40,6 +40,7 @@ ref_genome="hg38"
 
 ##### load rules #####
 #include: "rules/common.smk"
+include: "rules/common.smk"
 include: "rules/align.smk"
 include: "rules/haplogatk.smk"
 include: "rules/mutect2.smk"

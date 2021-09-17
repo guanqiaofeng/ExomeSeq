@@ -1,31 +1,3 @@
-indel_vcfs = pd.read_table(
-    config["indel_vcf"]
-,dtype={'indel': object}).set_index(
-    "indel", drop=False
-)
-def get_indels(wildcards):
-    inter = wildcards.indel
-    indel = str(inter) + "_hg38" + ".vcf"
-    return indel
-
-def get_maf_output(wildcards, type='indel'):
-    res = []
-    if type == 'snv':
-        for v in snv_vcfs.itertuples():
-            res.append(
-                "results/MAF_38_final/{}/{}/{}.maf".format(
-                    type, wildcards.sample, v.snv
-                )
-            )
-    elif type == 'indel':
-        for v in indel_vcfs.itertuples():
-            res.append(
-                "results/MAF_38_final/{}/{}/{}.maf".format(
-                    type, wildcards.sample, v.indel
-                )
-            )
-    return res
-
 rule vcftoMAFindel:
   input:
     ref = 'ref/genome.fa',

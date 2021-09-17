@@ -1,12 +1,3 @@
-snv_vcfs = pd.read_table(
-    config["snv_vcf"]
-,dtype={'snv': object}).set_index(
-    "snv", drop=False
-)
-def get_snvs(wildcards):
-    inter = wildcards.snv
-    snv = str(inter) + "_hg38" + ".vcf"
-    return snv
 
 rule vcftoMAFsnv
   input:
