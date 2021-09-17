@@ -11,7 +11,8 @@ rule vcfIntersectINDEL:
     var_final="results/vcfIntersectINDEL/{sample}/{sample}_var_indel.gz",
     mut2_final="results/vcfIntersectINDEL/{sample}/{sample}_mut2_indel.gz",
     strelka_final="results/vcfIntersectINDEL/{sample}/{sample}_strelka_indel.gz",
-  output: directory("results/vcfIntersect/{sample}_intersect_indel")
+  #output: directory("results/vcfIntersect/{sample}_intersect_indel")
+  output: "results/vcfIntersect/{sample}_intersect_indel/{indel}.vcf"
   threads: 4
   conda:
     "../envs/varscan.yaml",
