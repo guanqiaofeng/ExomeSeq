@@ -1,6 +1,5 @@
 channels:
   - conda-forge
-  - bioconda
 dependencies:
   - mutect ==1.1.6
   - varscan ==2.4.4

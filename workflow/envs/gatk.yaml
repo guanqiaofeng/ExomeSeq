@@ -1,6 +1,5 @@
 channels:
   - conda-forge
-  - bioconda
   - compbiocore
 dependencies:
   - gatk ==3.8
