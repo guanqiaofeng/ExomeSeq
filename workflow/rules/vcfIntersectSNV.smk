@@ -84,6 +84,7 @@ rule vcfIntersectSNV:
     var_final="results/vcfIntersectSNV/{sample}/{sample}_var_snv.gz",
     mut2_final="results/vcfIntersectSNV/{sample}/{sample}_mut2_snv.gz",
     strelka_final="results/vcfIntersectSNV/{sample}/{sample}_strelka_snv.gz",
+    snv=get_snv_intersects,
   output:
     dir=directory("results/vcfIntersect/{sample}_intersect_snv"),
     file="results/vcfIntersect/{sample}_intersect_snv/{snv}.vcf"
@@ -102,7 +103,7 @@ rule vcfIntersectSNV:
     vcf-sort -c  {input.mut2_vcf} > {params.temp_file}_mut2_sorted.vcf
     vcf-sort -c  {input.strelka_vcf}/results/passed.somatic.snvs.vcf > {params.temp_file}_strelka_sorted.vcf
 
-    ## Left align indels
+    ## Left align indels (MuTect1)
     java -jar $gatk_dir/GenomeAnalysisTK.jar \
     --unsafe \
     -T LeftAlignAndTrimVariants \
@@ -114,7 +115,7 @@ rule vcfIntersectSNV:
     bgzip -c {params.temp_file}_mut1_sorted_left.vcf > {params.mut1_final}
     tabix -p vcf {params.mut1_final}
 
-    ## Left align indels
+    ## Left align indels (Varscan)
     java -jar $gatk_dir/GenomeAnalysisTK.jar \
     --unsafe \
     -T LeftAlignAndTrimVariants \
@@ -127,7 +128,7 @@ rule vcfIntersectSNV:
     tabix -p vcf {params.var_final}
 
 
-    ## Left align indels
+    ## Left align indels (MuTect2)
     java -jar $gatk_dir/GenomeAnalysisTK.jar \
     --unsafe \
     -T LeftAlignAndTrimVariants \
@@ -140,7 +141,7 @@ rule vcfIntersectSNV:
     tabix -p vcf {params.mut2_final}
 
 
-    ## Left align indels
+    ## Left align indels (Strelka)
     java -jar $gatk_dir/GenomeAnalysisTK.jar \
     --unsafe \
     -T LeftAlignAndTrimVariants \
@@ -152,5 +153,5 @@ rule vcfIntersectSNV:
     bgzip -c {params.temp_file}_strelka_sorted_left.vcf > {params.strelka_final}
     tabix -p vcf {params.strelka_final}
 
-    /cluster/projects/pughlab/bin/bcftools/bcftools isec --nfiles +2 {params.outdir}/*snv.gz -p {output.dir}
+    /cluster/projects/pughlab/bin/bcftools/bcftools isec --nfiles {params.snv} {params.outdir}/*snv.gz -p {output.dir}
     """

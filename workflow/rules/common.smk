@@ -70,3 +70,9 @@ def get_maf_output(wildcards, type='indel'):
                 )
             )
     return res
+
+def get_snv_intersects(wildcards):
+    return config["intersects"]["snv"][wildcards.snv]
+
+def get_indel_intersects(wildcards):
+    return config["intersects"]["indel"][wildcards.snv]
