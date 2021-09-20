@@ -8,6 +8,7 @@ rule MuTect2:
   threads: 2
   conda:
     "/cluster/home/selghamr/workflows/ExomeSeq/workflow/envs/gatk.yaml",
+    "/cluster/home/selghamr/workflows/ExomeSeq/workflow/envs/vcftools.yaml",
   shell:
     """
     java -Xmx8g -jar $gatk_dir/GenomeAnalysisTK.jar \
@@ -28,6 +29,7 @@ rule MuTect2Merge:
   threads: 2
   conda:
     "/cluster/home/selghamr/workflows/ExomeSeq/workflow/envs/gatk.yaml",
+    "/cluster/home/selghamr/workflows/ExomeSeq/workflow/envs/vcftools.yaml",
   shell:
     """
     ff={input}
@@ -48,6 +50,7 @@ rule filterMuTect2:
   threads: 3
   conda:
     "/cluster/home/selghamr/workflows/ExomeSeq/workflow/envs/gatk.yaml",
+    "/cluster/home/selghamr/workflows/ExomeSeq/workflow/envs/vcftools.yaml",
   shell:
     """
     vcftools --vcf {input.vcf} --remove-indels --recode --recode-INFO-all --out {params.outdirsnv} --remove-filtered-all
