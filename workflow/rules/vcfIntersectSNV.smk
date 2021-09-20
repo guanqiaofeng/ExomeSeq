@@ -84,7 +84,7 @@ rule vcfIntersectSNV:
     var_final="results/vcfIntersectSNV/{sample}/{sample}_var_snv.gz",
     mut2_final="results/vcfIntersectSNV/{sample}/{sample}_mut2_snv.gz",
     strelka_final="results/vcfIntersectSNV/{sample}/{sample}_strelka_snv.gz",
-  output: directory("results/vcfIntersect/{sample}_intersect_snv")
+  output: "results/vcfIntersect/{sample}_intersect_snv/{snv}.vcf"
   threads: 4
   conda:
     "../envs/varscan.yaml",
