@@ -29,6 +29,7 @@ rule varscanSomatic:
   threads: 3
   conda:
     "../envs/varscan.yaml"
+  shell:
     """
     samtools mpileup -B -q 1 -d 1000000 -l {input.bed} -f {input.ref} {input.normal} {input.tumor} | java -Xmx12g -jar $varscan_dir/VarScan.jar somatic --mpileup 1 --output-snp {output.snp} --output-indel {output.indel}
     """
