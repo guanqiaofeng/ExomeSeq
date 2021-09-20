@@ -2,7 +2,7 @@ rule mapFASTQ:
   input:
     f1 =  get_r1,
     f2 =  get_r2,
-    ref = 'ref/genome.fa'
+    ref = 'ref/BWAgenome.fa'
   output: temp("results/alignment/{sample}/{sample}.sam")
   threads: 4
   conda:
