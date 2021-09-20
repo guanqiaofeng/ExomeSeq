@@ -9,7 +9,7 @@ rule Strelka:
   output: directory("results/Strelka/{sample}/{sample}.myAnalysis")
   threads: 4
   conda:
-    "envs/strelka.yaml",
+    "../envs/strelka.yaml",
   shell:
     """
     configureStrelkaWorkflow.pl --normal={input.normal}  --tumor={input.tumor} --ref={input.ref} --config={input.conf} --output-dir={output}
