@@ -9,7 +9,7 @@ rule MuTect1:
     coverage="results/MuTect1/{sample}/{sample}.wig.txt"
   threads: 2
   conda:
-    "../envs/mutect1.yaml",
+    "envs/mutect1.yaml",
   shell:
     """
     java -Xmx10g -jar $mutect_dir/muTect-1.1.4.jar -T MuTect \
