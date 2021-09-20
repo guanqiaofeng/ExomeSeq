@@ -2,7 +2,7 @@
 rule vcftoMAFsnv:
   input:
     ref = 'ref/genome.fa',
-    vcf_inter = "results/vcfIntersect/{sample}_intersect_snv"
+    vcf_inter = "results/vcfIntersect/{sample}_intersect_snv/{snv}.vcf"
   params:
     samp="{sample}",
     snvs = "{snv}.vcf",
@@ -14,9 +14,9 @@ rule vcftoMAFsnv:
   shell:
     """
     if [ {params.snvs} != '0002' ]; then
-      bcftools view -f PASS {input.vcf_inter}/{params.snv} > {input.vcf_inter}/fil_{params.snv};
+      bcftools view -f PASS {input.vcf_inter} > fil_{input.vcf_inter};
       perl scripts/vcf2maf.pl \
-        --input-vcf {input.vcf_inter}/fil_{params.snv} \
+        --input-vcf fil_{input.vcf_inter} \
         --output-maf {output} \
         --vep-forks 4 \
         --species homo_sapiens \
@@ -28,9 +28,9 @@ rule vcftoMAFsnv:
         --vep-path=ref/98 \
         --vep-data=ref/98
     else
-      bcftools view -f PASS {input.vcf_inter}/{params.snv} > {input.vcf_inter}/fil_{params.snv};
+      bcftools view -f PASS {input.vcf_inter} > fil_{input.vcf_inter};
       perl scripts/vcf2maf.pl \
-        --input-vcf {input.vcf_inter}/fil_{params.snv} \
+        --input-vcf fil_{input.vcf_inter} \
         --output-maf {output} \
         --vep-forks 4 \
         --species homo_sapiens \
