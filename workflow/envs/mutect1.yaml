@@ -1,5 +1,6 @@
 channels:
   - conda-forge
+  - compbiocore
   - bioconda
 dependencies:
   - mutect ==1.1.6
