@@ -2,10 +2,10 @@
 rule vcftoMAFsnv:
   input:
     ref = 'ref/genome.fa',
-    vcf_inter = "results/vcfIntersect/{sample}_intersect_snv/{snv}.vep.vcf"
+    vcf_inter = "results/vcfIntersect/{sample}_intersect_snv"
   params:
     samp="{sample}",
-    snvs = "{snv}",
+    snvs = "{snv}.vcf",
     snv = get_snvs,
   output:  "results/MAF_38_f/snv/{sample}/{snv}.maf",
   threads: 4
