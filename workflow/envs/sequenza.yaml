@@ -1,6 +1,5 @@
 channels:
   - bioconda
   - conda-forge
-  - defaults
 dependencies:
   - r-sequenza ==3.0.0
