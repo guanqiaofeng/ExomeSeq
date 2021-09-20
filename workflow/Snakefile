@@ -48,9 +48,9 @@ include: "rules/mutect1.smk"
 include: "rules/varscan.smk"
 include: "rules/Strelka.smk"
 include: "rules/Sequenza.smk"
-include: "rules/vcfIntersectSNV.smk"
-include: "rules/vcftoMAFindel.smk"
-include: "rules/vcftoMAFsnv.smk"
+#include: "rules/vcfIntersectSNV.smk"
+#include: "rules/vcftoMAFindel.smk"
+#include: "rules/vcftoMAFsnv.smk"
 
 
 ##### target rules #####
@@ -72,7 +72,7 @@ rule all:
     expand("results/Varscan/snv/{sample}/{sample}.indel", sample = samples["sample"]),
     expand("results/Varscan/snv/{sample}/{sample}.snp.Somatic.hc", sample = samples["sample"]),
     expand("results/Varscan/snv/{sample}/{sample}.indel.Somatic.hc", sample = samples["sample"]),
-    expand("results/vcfIntersect/{sample}_intersect_snv", sample = samples["sample"]),
-    expand("results/vcfIntersect/{sample}_intersect_indel", sample = samples["sample"]),
-    expand("results/MAF_38_final/indel/{sample}/{indel}.maf", sample = samples["sample"], indel=indel_vcfs["indel"]),
-    expand("results/MAF_38_final/snv/{sample}/{snv}.maf", sample = samples["sample"], snv=snv_vcfs["snv"]),
+#    expand("results/vcfIntersect/{sample}_intersect_snv", sample = samples["sample"]),
+#    expand("results/vcfIntersect/{sample}_intersect_indel", sample = samples["sample"]),
+#    expand("results/MAF_38_final/indel/{sample}/{indel}.maf", sample = samples["sample"], indel=indel_vcfs["indel"]),
+#    expand("results/MAF_38_final/snv/{sample}/{snv}.maf", sample = samples["sample"], snv=snv_vcfs["snv"]),
