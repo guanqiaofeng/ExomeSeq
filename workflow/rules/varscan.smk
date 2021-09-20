@@ -12,7 +12,7 @@ rule varscanCopyNumber:
   output: "results/Varscan/cnv/{sample}/{sample}.vscn.copynumber"
   threads: 3
   conda:
-    "../envs/varscan.yaml",
+    "../../envs/varscan.yaml",
   shell:
     """
     samtools mpileup -B -q 1 -d 1000000 -l {input.bed} -f {input.ref} {input.normal} {input.tumor} | java -Xmx12g -jar $varscan_dir/VarScan.jar copynumber - {params.outdir} --mpileup 1
@@ -28,7 +28,7 @@ rule varscanSomatic:
     indel="results/Varscan/snv/{sample}/{sample}.indel"
   threads: 3
   conda:
-    "../envs/varscan.yaml",
+    "../../envs/varscan.yaml",
   shell:
     """
     samtools mpileup -B -q 1 -d 1000000 -l {input.bed} -f {input.ref} {input.normal} {input.tumor} | java -Xmx12g -jar $varscan_dir/VarScan.jar somatic --mpileup 1 --output-snp {output.snp} --output-indel {output.indel}
@@ -59,7 +59,7 @@ rule varscanToVCF:
     indel="results/Varscan/snv/{sample}/{sample}.indel.Somatic.hc.vcf"
   threads: 4
   conda:
-    "../envs/varscan.yaml",
+    "../../envs/varscan.yaml",
   shell:
     """
     python scripts/varscan2vcf.py {input.snp} > {output.snp}
