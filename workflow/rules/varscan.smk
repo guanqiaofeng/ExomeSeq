@@ -1,6 +1,3 @@
-
-norm="resources/Pugh_INS_ex_dil_111_AGTACAAG_L005.realigned.recal.bam"
-
 rule varscanCopyNumber:
   input:
     ref = 'ref/genome.fa',
