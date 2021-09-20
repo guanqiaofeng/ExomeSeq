@@ -6,7 +6,7 @@ rule mapFASTQ:
   output: temp("results/alignment/{sample}/{sample}.sam")
   threads: 4
   conda:
-    "../envs/bwa.yaml",
+    "/cluster/home/selghamr/workflows/ExomeSeq/workflow/envs/bwa.yaml",
   shell:
     """
     bwa mem -p -t4 -R "@RG\\tID:{wildcards.sample}\\tLB:Exome\\tSM:{wildcards.sample}\\tPL:ILLUMINA" {input.ref} {input.f1} {input.f2} > {output}
@@ -16,7 +16,7 @@ rule samtoolsSORT:
   output: "results/alignment/{sample}/{sample}_sorted.bam"
   threads: 4
   conda:
-    "../envs/bwa.yaml",
+    "/cluster/home/selghamr/workflows/ExomeSeq/workflow/envs/bwa.yaml",
   shell:
     """
     samtools sort -@4 {input} > {output}
@@ -27,7 +27,7 @@ rule samtoolsINDEX:
   output: "results/alignment/{sample}/{sample}_sorted.bam.bai"
   threads: 2
   conda:
-    "../envs/bwa.yaml",
+    "/cluster/home/selghamr/workflows/ExomeSeq/workflow/envs/bwa.yaml",
   shell:
     """
     samtools index {input} > {output}
@@ -42,7 +42,7 @@ rule picardMarkDuplicates:
     metrics="results/alignment/{sample}/{sample}_picardmetrics.txt"
   threads: 4
   conda:
-    "../envs/bwa.yaml",
+    "/cluster/home/selghamr/workflows/ExomeSeq/workflow/envs/bwa.yaml",
   shell:
     """
     java -Xmx12g -jar $picard_dir/picard.jar MarkDuplicates INPUT={input.bam} OUTPUT={output.dedup} METRICS_FILE={output.metrics} ASSUME_SORTED=true MAX_RECORDS_IN_RAM=100000 VALIDATION_STRINGENCY=SILENT CREATE_INDEX=true USE_JDK_DEFLATER=true USE_JDK_INFLATER=true
@@ -57,7 +57,7 @@ rule gatkRealignerTargetCreator:
   output: "results/alignment/{sample}/{sample}.IndelRealigner.intervals"
   threads: 4
   conda:
-    "../envs/gatk.yaml",
+    "/cluster/home/selghamr/workflows/ExomeSeq/workflow/envs/gatk.yaml",
   shell:
     """
     java -Xmx8g -jar $gatk_dir/GenomeAnalysisTK.jar -T RealignerTargetCreator \
@@ -83,7 +83,7 @@ rule gatkIndelRealigner:
   output: "results/alignment/{sample}/{sample}.realigned.bam"
   threads: 2
   conda:
-    "../envs/gatk.yaml",
+    "/cluster/home/selghamr/workflows/ExomeSeq/workflow/envs/gatk.yaml",
   shell:
     """
     java -Xmx12g -jar $gatk_dir/GenomeAnalysisTK.jar \
@@ -108,7 +108,7 @@ rule gatkBaseRecalibrator:
   output: "results/alignment/{sample}/{sample}.recal_data.grp"
   threads: 4
   conda:
-    "../envs/gatk.yaml",
+    "/cluster/home/selghamr/workflows/ExomeSeq/workflow/envs/gatk.yaml",
   shell:
     """
     java -Xmx18g -jar $gatk_dir/GenomeAnalysisTK.jar \
@@ -135,7 +135,7 @@ rule gatkPrintReads:
   output: "results/alignment/{sample}/{sample}.realigned.recal.bam"
   threads: 4
   conda:
-    "../envs/gatk.yaml",
+    "/cluster/home/selghamr/workflows/ExomeSeq/workflow/envs/gatk.yaml",
   shell:
     """
     java -Xmx18g -jar $gatk_dir/GenomeAnalysisTK.jar \

@@ -7,7 +7,7 @@ rule Sequenza:
   output: directory("results/Sequenza/{sample}")
   threads: 4
   conda:
-    "../envs/sequenza.yaml",
+    "/cluster/home/selghamr/workflows/ExomeSeq/workflow/envs/sequenza.yaml",
   shell:
      """
      Rscript {params.script} -s {input.snp} -c {input.copynum} -o {output}
