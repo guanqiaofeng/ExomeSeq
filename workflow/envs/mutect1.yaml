@@ -1,10 +1,8 @@
 channels:
   - conda-forge
   - bioconda
-  - compbiocore
 dependencies:
   - mutect ==1.1.6
-  - gatk ==3.8
   - varscan ==2.4.4
   - samtools ==1.9
   - vcftools ==0.1.16
