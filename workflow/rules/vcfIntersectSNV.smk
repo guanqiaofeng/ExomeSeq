@@ -84,7 +84,9 @@ rule vcfIntersectSNV:
     var_final="results/vcfIntersectSNV/{sample}/{sample}_var_snv.gz",
     mut2_final="results/vcfIntersectSNV/{sample}/{sample}_mut2_snv.gz",
     strelka_final="results/vcfIntersectSNV/{sample}/{sample}_strelka_snv.gz",
-  output: "results/vcfIntersect/{sample}_intersect_snv/{snv}.vcf"
+  output:
+    dir=directory("results/vcfIntersect/{sample}_intersect_snv"),
+    file="results/vcfIntersect/{sample}_intersect_snv/{snv}.vcf"
   threads: 4
   conda:
     "../envs/varscan.yaml",
@@ -150,5 +152,5 @@ rule vcfIntersectSNV:
     bgzip -c {params.temp_file}_strelka_sorted_left.vcf > {params.strelka_final}
     tabix -p vcf {params.strelka_final}
 
-    /cluster/projects/pughlab/bin/bcftools/bcftools isec --nfiles +2 {params.outdir}/*snv.gz -p {output}
+    /cluster/projects/pughlab/bin/bcftools/bcftools isec --nfiles +2 {params.outdir}/*snv.gz -p {output.dir}
     """
