@@ -49,7 +49,7 @@ MuTect2:
   partition : 'all'
   time : 8:00:00
 
-MuTect1
+MuTect1:
   cpus-per-task : 2
   mem : 10G
   partition : 'all'
