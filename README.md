@@ -119,7 +119,7 @@ snakemake \
 --conda-create-envs-only \
 --conda-frontend conda \
 --conda-prefix ${condaprefix} \
---wrapper-prefix 'file:///path/to/snakemake-wrappers/' \
+--wrapper-prefix 'file:////cluster/home/selghamr/v0.77.0/' \
 --cores 4
 ```
 **Note:** the `--wrapper-prefix` is labelled as `file:///` with three `/`'s.  It WILL throw a warning/error during building/running the workflow, but it MUST be set this way or it will not work.
@@ -148,7 +148,7 @@ snakemake \
 --use-conda \
 --use-singularity \
 --conda-prefix ${condaprefix} \
---wrapper-prefix 'file:///cluster/home/quever/downloads/snakemake-wrappers/' \
+--wrapper-prefix 'file:////cluster/home/selghamr/v0.77.0/' \
 --rerun-incomplete
 ```
 
