@@ -42,7 +42,7 @@ rule picardMarkDuplicates:
     dedup="results/alignment/{sample}/{sample}_sorted.dedup.bam",
     metrics="results/alignment/{sample}/{sample}_picardmetrics.txt"
   params:
-    picard=" /cluster/home/selghamr/workflows/ExomeSeq/.snakemake/conda/9b770440ff173434e53ee101c7452a0a/share/picard-2.26.0-0/"
+    picard="/cluster/home/selghamr/workflows/ExomeSeq/.snakemake/conda/9b770440ff173434e53ee101c7452a0a/share/picard-2.26.0-0"
 
   threads: 4
   conda:
