@@ -2,7 +2,7 @@ rule mapFASTQ:
   input:
     f1 =  get_r1,
     f2 =  get_r2,
-    ref = 'ref/genome.fa'
+    ref = 'ref/BWAgenome.fa'
   output: temp("results/alignment/{sample}/{sample}.sam")
   threads: 4
   conda:
@@ -50,7 +50,7 @@ rule picardMarkDuplicates:
 rule gatkRealignerTargetCreator:
   input:
     bam="results/alignment/{sample}/{sample}_sorted.dedup.bam",
-    ref= 'ref/BWAgenome.fa',
+    ref= 'ref/genome.fa',
     region=region,
     known1=known_mills,
     known2=known_1000G,
