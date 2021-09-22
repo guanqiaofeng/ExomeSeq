@@ -59,12 +59,14 @@ rule gatkRealignerTargetCreator:
     known1=known_mills,
     known2=known_1000G,
   output: "results/alignment/{sample}/{sample}.IndelRealigner.intervals"
+  params:
+    gatk="/cluster/home/selghamr/workflows/ExomeSeq/.snakemake/conda/9933b5f3a92c804102746a579b8a499c/bin"
   threads: 4
   conda:
     "/cluster/home/selghamr/workflows/ExomeSeq/workflow/envs/gatk.yaml",
   shell:
     """
-    java -Xmx8g -jar $gatk_dir/GenomeAnalysisTK.jar -T RealignerTargetCreator \
+    java -Xmx8g -jar {params.gatk}/GenomeAnalysisTK -T RealignerTargetCreator \
     --disable_auto_index_creation_and_locking_when_reading_rods \
     -nt 4 \
     -I {input.bam} \
@@ -85,12 +87,14 @@ rule gatkIndelRealigner:
     known1=known_mills,
     known2=known_1000G,
   output: "results/alignment/{sample}/{sample}.realigned.bam"
+  params:
+    gatk="/cluster/home/selghamr/workflows/ExomeSeq/.snakemake/conda/9933b5f3a92c804102746a579b8a499c/bin"
   threads: 2
   conda:
     "/cluster/home/selghamr/workflows/ExomeSeq/workflow/envs/gatk.yaml",
   shell:
     """
-    java -Xmx12g -jar $gatk_dir/GenomeAnalysisTK.jar \
+    java -Xmx12g -jar {params.gatk}/GenomeAnalysisTK \
     --disable_auto_index_creation_and_locking_when_reading_rods \
     -T IndelRealigner \
     -I {input.bam} \
@@ -110,12 +114,14 @@ rule gatkBaseRecalibrator:
     dbsnp=dbsnp,
     region=region,
   output: "results/alignment/{sample}/{sample}.recal_data.grp"
+  params:
+    gatk="/cluster/home/selghamr/workflows/ExomeSeq/.snakemake/conda/9933b5f3a92c804102746a579b8a499c/bin"
   threads: 4
   conda:
     "/cluster/home/selghamr/workflows/ExomeSeq/workflow/envs/gatk.yaml",
   shell:
     """
-    java -Xmx18g -jar $gatk_dir/GenomeAnalysisTK.jar \
+    java -Xmx18g -jar {params.gatk}/GenomeAnalysisTK \
     -T BaseRecalibrator \
     -nct 4 \
     --disable_auto_index_creation_and_locking_when_reading_rods \
@@ -138,12 +144,14 @@ rule gatkPrintReads:
     ref= 'ref/genome.fa',
     recal="results/alignment/{sample}/{sample}.recal_data.grp"
   output: "results/alignment/{sample}/{sample}.realigned.recal.bam"
+  params:
+    gatk="/cluster/home/selghamr/workflows/ExomeSeq/.snakemake/conda/9933b5f3a92c804102746a579b8a499c/bin"
   threads: 4
   conda:
     "/cluster/home/selghamr/workflows/ExomeSeq/workflow/envs/gatk.yaml",
   shell:
     """
-    java -Xmx18g -jar $gatk_dir/GenomeAnalysisTK.jar \
+    java -Xmx18g -jar {params.gatk}/GenomeAnalysisTK \
     -T PrintReads \
     --disable_auto_index_creation_and_locking_when_reading_rods \
     -nct 4 \

@@ -12,93 +12,72 @@ mapFASTQ:
 samtoolsSORT:
   cpus-per-task : 2
   mem : 12G
-  time : 5:00:00
 
 picardMarkDuplicates:
   cpus-per-task : 4
   mem : 20G
-  partition : 'all'
-  time : 24:00:00
+  time : 1-00:00:00
 
 gatkRealignerTargetCreator:
   cpus-per-task : 4
-  mem : 8G
-  partition : 'all'
-  time : 24:00:00
+  time : 1-00:00:00
 
 gatkIndelRealigner:
   cpus-per-task : 2
   mem : 12G
-  partition : 'all'
 
 gatkBaseRecalibrator:
   cpus-per-task : 4
   mem : 18G
-  partition : 'all'
-  time : 24:00:00
+  time : 1-00:00:00
 
 gatkPrintReads:
   cpus-per-task : 4
   mem : 18G
-  partition : 'all'
-  time : 24:00:00
+  time : 1-00:00:00
 
 MuTect2:
   cpus-per-task : 2
-  mem : 8G
-  partition : 'all'
-  time : 8:00:00
 
 MuTect1:
   cpus-per-task : 2
   mem : 10G
-  partition : 'all'
   time : 12:00:00
 
 haploGATK:
   cpus-per-task : 4
-  mem : 8G
   partition : 'all'
-  time : 24:00:00
+  time : 1-00:00:00
 
 Strelka:
   cpus-per-task : 4
-  mem : 8G
-  partition : 'all'
   time : 72:00:00
 
 varscanCopyNumber:
   cpus-per-task : 3
   mem : 20G
-  partition : 'all'
-  time : 24:00:00
+  time : 1-00:00:00
 
 filterMuTect2:
   cpus-per-task : 3
-  mem : 8G
-  partition : 'all'
   time : 12:00:00
 
 varscanSomatic:
   cpus-per-task : 3
   mem : 20G
-  partition : 'all'
   time : 72:00:00
 
 Sequenza:
   cpus-per-task : 4
   mem : 20G
-  partition : 'all'
   time : 72:00:00
 
 varscanProcessSomatic:
   cpus-per-task : 4
   mem : 20G
-  partition : 'all'
   time : 72:00:00
 
 varscanToVCF:
   cpus-per-task : 4
   mem : 12G
-  partition : 'all'
   time : 12:00:00

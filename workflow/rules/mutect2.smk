@@ -5,12 +5,14 @@ rule MuTect2:
   params:
     intervals = get_intervals
   output: "results/MuTect2/{sample}/{sample}_{interval}.mut2.vcf"
+  params:
+    gatk="/cluster/home/selghamr/workflows/ExomeSeq/.snakemake/conda/9933b5f3a92c804102746a579b8a499c/bin"
   threads: 2
   conda:
     "/cluster/home/selghamr/workflows/ExomeSeq/workflow/envs/gatk.yaml",
   shell:
     """
-    java -Xmx8g -jar $gatk_dir/GenomeAnalysisTK.jar \
+    java -Xmx8g -jar {params.gatk}/GenomeAnalysisTK.jar \
     -T MuTect2  \
     -R {input.ref} \
     -L {params.intervals} \
