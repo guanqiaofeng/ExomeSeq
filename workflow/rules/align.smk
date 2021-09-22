@@ -66,7 +66,7 @@ rule gatkRealignerTargetCreator:
     "/cluster/home/selghamr/workflows/ExomeSeq/workflow/envs/gatk.yaml",
   shell:
     """
-    java -Xmx12g -jar {params.gatk}/GenomeAnalysisTK.jar -T RealignerTargetCreator \
+    gatk3 -T RealignerTargetCreator \
     --disable_auto_index_creation_and_locking_when_reading_rods \
     -nt 4 \
     -I {input.bam} \
@@ -94,9 +94,8 @@ rule gatkIndelRealigner:
     "/cluster/home/selghamr/workflows/ExomeSeq/workflow/envs/gatk.yaml",
   shell:
     """
-    java -Xmx12g -jar {params.gatk}/GenomeAnalysisTK.jar \
+    gatk3 -T IndelRealigner \
     --disable_auto_index_creation_and_locking_when_reading_rods \
-    -T IndelRealigner \
     -I {input.bam} \
     -o {output} \
     -R {input.ref} \
@@ -121,8 +120,7 @@ rule gatkBaseRecalibrator:
     "/cluster/home/selghamr/workflows/ExomeSeq/workflow/envs/gatk.yaml",
   shell:
     """
-    java -Xmx18g -jar {params.gatk}/GenomeAnalysisTK.jar \
-    -T BaseRecalibrator \
+    gatk3 -T BaseRecalibrator \
     -nct 4 \
     --disable_auto_index_creation_and_locking_when_reading_rods \
     -I {input.bam} \
@@ -151,8 +149,7 @@ rule gatkPrintReads:
     "/cluster/home/selghamr/workflows/ExomeSeq/workflow/envs/gatk.yaml",
   shell:
     """
-    java -Xmx18g -jar {params.gatk}/GenomeAnalysisTK.jar \
-    -T PrintReads \
+    gatk3 -T PrintReads \
     --disable_auto_index_creation_and_locking_when_reading_rods \
     -nct 4 \
     -I {input.bam} \

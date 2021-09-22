@@ -11,5 +11,5 @@ rule haploGATK:
     "/cluster/home/selghamr/workflows/ExomeSeq/workflow/envs/gatk.yaml"
   shell:
     """
-    java -Xmx8g -jar {params.gatk}/GenomeAnalysisTK.jar -T HaplotypeCaller -nct 4 -R {input.ref} -I {input.bam} -o {output}
+    gatk3 -T HaplotypeCaller -nct 4 -R {input.ref} -I {input.bam} -o {output}
     """
