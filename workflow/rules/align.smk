@@ -66,7 +66,7 @@ rule gatkRealignerTargetCreator:
     "/cluster/home/selghamr/workflows/ExomeSeq/workflow/envs/gatk.yaml",
   shell:
     """
-    java -Xmx8g -jar {params.gatk}/GenomeAnalysisTK -T RealignerTargetCreator \
+    gatk RealignerTargetCreator \
     --disable_auto_index_creation_and_locking_when_reading_rods \
     -nt 4 \
     -I {input.bam} \
