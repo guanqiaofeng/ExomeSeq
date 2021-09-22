@@ -6,7 +6,7 @@ rule MuTect2:
     intervals = get_intervals
   output: "results/MuTect2/{sample}/{sample}_{interval}.mut2.vcf"
   params:
-    gatk="/cluster/home/selghamr/workflows/ExomeSeq/.snakemake/conda/9933b5f3a92c804102746a579b8a499c/bin"
+    gatk="/cluster/home/selghamr/workflows/ExomeSeq/.snakemake/conda/9933b5f3a92c804102746a579b8a499c/opt/gatk-3.8"
   threads: 2
   conda:
     "/cluster/home/selghamr/workflows/ExomeSeq/workflow/envs/gatk.yaml",
