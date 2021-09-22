@@ -66,7 +66,7 @@ rule gatkRealignerTargetCreator:
     "/cluster/home/selghamr/workflows/ExomeSeq/workflow/envs/gatk.yaml",
   shell:
     """
-    gatk3 -T RealignerTargetCreator \
+    gatk3 -Xmx8g -T RealignerTargetCreator \
     --disable_auto_index_creation_and_locking_when_reading_rods \
     -nt 4 \
     -I {input.bam} \
@@ -94,7 +94,7 @@ rule gatkIndelRealigner:
     "/cluster/home/selghamr/workflows/ExomeSeq/workflow/envs/gatk.yaml",
   shell:
     """
-    gatk3 -T IndelRealigner \
+    gatk3 -Xmx12g -T IndelRealigner \
     --disable_auto_index_creation_and_locking_when_reading_rods \
     -I {input.bam} \
     -o {output} \
@@ -120,7 +120,7 @@ rule gatkBaseRecalibrator:
     "/cluster/home/selghamr/workflows/ExomeSeq/workflow/envs/gatk.yaml",
   shell:
     """
-    gatk3 -T BaseRecalibrator \
+    gatk3 -Xmx12g -T BaseRecalibrator \
     -nct 4 \
     --disable_auto_index_creation_and_locking_when_reading_rods \
     -I {input.bam} \
@@ -149,7 +149,7 @@ rule gatkPrintReads:
     "/cluster/home/selghamr/workflows/ExomeSeq/workflow/envs/gatk.yaml",
   shell:
     """
-    gatk3 -T PrintReads \
+    gatk3 -Xmx12g -T PrintReads \
     --disable_auto_index_creation_and_locking_when_reading_rods \
     -nct 4 \
     -I {input.bam} \

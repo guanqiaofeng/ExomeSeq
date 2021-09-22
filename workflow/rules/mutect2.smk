@@ -12,7 +12,7 @@ rule MuTect2:
     "/cluster/home/selghamr/workflows/ExomeSeq/workflow/envs/gatk.yaml",
   shell:
     """
-    gatk3 \
+    gatk3 -Xmx12g \
     -T MuTect2  \
     -R {input.ref} \
     -L {params.intervals} \
