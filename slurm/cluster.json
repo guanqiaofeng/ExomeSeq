@@ -7,7 +7,7 @@ __default__:
 mapFASTQ:
   cpus-per-task : 4
   mem : 12G
-  time : 72:00:00
+  time : 3-00:00:00
 
 samtoolsSORT:
   cpus-per-task : 2
@@ -51,7 +51,7 @@ haploGATK:
 
 Strelka:
   cpus-per-task : 4
-  time : 72:00:00
+  time : 3-00:00:00
 
 varscanCopyNumber:
   cpus-per-task : 3
@@ -65,17 +65,17 @@ filterMuTect2:
 varscanSomatic:
   cpus-per-task : 3
   mem : 20G
-  time : 72:00:00
+  time : 3-00:00:00
 
 Sequenza:
   cpus-per-task : 4
   mem : 20G
-  time : 72:00:00
+  time : 3-00:00:00
 
 varscanProcessSomatic:
   cpus-per-task : 4
   mem : 20G
-  time : 72:00:00
+  time : 3-00:00:00
 
 varscanToVCF:
   cpus-per-task : 4
