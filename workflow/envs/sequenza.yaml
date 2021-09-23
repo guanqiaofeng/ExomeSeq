@@ -6,3 +6,4 @@ dependencies:
   - r-sequenza
   - r-optparse
   - bioconductor-genomicranges
+  - sequenza-utils
