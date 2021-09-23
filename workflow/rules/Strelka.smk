@@ -13,6 +13,6 @@ rule Strelka:
     "/cluster/home/selghamr/workflows/ExomeSeq/workflow/envs/strelka.yaml",
   shell:
     """
-    {params.strelka}/configureStrelkaSomaticWorkflow.py --normal={input.normal}  --tumor={input.tumor} --ref={input.ref} --config={input.conf} --output-dir={output}
+    {params.strelka}/configureStrelkaSomaticWorkflow.py --normal={input.normal}  --tumor={input.tumor} --ref={input.ref} --config={input.conf} --runDir={output}
     make -C {params.outdir}.myAnalysis
     """
