@@ -1,5 +1,4 @@
 channels:
-  - bioconda
   - conda-forge
 dependencies:
   - r-sequenza ==2.1.2
