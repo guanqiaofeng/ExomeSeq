@@ -1,6 +1,7 @@
 channels:
   - conda-forge
+  - bioconda
 dependencies:
-  - r-sequenza ==2.1.2
-  - r-optparse ==1.3.2
-  - bioconductor-genomicranges ==1.26.1
+  - r-sequenza
+  - r-optparse
+  - bioconductor-genomicranges
