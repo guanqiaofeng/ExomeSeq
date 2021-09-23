@@ -7,12 +7,15 @@ rule varscanCopyNumber:
   params:
     outdir="results/Varscan/cnv/{sample}/{sample}.vscn",
   output: "results/Varscan/cnv/{sample}/{sample}.vscn.copynumber"
+  params:
+    varscan="/cluster/home/selghamr/workflows/ExomeSeq/.snakemake/conda/e19f0037a250972dbd4b858a29e1bd01/share/varscan-2.4.4-1"
   threads: 3
   conda:
     "/cluster/home/selghamr/workflows/ExomeSeq/workflow/envs/varscan.yaml"
   shell:
     """
-    samtools mpileup -B -q 1 -d 1000000 -l {input.bed} -f {input.ref} {input.normal} {input.tumor} | java -Xmx12g -jar $varscan_dir/VarScan.jar copynumber - {params.outdir} --mpileup 1
+    samtools mpileup -B -q 1 -d 1000000 -l {input.bed} -f {input.ref} {input.normal} {input.tumor} | \
+    java -Xmx12g -jar {params.varscan}/VarScan.jar copynumber - {params.outdir} --mpileup 1
     """
 rule varscanSomatic:
   input:
@@ -23,12 +26,15 @@ rule varscanSomatic:
   output:
     snp="results/Varscan/snv/{sample}/{sample}.snp",
     indel="results/Varscan/snv/{sample}/{sample}.indel"
+  params:
+    varscan="/cluster/home/selghamr/workflows/ExomeSeq/.snakemake/conda/e19f0037a250972dbd4b858a29e1bd01/share/varscan-2.4.4-1"
   threads: 3
   conda:
     "/cluster/home/selghamr/workflows/ExomeSeq/workflow/envs/varscan.yaml"
   shell:
     """
-    samtools mpileup -B -q 1 -d 1000000 -l {input.bed} -f {input.ref} {input.normal} {input.tumor} | java -Xmx12g -jar $varscan_dir/VarScan.jar somatic --mpileup 1 --output-snp {output.snp} --output-indel {output.indel}
+    samtools mpileup -B -q 1 -d 1000000 -l {input.bed} -f {input.ref} {input.normal} {input.tumor} | \
+    java -Xmx12g -jar {params.varscan}/VarScan.jar somatic --mpileup 1 --output-snp {output.snp} --output-indel {output.indel}
     """
 
 rule varscanProcessSomatic:
