@@ -38,13 +38,15 @@ rule varscanProcessSomatic:
   output:
     snp="results/Varscan/snv/{sample}/{sample}.snp.Somatic.hc",
     indel="results/Varscan/snv/{sample}/{sample}.indel.Somatic.hc"
+  params:
+    varscan="/cluster/home/selghamr/workflows/ExomeSeq/.snakemake/conda/e19f0037a250972dbd4b858a29e1bd01/share/varscan-2.4.4-1"
   threads: 4
   conda:
     "/cluster/home/selghamr/workflows/ExomeSeq/workflow/envs/varscan.yaml"
   shell:
     """
-    java -Xmx8g -jar $varscan_dir/VarScan.jar processSomatic {input.snp} {output.snp}
-    java -Xmx8g -jar $varscan_dir/VarScan.jar processSomatic {input.indel} {output.indel}
+    java -Xmx8g -jar {params.varscan}/VarScan.jar processSomatic {input.snp} {output.snp}
+    java -Xmx8g -jar {params.varscan}/VarScan.jar processSomatic {input.indel} {output.indel}
     """
 
 rule varscanToVCF:
