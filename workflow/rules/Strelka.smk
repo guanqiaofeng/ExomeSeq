@@ -6,12 +6,13 @@ rule Strelka:
     normal=norm,
   params:
     outdir="results/Strelka/{sample}/{sample}",
+    strelka:"/cluster/home/selghamr/workflows/ExomeSeq/.snakemake/conda/236aa367b1347b9561439ce4facd36c0/share/strelka-2.9.10-1/bin"
   output: directory("results/Strelka/{sample}/{sample}.myAnalysis")
   threads: 4
   conda:
     "/cluster/home/selghamr/workflows/ExomeSeq/workflow/envs/strelka.yaml",
   shell:
     """
-    configureStrelkaWorkflow.pl --normal={input.normal}  --tumor={input.tumor} --ref={input.ref} --config={input.conf} --output-dir={params.outdir}
-    make -C {output}
+    {params.strelka}/configureStrelkaWorkflow.pl --normal={input.normal}  --tumor={input.tumor} --ref={input.ref} --config={input.conf} --output-dir={output}
+    make -C {params.outdir}.myAnalysis
     """
