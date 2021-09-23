@@ -14,5 +14,4 @@ rule Strelka:
   shell:
     """
     {params.strelka}/configureStrelkaSomaticWorkflow.py --normal={input.normal}  --tumor={input.tumor} --ref={input.ref} --config={input.conf} --runDir={output}
-    make -C {params.outdir}.myAnalysis
     """
