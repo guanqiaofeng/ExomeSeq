@@ -12,6 +12,6 @@ rule Strelka:
     "/cluster/home/selghamr/workflows/ExomeSeq/workflow/envs/strelka.yaml",
   shell:
     """
-    configureStrelkaWorkflow.pl --normal={input.normal}  --tumor={input.tumor} --ref={input.ref} --config={input.conf} --output-dir={output}
-    make -C {params.outdir}.myAnalysis
+    configureStrelkaWorkflow.pl --normal={input.normal}  --tumor={input.tumor} --ref={input.ref} --config={input.conf} --output-dir={params.outdir}
+    make -C {output}
     """
