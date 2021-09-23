@@ -160,7 +160,7 @@ if(remove_Y){
 
 ## remove centromeric regions
 if (opt$remove_centromeres){
- cent <- read.table("/cluster/projects/bhklab/Data/biobank_merged_RNAseq/Sequenza/centromeres.txt",
+ cent <- read.table("/cluster/home/selghamr/workflows/ExomeSeq/resources/centromeres.txt",
             sep = "\t", header = F)
 
  del_snp <- BedBedOverlap(snp[c(1,2,2)],
