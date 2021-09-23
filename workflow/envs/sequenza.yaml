@@ -3,5 +3,5 @@ channels:
   - conda-forge
 dependencies:
   - r-sequenza ==3.0.0
-  - r-optparse ==1.3.2
-  - bioconductor-genomicranges ==1.44.0
+  - r-optparse ==1.4.4
+  - bioconductor-genomicranges ==1.26.1
