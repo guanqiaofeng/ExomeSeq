@@ -1,6 +1,7 @@
 channels:
   - conda-forge
   - bioconda
+  - __default__
 dependencies:
   - r-sequenza
   - r-optparse
