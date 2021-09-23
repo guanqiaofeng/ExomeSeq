@@ -6,9 +6,8 @@ rule varscanCopyNumber:
     bed = region
   params:
     outdir="results/Varscan/cnv/{sample}/{sample}.vscn",
-  output: "results/Varscan/cnv/{sample}/{sample}.vscn.copynumber"
-  params:
     varscan="/cluster/home/selghamr/workflows/ExomeSeq/.snakemake/conda/e19f0037a250972dbd4b858a29e1bd01/share/varscan-2.4.4-1"
+  output: "results/Varscan/cnv/{sample}/{sample}.vscn.copynumber"
   threads: 3
   conda:
     "/cluster/home/selghamr/workflows/ExomeSeq/workflow/envs/varscan.yaml"
