@@ -29,25 +29,25 @@ BedBedOverlap <- function(bed.frame1,
   bed.frame1$Start_Position <- as.numeric(as.character(bed.frame1$Start_Position))
   bed.frame1$End_Position <- as.numeric(as.character(bed.frame1$End_Position))
   bed.frame1$Chromsome <- gsub("chr","",bed.frame1$Chromsome)
-  
+
   colnames(bed.frame2)[1:3] <- c("Chromsome","Start_Position","End_Position")
   bed.frame2$Start_Position <- as.numeric(as.character(bed.frame2$Start_Position))
   bed.frame2$End_Position <- as.numeric(as.character(bed.frame2$End_Position))
   bed.frame2$Chromsome <- gsub("chr","",bed.frame2$Chromsome)
-  
+
   ## add padding to bed if desired
   bed.frame1$Start_Position <- bed.frame1$Start_Position - pad
   bed.frame1$End_Position <- bed.frame1$End_Position + pad
-  
+
   bed.frame2$Start_Position <- bed.frame2$Start_Position - pad
   bed.frame2$End_Position <- bed.frame2$End_Position + pad
-  
+
   bed_ranges1 <- with(bed.frame1, GRanges(Chromsome, IRanges(start=Start_Position, end=End_Position)))
   bed_ranges2 <- with(bed.frame2, GRanges(Chromsome, IRanges(start=Start_Position, end=End_Position)))
-  
-  
+
+
   hits = overlapsAny(bed_ranges1,bed_ranges2)
-  
+
   return(hits)
 }
 
@@ -65,7 +65,7 @@ alternative.cp.solutions <- function(cp.table) {
   if (nrow(res) > 0 ){
     res[order(res$SLPP, decreasing = TRUE), ]
   } else {
-    data.frame(cellularity = ci$max.cellularity, 
+    data.frame(cellularity = ci$max.cellularity,
                ploidy = ci$max.ploidy,
                SLPP =  cp.table$lpp[which(cp.table$ploidy == ci$max.ploidy),
                                     which(cp.table$cellularity == ci$max.cellularity)])
@@ -78,7 +78,7 @@ alternative.cp.solutions <- function(cp.table) {
 
 ## For now, test if commands are in original, trailing format, or new opt-parse format
 option_list = list(
-  make_option(c("-s", "--snp_file"), type="character", default=NULL, 
+  make_option(c("-s", "--snp_file"), type="character", default=NULL,
               help="varscan snp file name", metavar="character"),
   make_option(c("-c", "--cnv_file"), type="character", default=NULL,
               help="varscan copy number file name [default= %default]", metavar="character"),
@@ -86,12 +86,12 @@ option_list = list(
               help="output directory [default= %default]", metavar="character"),
   make_option(c("-p", "--purity"), type="double", default=1,
               help="alternate purity [default= %default]", metavar="double"),
-  make_option(c("-pl", "--ploidy"), type="double", default=2,
+  make_option(c("-P", "--ploidy"), type="double", default=2,
               help="alternate purity [default= %default]", metavar="double"),
   make_option(c("-m", "--min.reads.normal"), type="double", default=10,
               help="min reads to make genotype call [default= %default]", metavar="double"),
   make_option(c("-n", "--remove_centromeres"), type="logical", default=TRUE,
-              help="remove all snp and copy-number data from centromeric regions", 
+              help="remove all snp and copy-number data from centromeric regions",
               metavar="logical"),
   make_option(c("-t", "--cancer_type"), type="character", default="all",
               help="Cancer type to define priors [default= %default]", metavar="character"),
@@ -105,7 +105,7 @@ option_list = list(
               help="Remove Y chromosome variants? [default= %default]", metavar="logical"),
   make_option(c("-f", "--min_reads_baf"), type="integer", default=1,
               help="Threshold on the depth of the positions included to calculate the average BAF for segment. Set to extreme value (ex. 1x10^6) to exclude BAF from calculations [default= %default]", metavar="integer")
-); 
+);
 
 opt_parser = OptionParser(option_list=option_list);
 opt = parse_args(opt_parser);
@@ -137,11 +137,11 @@ print(opt)
 # MAIN #
 ########
 
-## add another output directory for user defined purity 
+## add another output directory for user defined purity
 output_udp <- paste(outdir,"/output_udp_",purity,"/",sep="")
 dir.create(output_udp, showWarnings = FALSE, recursive=TRUE)
 
-## read the snp file 
+## read the snp file
 
 snp <- read.table(snp.file,sep="\t",header = TRUE)
 cnv <- read.table(cnv.file,sep="\t",header = TRUE)
@@ -162,17 +162,17 @@ if(remove_Y){
 if (opt$remove_centromeres){
  cent <- read.table("/cluster/projects/bhklab/Data/biobank_merged_RNAseq/Sequenza/centromeres.txt",
             sep = "\t", header = F)
- 
+
  del_snp <- BedBedOverlap(snp[c(1,2,2)],
                           cent[c(2:4)])
- 
+
  snp <- snp[!del_snp,]
- 
+
  del_cnv <- BedBedOverlap(cnv[c(1:3)],
                           cent[c(2:4)])
- 
+
  cnv <- cnv[!del_cnv,]
- 
+
 }
 
 
@@ -185,16 +185,16 @@ if (opt$breaks_method=="fast") {
 }
 
 ##### prepare sequenza data file
-seqz.data <- VarScan2seqz(varscan.somatic = snp, 
+seqz.data <- VarScan2seqz(varscan.somatic = snp,
                           varscan.copynumber = cnv)
 
 file <- gsub(".snp", "",snp.file)
 write.table(seqz.data, file , col.names = TRUE, row.names = FALSE, sep = "\t")
 
 ### full vs. het methods, applicable in different scenarios
-data  <- sequenza.extract(file, gz = FALSE, 
-                          breaks.method = opt$breaks_method, 
-                          window = opt$window, 
+data  <- sequenza.extract(file, gz = FALSE,
+                          breaks.method = opt$breaks_method,
+                          window = opt$window,
                           min.reads.normal = min.reads.normal,
                           min.reads.baf = min.reads.baf)
 
@@ -220,7 +220,7 @@ CP.example <- sequenza.fit(data,
                            ratio.priority = opt$ratio_priority)
 #### TEST ####
 #### TEST ####
-# 
+#
 # CP.example <- sequenza.fit(data,
 #                            priors.table = priors)
 #### TEST ####
@@ -249,10 +249,10 @@ if(length(purities)>1){ ## bug fix to not run alt solutions if there are no alt 
     print (paste("Creating new directories and printing solution:", i, sep = " "));
     output_alt <- paste(outdir,"/sol",i,"_",purities[i],"/",sep="")
     dir.create(output_udp, showWarnings = FALSE, recursive=TRUE)
-    sequenza.results(sequenza.extract = data, 
+    sequenza.results(sequenza.extract = data,
                      cp.table = CP.example,
-                     sample.id = basename(file) , 
-                     out.dir=output_alt, 
+                     sample.id = basename(file) ,
+                     out.dir=output_alt,
                      cellularity=purities[i],
                      ploidy=ploidies[i])
   }
@@ -267,8 +267,8 @@ if(length(purities)>1){ ## bug fix to not run alt solutions if there are no alt 
 #CP.example <- sequenza.fit(data, cellularity=c(purity,0.9,0.95))
 
 sequenza.results(sequenza.extract = data,
-                 cp.table = CP.example, 
-                 sample.id = basename(file) , 
+                 cp.table = CP.example,
+                 sample.id = basename(file) ,
                  out.dir=output_udp,
                  cellularity=purity,
                  ploidy = ud_ploidy)
