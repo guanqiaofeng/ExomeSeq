@@ -1,3 +1,4 @@
+
 rule Sequenza:
   input:
     bam="results/alignment/{sample}/{sample}.realigned.recal.bam",
@@ -13,7 +14,7 @@ rule Sequenza:
     """
     sequenza-utils \
     bam2seqz -t {input.bam} \
-    -n {input.norm} \
+    -n {input.normal} \
     -gc {params.refgc} \
     -F {params.ref} \
     -o {output}
