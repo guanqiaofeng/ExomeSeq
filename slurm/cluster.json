@@ -39,6 +39,11 @@ gatkPrintReads:
 MuTect2:
   cpus-per-task : 2
 
+filterMuTect2:
+  cpus-per-task : 3
+  mem : 10G
+  time : 1-00:00:00
+
 MuTect1:
   cpus-per-task : 2
   mem : 10G
