@@ -8,7 +8,7 @@ rule MuTect1:
     stats="results/MuTect1/{sample}/{sample}.call_stats",
     coverage="results/MuTect1/{sample}/{sample}.wig.txt"
   params:
-    mutect="/cluster/home/selghamr/workflows/ExomeSeq/.snakemake/conda/10fdcf610faa542205435ccaea1b1692/share/mutect=1.1.6-1"
+    mutect="/cluster/home/selghamr/workflows/ExomeSeq/.snakemake/conda/b61c99c17f78a221867daded09a0f9d2/share/mutect=1.1.6-1"
   threads: 2
   conda:
     "/cluster/home/selghamr/workflows/ExomeSeq/workflow/envs/mutect1.yaml",
