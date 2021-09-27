@@ -3,8 +3,8 @@ rule Sequenza:
     bam="results/alignment/{sample}/{sample}.realigned.recal.bam",
     normal=norm,
   params:
-    refgc='ref/GCgenome.wig'
-    fasta='ref/genome.fa'
+    refgc='ref/GCgenome.wig',
+    ref='ref/genome.fa'
   output: "results/Sequenza/{sample}.gz"
   threads: 4
   conda:
@@ -15,6 +15,6 @@ rule Sequenza:
     bam2seqz -t {input.bam} \
     -n {input.norm} \
     -gc {params.refgc} \
-    -F {params.fasta} \
+    -F {params.ref} \
     -o {output}
     """
