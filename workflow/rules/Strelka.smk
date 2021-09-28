@@ -13,5 +13,13 @@ rule Strelka:
     "/cluster/home/selghamr/workflows/ExomeSeq/workflow/envs/strelka.yaml",
   shell:
     """
-    {params.strelka}/configureStrelkaSomaticWorkflow.py --normal={input.normal}  --tumor={input.tumor} --ref={input.ref} --config={input.conf} --runDir={output}
+    ## configuration
+    {params.strelka}/configureStrelkaSomaticWorkflow.py \
+    --normal={input.normal}  \
+    --tumor={input.tumor} \
+    --ref={input.ref} \
+    --config={input.conf} \
+    --runDir={output}
+    ## running pipeline
+    {output}/runWorkflow.py -m local -j 20
     """
