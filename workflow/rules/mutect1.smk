@@ -10,10 +10,11 @@ rule MuTect1:
   params:
     mutect="/cluster/home/selghamr/workflows/ExomeSeq/.snakemake/conda/ce5c78a09c5970de54b46955738bc233/share/mutect=1.1.6-1"
   threads: 2
-  conda:
-    "/cluster/home/selghamr/workflows/ExomeSeq/workflow/envs/mutect1.yaml",
+#  conda:
+#    "/cluster/home/selghamr/workflows/ExomeSeq/workflow/envs/mutect1.yaml",
   shell:
     """
+    module load mutect/1.1.5
     java -Xmx12g -jar {params.mutect}/muTect-1.1.6.jar \
     --analysis_type MuTect \
     -R {input.ref} \
