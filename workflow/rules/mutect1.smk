@@ -14,7 +14,7 @@ rule MuTect1:
     "/cluster/home/selghamr/workflows/ExomeSeq/workflow/envs/mutect1.yaml",
   shell:
     """
-    java -Xmx12g -jar {params.mutect}/muTect-1.1.6.jar -T muTect \
+    mutect \
     -R {input.ref} \
     -L {input.interval} \
     --input_file:tumor {input.bam} \
@@ -24,3 +24,6 @@ rule MuTect1:
     --downsampling_type NONE \
     --fraction_contamination 0.02
     """
+
+
+#    java -Xmx12g -jar {params.mutect}/muTect-1.1.6.jar -T
