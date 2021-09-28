@@ -14,7 +14,7 @@ rule MuTect1:
     "/cluster/home/selghamr/workflows/ExomeSeq/workflow/envs/mutect1.yaml",
   shell:
     """
-    java -Xmx2g -jar {params.mutect}/muTect-1.1.6.jar \
+    java -Xmx12g -jar {params.mutect}/muTect-1.1.6.jar \
     --analysis_type MuTect \
     -R {input.ref} \
     -L {input.interval} \
