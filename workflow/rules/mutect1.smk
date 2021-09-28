@@ -15,7 +15,7 @@ rule MuTect1:
   shell:
     """
     module load mutect/1.1.5
-    java -Xmx12g -jar {params.mutect}/muTect-1.1.6.jar \
+    java -Xmx12g -jar $mutect_dir/muTect.jar \
     --analysis_type MuTect \
     -R {input.ref} \
     -L {input.interval} \
