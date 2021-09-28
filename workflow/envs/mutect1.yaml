@@ -4,7 +4,7 @@ channels:
   - bioconda
 dependencies:
   - mutect
-  - java-1.7.0-openjdk-cos6-x86_64
+  - java-1.8.0-openjdk-cos7-s390x
   - varscan ==2.4.4
   - samtools ==1.9
   - vcftools ==0.1.16
