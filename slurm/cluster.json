@@ -42,7 +42,7 @@ MuTect2:
 filterMuTect2:
   cpus-per-task : 3
   mem : 10G
-  time : 1-00:00:00
+  time : 12:00:00
 
 MuTect1:
   cpus-per-task : 2
@@ -62,10 +62,6 @@ varscanCopyNumber:
   cpus-per-task : 3
   mem : 20G
   time : 1-00:00:00
-
-filterMuTect2:
-  cpus-per-task : 3
-  time : 12:00:00
 
 varscanSomatic:
   cpus-per-task : 3

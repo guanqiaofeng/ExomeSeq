@@ -14,7 +14,7 @@ rule MuTect1:
     "/cluster/home/selghamr/workflows/ExomeSeq/workflow/envs/mutect1.yaml",
   shell:
     """
-    mutect \
+    muTect \
     -R {input.ref} \
     -L {input.interval} \
     --input_file:tumor {input.bam} \
