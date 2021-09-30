@@ -43,14 +43,14 @@ ref_genome="hg38"
 ##### load rules #####
 #include: "rules/common.smk"
 include: "rules/common.smk"
-include: "rules/align.smk"
-include: "rules/haplogatk.smk"
-include: "rules/mutect2.smk"
-include: "rules/mutect1.smk"
-include: "rules/varscan.smk"
-include: "rules/Strelka.smk"
-include: "rules/Sequenza.smk"
-#include: "rules/vcfIntersectSNV.smk"
+#include: "rules/align.smk"
+#include: "rules/haplogatk.smk"
+#include: "rules/mutect2.smk"
+#include: "rules/mutect1.smk"
+#include: "rules/varscan.smk"
+#include: "rules/Strelka.smk"
+#include: "rules/Sequenza.smk"
+include: "rules/vcfIntersectSNV.smk"
 #include: "rules/vcftoMAFindel.smk"
 #include: "rules/vcftoMAFsnv.smk"
 
@@ -58,27 +58,27 @@ include: "rules/Sequenza.smk"
 ##### target rules #####
 rule all:
   input:
-    expand("results/alignment/{sample}/{sample}.realigned.recal.bam", sample = samples["sample"]),
-    expand("results/Haplotype/{sample}/{sample}.raw.snps.indels.vcf", sample = samples["sample"]),
-    expand("results/MuTect1/{sample}/{sample}.mut1.vcf", sample = samples["sample"]),
-    expand("results/MuTect1/{sample}/{sample}.call_stats", sample = samples["sample"]),
-    expand("results/MuTect1/{sample}/{sample}.wig.txt", sample = samples["sample"]),
-    expand("results/MuTect2/{sample}/{sample}_{interval}.mut2.vcf", sample = samples["sample"] , interval=intervals["interval"]),
-    expand("results/MuTect2Merge/{sample}/{sample}_merged_mut2.vcf", sample = samples["sample"]),
-    expand("results/MuTect2Merge/{sample}/{sample}.snvs.recode.vcf", sample = samples["sample"]),
-    expand("results/MuTect2Merge/{sample}/{sample}.indels.recode.vcf", sample = samples["sample"]),
-    expand("results/Strelka/{sample}/{sample}.myAnalysis", sample = samples["sample"]),
-    expand("results/Sequenza/{sample}.gz", sample = samples["sample"]),
-    expand("results/Varscan/cnv/{sample}/{sample}.vscn.copynumber", sample = samples["sample"]),
-    expand("results/Varscan/snv/{sample}/{sample}.snp", sample = samples["sample"]),
-    expand("results/Varscan/snv/{sample}/{sample}.indel", sample = samples["sample"]),
-    expand("results/Varscan/snv/{sample}/{sample}.snp.Somatic.hc", sample = samples["sample"]),
-    expand("results/Varscan/snv/{sample}/{sample}.indel.Somatic.hc", sample = samples["sample"]),
-#    expand("results/vcfIntersectSNV/{sample}/{sample}_mut1_snv.gz",sample = samples["sample"]),
-#    expand("results/vcfIntersectSNV/{sample}/{sample}_var_snv.gz", sample = samples["sample"]),
-#    expand("results/vcfIntersectSNV/{sample}/{sample}_mut2_snv.gz",sample = samples["sample"]),
-#    expand("results/vcfIntersectSNV/{sample}/{sample}_strelka_snv.gz",sample = samples["sample"]),
-#    expand("results/vcfIntersect/{sample}_intersect_snv", sample = samples["sample"]),
-#    expand("results/vcfIntersect/{sample}_intersect_indel", sample = samples["sample"]),
+#    expand("results/alignment/{sample}/{sample}.realigned.recal.bam", sample = samples["sample"]),
+#    expand("results/Haplotype/{sample}/{sample}.raw.snps.indels.vcf", sample = samples["sample"]),
+#    expand("results/MuTect1/{sample}/{sample}.mut1.vcf", sample = samples["sample"]),
+#    expand("results/MuTect1/{sample}/{sample}.call_stats", sample = samples["sample"]),
+#    expand("results/MuTect1/{sample}/{sample}.wig.txt", sample = samples["sample"]),
+#    expand("results/MuTect2/{sample}/{sample}_{interval}.mut2.vcf", sample = samples["sample"] , interval=intervals["interval"]),
+#    expand("results/MuTect2Merge/{sample}/{sample}_merged_mut2.vcf", sample = samples["sample"]),
+#    expand("results/MuTect2Merge/{sample}/{sample}.snvs.recode.vcf", sample = samples["sample"]),
+#    expand("results/MuTect2Merge/{sample}/{sample}.indels.recode.vcf", sample = samples["sample"]),
+#    expand("results/Strelka/{sample}/{sample}.myAnalysis", sample = samples["sample"]),
+#    expand("results/Sequenza/{sample}.gz", sample = samples["sample"]),
+#    expand("results/Varscan/cnv/{sample}/{sample}.vscn.copynumber", sample = samples["sample"]),
+#    expand("results/Varscan/snv/{sample}/{sample}.snp", sample = samples["sample"]),
+#    expand("results/Varscan/snv/{sample}/{sample}.indel", sample = samples["sample"]),
+#    expand("results/Varscan/snv/{sample}/{sample}.snp.Somatic.hc", sample = samples["sample"]),
+#    expand("results/Varscan/snv/{sample}/{sample}.indel.Somatic.hc", sample = samples["sample"]),
+    expand("results/vcfIntersectSNV/{sample}/{sample}_mut1_snv.gz",sample = samples["sample"]),
+    expand("results/vcfIntersectSNV/{sample}/{sample}_var_snv.gz", sample = samples["sample"]),
+    expand("results/vcfIntersectSNV/{sample}/{sample}_mut2_snv.gz",sample = samples["sample"]),
+    expand("results/vcfIntersectSNV/{sample}/{sample}_strelka_snv.gz",sample = samples["sample"]),
+    expand("results/vcfIntersect/{sample}_intersect_snv", sample = samples["sample"]),
+    expand("results/vcfIntersect/{sample}_intersect_indel", sample = samples["sample"]),
 #    expand("results/MAF_38_final/indel/{sample}/{indel}.maf", sample = samples["sample"], indel=indel_vcfs["indel"]),
 #    expand("results/MAF_38_final/snv/{sample}/{snv}.maf", sample = samples["sample"], snv=snv_vcfs["snv"]),
