@@ -89,7 +89,7 @@ rule vcfIntersectSNV:
     gatk="/cluster/home/selghamr/workflows/ExomeSeq/.snakemake/conda/9933b5f3a92c804102746a579b8a499c/opt/gatk-3.8"
   output:
     dir=directory("results/vcfIntersect/{sample}_intersect_snv"),
-    file="results/vcfIntersect/{sample}_intersect_snv/{snv}.vcf"
+#    file="results/vcfIntersect/{sample}_intersect_snv/{snv}.vcf"
   threads: 4
   conda:
     "/cluster/home/selghamr/workflows/ExomeSeq/workflow/envs/gatk.yaml",
@@ -155,5 +155,5 @@ rule vcfIntersectSNV:
     bgzip -c {params.temp_file}_strelka_sorted_left.vcf > {params.strelka_final}
     tabix -p vcf {params.strelka_final}
 
-    /cluster/projects/pughlab/bin/bcftools/bcftools isec --nfiles {params.snv} {params.outdir}/*snv.gz -p {output.dir}
+    /cluster/projects/pughlab/bin/bcftools/bcftools isec --nfiles +2 {params.outdir}/*snv.gz -p {output.dir}
     """
