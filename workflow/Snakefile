@@ -79,6 +79,6 @@ rule all:
     expand("results/vcfIntersectSNV/{sample}/{sample}_mut2_snv.gz",sample = samples["sample"]),
     expand("results/vcfIntersectSNV/{sample}/{sample}_strelka_snv.gz",sample = samples["sample"]),
     expand("results/vcfIntersect/{sample}_intersect_snv", sample = samples["sample"]),
-#    expand("results/vcfIntersect/{sample}_intersect_indel", sample = samples["sample"]),
+    expand("results/vcfIntersect/{sample}_intersect_indel", sample = samples["sample"]),
 #    expand("results/MAF_38_final/indel/{sample}/{indel}.maf", sample = samples["sample"], indel=indel_vcfs["indel"]),
 #    expand("results/MAF_38_final/snv/{sample}/{snv}.maf", sample = samples["sample"], snv=snv_vcfs["snv"]),
