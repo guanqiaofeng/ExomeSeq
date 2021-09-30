@@ -67,7 +67,7 @@ rule all:
     expand("results/MuTect2Merge/{sample}/{sample}_merged_mut2.vcf", sample = samples["sample"]),
     expand("results/MuTect2Merge/{sample}/{sample}.snvs.recode.vcf", sample = samples["sample"]),
     expand("results/MuTect2Merge/{sample}/{sample}.indels.recode.vcf", sample = samples["sample"]),
-    expand("results/Strelka/{sample}/{sample}.myAnalysis")
+    expand("results/Strelka/{sample}/{sample}.myAnalysis"),
 #    expand("results/Sequenza/{sample}", sample = samples["sample"]),
     expand("results/Sequenza/{sample}.gz", sample = samples["sample"]),
     expand("results/Varscan/cnv/{sample}/{sample}.vscn.copynumber", sample = samples["sample"]),
