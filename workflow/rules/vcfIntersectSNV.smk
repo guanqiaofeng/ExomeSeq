@@ -4,17 +4,18 @@ rule vcfIntersectINDEL:
     mut2_vcf="results/MuTect2Merge/{sample}/{sample}.indels.recode.vcf",
     strelka_vcf="results/Strelka/{sample}/{sample}.myAnalysis",
     ref = 'ref/genome.fa',
-    sequenza="results/Sequenza/{sample}"
+    sequenza="results/Sequenza/{sample}.gz"
   params:
     temp_file="results/vcfIntersectTempINDEL/{sample}",
     outdir="results/vcfIntersectINDEL/{sample}",
     var_final="results/vcfIntersectINDEL/{sample}/{sample}_var_indel.gz",
     mut2_final="results/vcfIntersectINDEL/{sample}/{sample}_mut2_indel.gz",
     strelka_final="results/vcfIntersectINDEL/{sample}/{sample}_strelka_indel.gz",
+    gatk="/cluster/home/selghamr/workflows/ExomeSeq/.snakemake/conda/9933b5f3a92c804102746a579b8a499c/opt/gatk-3.8"
   output: directory("results/vcfIntersect/{sample}_intersect_indel")
   threads: 4
   conda:
-    "../envs/varscan.yaml",
+    "/cluster/home/selghamr/workflows/ExomeSeq/workflow/envs/gatk.yaml",
   shell:
     """
     mkdir -p {params.temp_file}
@@ -27,7 +28,7 @@ rule vcfIntersectINDEL:
 
 
     ## Left align indels
-    java -jar $gatk_dir/GenomeAnalysisTK.jar \
+    gatk3 -Xmx12g \
     --unsafe \
     -T LeftAlignAndTrimVariants \
     -R {input.ref} \
@@ -40,7 +41,7 @@ rule vcfIntersectINDEL:
 
 
     ## Left align indels
-    java -jar $gatk_dir/GenomeAnalysisTK.jar \
+    gatk3 -Xmx12g \
     --unsafe \
     -T LeftAlignAndTrimVariants \
     -R {input.ref} \
@@ -53,7 +54,7 @@ rule vcfIntersectINDEL:
 
 
     ## Left align indels
-    java -jar $gatk_dir/GenomeAnalysisTK.jar \
+    gatk3 -Xmx12g \
     --unsafe \
     -T LeftAlignAndTrimVariants \
     -R {input.ref} \
@@ -85,6 +86,7 @@ rule vcfIntersectSNV:
     mut2_final="results/vcfIntersectSNV/{sample}/{sample}_mut2_snv.gz",
     strelka_final="results/vcfIntersectSNV/{sample}/{sample}_strelka_snv.gz",
     snv=get_snv_intersects,
+    gatk="/cluster/home/selghamr/workflows/ExomeSeq/.snakemake/conda/9933b5f3a92c804102746a579b8a499c/opt/gatk-3.8"
   output:
     dir=directory("results/vcfIntersect/{sample}_intersect_snv"),
     file="results/vcfIntersect/{sample}_intersect_snv/{snv}.vcf"
@@ -104,7 +106,7 @@ rule vcfIntersectSNV:
     vcf-sort -c  {input.strelka_vcf}/results/passed.somatic.snvs.vcf > {params.temp_file}_strelka_sorted.vcf
 
     ## Left align indels (MuTect1)
-    java -jar $gatk_dir/GenomeAnalysisTK.jar \
+    gatk3 -Xmx12g \
     --unsafe \
     -T LeftAlignAndTrimVariants \
     -R {input.ref} \
@@ -116,7 +118,7 @@ rule vcfIntersectSNV:
     tabix -p vcf {params.mut1_final}
 
     ## Left align indels (Varscan)
-    java -jar $gatk_dir/GenomeAnalysisTK.jar \
+    gatk3 -Xmx12g \
     --unsafe \
     -T LeftAlignAndTrimVariants \
     -R {input.ref} \
@@ -129,7 +131,7 @@ rule vcfIntersectSNV:
 
 
     ## Left align indels (MuTect2)
-    java -jar $gatk_dir/GenomeAnalysisTK.jar \
+    gatk3 -Xmx12g \
     --unsafe \
     -T LeftAlignAndTrimVariants \
     -R {input.ref} \
@@ -142,7 +144,7 @@ rule vcfIntersectSNV:
 
 
     ## Left align indels (Strelka)
-    java -jar $gatk_dir/GenomeAnalysisTK.jar \
+    gatk3 -Xmx12g \
     --unsafe \
     -T LeftAlignAndTrimVariants \
     -R {input.ref} \
