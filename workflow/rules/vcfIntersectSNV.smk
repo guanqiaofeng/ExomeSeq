@@ -2,7 +2,7 @@ rule vcfIntersectINDEL:
   input:
     var_vcf="results/Varscan/snv/{sample}/{sample}.indel.Somatic.hc.vcf",
     mut2_vcf="results/MuTect2Merge/{sample}/{sample}.indels.recode.vcf",
-    strelka_vcf="results/Strelka/{sample}/{sample}.myAnalysis",
+    strelka_vcf="results/Strelka/{sample}/{sample}.myAnalysis/results/variants/somatic.indels.vcf.gz",
     ref = 'ref/genome.fa',
     sequenza="results/Sequenza/{sample}.gz"
   params:
@@ -24,7 +24,7 @@ rule vcfIntersectINDEL:
     ls -la {input.sequenza}
     vcf-sort -c  {input.var_vcf} > {params.temp_file}_var_sorted.vcf
     vcf-sort -c  {input.mut2_vcf} > {params.temp_file}_mut2_sorted.vcf
-    vcf-sort -c  {input.strelka_vcf}/results/passed.somatic.indels.vcf > {params.temp_file}_strelka_sorted.vcf
+    vcf-sort -c  {input.strelka_vcf} > {params.temp_file}_strelka_sorted.vcf
 
 
     ## Left align indels
@@ -73,7 +73,7 @@ rule vcfIntersectSNV:
     mut1_vcf="results/MuTect1/{sample}/{sample}.mut1.vcf",
     var_vcf="results/Varscan/snv/{sample}/{sample}.snp.Somatic.hc.vcf",
     mut2_vcf="results/MuTect2Merge/{sample}/{sample}.snvs.recode.vcf",
-    strelka_vcf="results/Strelka/{sample}/{sample}.myAnalysis",
+    strelka_vcf="results/Strelka/{sample}/{sample}.myAnalysis/results/variants/somatic.snvs.vcf.gz",
     ref = 'ref/genome.fa',
     sequenza="results/Sequenza/{sample}",
     validate = "results/vcfIntersect/{sample}_intersect_indel",
