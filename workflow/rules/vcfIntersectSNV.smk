@@ -92,7 +92,7 @@ rule vcfIntersectSNV:
     file="results/vcfIntersect/{sample}_intersect_snv/{snv}.vcf"
   threads: 4
   conda:
-    "../envs/varscan.yaml",
+    "/cluster/home/selghamr/workflows/ExomeSeq/workflow/envs/gatk.yaml",
   shell:
     """
     mkdir -p {params.temp_file}
