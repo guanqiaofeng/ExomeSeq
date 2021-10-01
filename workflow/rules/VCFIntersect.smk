@@ -9,7 +9,7 @@ rule vcfIntersectINDEL:
     outdir="results/vcfIntersect",
     script= "vcfIntersect.sh",
   output:
-    bash_indel="results/vcfIntersect/bash_scripts/{sample}_Indel_overlap.sh",ß
+    bash_indel="results/vcfIntersect/bash_scripts/{sample}_Indel_overlap.sh",
   shell:
     """
     echo "sh {params.script} {params.outdir}/indels {sample} {sample} {input.var_vcf} {input.mut2_vcf} {input.strelka_vcf}" > {output.bash_indel}
@@ -27,7 +27,6 @@ rule vcfIntersectSNV:
     script= "vcfIntersect.sh",
   output:
     bash_snv="results/vcfIntersect/bash_scripts/{sample}_snvs_overlap.sh",
-    vcfs_snv="results/vcfIntersect/snvs/{sample}/{snv}.vcf",
   shell:
     """
     echo "sh {params.script} {params.outdir}/snvs {sample} {sample} {input.mut1_vcf} {input.var_vcf} {input.mut2_vcf} {input.strelka_vcf}" \
