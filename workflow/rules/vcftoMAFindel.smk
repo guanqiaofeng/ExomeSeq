@@ -1,15 +1,15 @@
 rule vcftoMAFindel:
   input:
     ref = 'ref/genome.fa',
-    vcf_inter = "results/vcfIntersect/{sample}_intersect_indel"
+    vcf_inter = "results/vcfIntersect/indel/{sample}"
   params:
     samp="{sample}",
-    indelss = "{indel}",
+#    indels = "{indel}",
     indel = get_indels,
   output:  "results/MAF_38_f/indel/{sample}/{indel}.maf",
   threads: 4
   conda:
-    "../envs/VCFtoMAF.yaml",
+    "/cluster/home/selghamr/workflows/ExomeSeq/workflow/envs/VCFtoMAF.yaml",
   shell:
     """
     if if [ {params.indel} != '0001' ]; then
