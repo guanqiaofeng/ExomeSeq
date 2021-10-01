@@ -14,6 +14,7 @@ rule vcfIntersectINDEL:
   shell:
     """
     echo "sh {params.script} {params.outdir}/indels {params.samp} {params.samp} {input.var_vcf} {input.mut2_vcf} {input.strelka_vcf}" > {output.bash_indel}
+    sh {output.bash_snv}
     """
 
 rule vcfIntersectSNV:
@@ -33,4 +34,5 @@ rule vcfIntersectSNV:
     """
     echo "sh {params.script} {params.outdir}/snvs {params.samp} {params.samp} {input.mut1_vcf} {input.var_vcf} {input.mut2_vcf} {input.strelka_vcf}" \
     > {output.bash_snv}
+    sh {output.bash_snv}
     """
