@@ -8,7 +8,6 @@ rule vcfIntersectINDEL:
   params:
     outdir="results/vcfIntersect",
     script= "vcfIntersect.sh",
-  output='results/vcfIntersect/{sample}/{indel}.vcf',
   shell:
     """
     echo "sh {params.script} {params.outdir}/indels {sample} {sample} {input.var_vcf} {input.mut2_vcf} {input.strelka_vcf}" \
