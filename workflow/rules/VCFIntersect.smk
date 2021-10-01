@@ -9,8 +9,7 @@ rule vcfIntersectINDEL:
     outdir="results/vcfIntersect",
     script= "vcfIntersect.sh",
   output:
-    bash_indel="results/vcfIntersect/bash_scripts/{sample}_Indel_overlap.sh",
-    vcfs_indel="results/vcfIntersect/indels/{sample}/{indel}.vcf",
+    bash_indel="results/vcfIntersect/bash_scripts/{sample}_Indel_overlap.sh",ß
   shell:
     """
     echo "sh {params.script} {params.outdir}/indels {sample} {sample} {input.var_vcf} {input.mut2_vcf} {input.strelka_vcf}" > {output.bash_indel}
