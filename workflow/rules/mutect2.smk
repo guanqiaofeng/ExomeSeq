@@ -32,7 +32,7 @@ rule MuTect2Merge:
     "/cluster/home/selghamr/workflows/ExomeSeq/workflow/envs/gatk.yaml",
   shell:
     """
-    ff={input}
+    ff=$(find {input} -type f -name '*.mut2.vcf')
     echo 'sh {params.script}' \
     $ff$' > {output}' > {params.out}/'merge_{params.samp}_VCFs.sh'
     sh {params.out}/merge_{params.samp}_VCFs.sh
