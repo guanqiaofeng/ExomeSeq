@@ -85,7 +85,7 @@ rule all:
 #    expand("results/vcfIntersectSNV/{sample}/{sample}_mut2_snv.gz",sample = samples["sample"]),
 #    expand("results/vcfIntersectSNV/{sample}/{sample}_strelka_snv.gz",sample = samples["sample"]),
     expand("results/vcfIntersect/bash_scripts/{sample}_snvs_overlap.sh", sample = samples["sample"]),
-    expand("results/vcfIntersect/bash_scripts/{sample}_Indels_overlap.sh", sample = samples["sample"]),
+    expand("results/vcfIntersect/bash_scripts/{sample}_Indel_overlap.sh", sample = samples["sample"]),
 #    expand("results/vcfIntersect/snvs/{sample}/{snv}.vcf", sample = samples["sample"], snv=snv_vcfs["snv"]),
 #    expand("results/vcfIntersect/indels/{sample}/{indel}.vcf", sample = samples["sample"], indel=indel_vcfs["indel"]),
 #    expand("results/MAF_38_final/indel/{sample}/{indel}.maf", sample = samples["sample"], indel=indel_vcfs["indel"]),
