@@ -4,7 +4,7 @@ rule vcftoMAFindel:
     vcf_inter = "results/vcfIntersect/indel/{sample}/{indel}.vcf",
   params:
     samp="{sample}",
-    indels = "{indel}",
+    indels = "{input.indel}",
 #    indel = get_indels,
   output:
     vcf_fil = "results/vcfIntersect/indel/{sample}/fil_{indel}.vcf",
@@ -24,11 +24,11 @@ rule vcftoMAFindel:
         --species homo_sapiens \
         --buffer-size 1000 \
         --ref-fasta={input.ref} \
-        --tumor-id={params.samp} \
-        --ncbi-build GRCh38 \
         --filter-vcf ref/ExAC_nonTCGA.r1.sites.hg19ToHg38.vep.vcf.gz \
         --vep-path=ref/98 \
-        --vep-data=ref/98
+        --vep-data=ref/98 \
+        --ncbi-build GRCh38 \
+        --tumor-id={params.samp}
     else
       bcftools view -f PASS {input.vcf_inter} > {output.vcf_fil};
       perl scripts/vcf2maf.pl \
@@ -39,12 +39,12 @@ rule vcftoMAFindel:
         --buffer-size 1000 \
         --ref-fasta={input.ref} \
         --filter-vcf ref/ExAC_nonTCGA.r1.sites.hg19ToHg38.vep.vcf.gz \
+        --vep-path=ref/98 \
+        --vep-data=ref/98 \
+        --ncbi-build GRCh38 \
+        --tumor-id={params.samp} \
         --normal-id unmatched \
         --vcf-tumor-id TUMOR \
         --vcf-normal-id NORMAL \
-        --tumor-id={params.samp} \
-        --ncbi-build GRCh38 \
-        --vep-path=ref/98 \
-        --vep-data=ref/98
     fi
     """

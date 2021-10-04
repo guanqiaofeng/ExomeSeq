@@ -5,7 +5,7 @@ rule vcftoMAFsnv:
     vcf_inter = "results/vcfIntersect/snvs/{sample}/{snv}.vcf",
   params:
     samp="{sample}",
-    snvs = "{snv}",
+    snvs = "{input.snv}",
 #    snv = get_snvs,
 #    intersect = get_snv_intersects,
   output:
@@ -41,12 +41,12 @@ rule vcftoMAFsnv:
         --buffer-size 1000 \
         --ref-fasta={input.ref} \
         --filter-vcf ref/ExAC_nonTCGA.r1.sites.hg19ToHg38.vep.vcf.gz \
-        --normal-id unmatched \
-        --vcf-tumor-id TUMOR \
-        --vcf-normal-id NORMAL \
         --tumor-id={params.samp} \
         --ncbi-build GRCh38 \
         --vep-path=ref/98 \
-        --vep-data=ref/98
+        --vep-data=ref/98 \
+        --normal-id unmatched \
+        --vcf-tumor-id TUMOR \
+        --vcf-normal-id NORMAL
     fi
     """
