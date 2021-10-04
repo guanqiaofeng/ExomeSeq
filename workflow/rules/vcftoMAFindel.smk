@@ -1,12 +1,13 @@
 rule vcftoMAFindel:
   input:
     ref = 'ref/genome.fa',
-    vcf_inter = "results/vcfIntersect/indel/{sample}"
+    vcf_inter = "results/vcfIntersect/indel/{sample}/{indel}.vcf",
+    vcf_fil = "results/vcfIntersect/indel/{sample}/fil_{indel}.vcf"
   params:
     samp="{sample}",
     indels = "{indel}",
 #    indel = get_indels,
-  output:  "results/MAF_38_f/indel/{sample}/{indel}.maf",
+  output:  "results/MAF_38_final/indel/{sample}/{indel}.maf",
   threads: 4
   conda:
     "/cluster/home/selghamr/workflows/ExomeSeq/workflow/envs/VCFtoMAF.yaml",

@@ -29,10 +29,16 @@ rule vcfIntersectSNV:
     script= "vcfIntersect.sh",
     samp="{sample}"
   output:
-    bash_snv="results/vcfIntersect/bash_scripts/{sample}_snvs_overlap.sh",
+    #bash_snv="results/vcfIntersect/bash_scripts/{sample}_snvs_overlap.sh",
+    vcf_file="results/vcfIntersect/indel/{sample}/{indel}.vcf",
+    vcf_fil="results/vcfIntersect/indel/{sample}/fil_{indel}.vcf"
+
   shell:
-    """
-    echo "sh {params.script} {params.outdir}/snvs {params.samp} {params.samp} {input.mut1_vcf} {input.var_vcf} {input.mut2_vcf} {input.strelka_vcf}" \
-    > {output.bash_snv}
-    sh {output.bash_snv}
-    """
+    "sh {params.script} "
+    "{params.outdir}/snvs "
+    "{params.samp} "
+    "{params.samp} "
+    "{input.mut1_vcf} "
+    "{input.var_vcf} "
+    "{input.mut2_vcf} "
+    "{input.strelka_vcf} "
