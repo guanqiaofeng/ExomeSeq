@@ -11,7 +11,7 @@ rule vcfIntersectINDEL:
     samp="{sample}"
   output:
     #bash_indel="results/vcfIntersect/bash_scripts/{sample}_Indel_overlap.sh",
-    vcf_file="results/vcfIntersect/indel/{sample}/{indel}.vcf",
+    vcf_file="results/vcfIntersect/indels/{sample}/{indel}.vcf",
   shell:
     "sh {params.script} "
     "{params.outdir}/indels "
