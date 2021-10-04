@@ -4,7 +4,7 @@ rule vcftoMAFindel:
     vcf_inter = "results/vcfIntersect/indel/{sample}"
   params:
     samp="{sample}",
-#    indels = "{indel}",
+    indels = "{indel}",
     indel = get_indels,
   output:  "results/MAF_38_f/indel/{sample}/{indel}.maf",
   threads: 4
@@ -13,9 +13,9 @@ rule vcftoMAFindel:
   shell:
     """
     if if [ {params.indel} != '0001' ]; then
-      bcftools view -f PASS {input.vcf_inter}/{params.indel} > {input.vcf_inter}/fil_{params.indel};
+      bcftools view -f PASS {input.vcf_inter}/{params.indel}.vcf > {input.vcf_inter}/fil_{params.indel}.vcf;
       perl scripts/vcf2maf.pl \
-        --input-vcf {input.vcf_inter}/fil_{params.indel} \
+        --input-vcf {input.vcf_inter}/fil_{params.indel}.vcf \
         --output-maf {output} \
         --vep-forks 4 \
         --species homo_sapiens \
@@ -27,9 +27,9 @@ rule vcftoMAFindel:
         --vep-path=ref/98 \
         --vep-data=ref/98
     else
-      bcftools view -f PASS {input.vcf_inter}/{params.indel} > {input.vcf_inter}/fil_{params.indel};
+      bcftools view -f PASS {input.vcf_inter}/{params.indel}.vcf > {input.vcf_inter}/fil_{params.indel}.vcf;
       perl scripts/vcf2maf.pl \
-        --input-vcf {input.vcf_inter}/fil_{params.indel} \
+        --input-vcf {input.vcf_inter}/fil_{params.indel}.vcf \
         --output-maf {output} \
         --vep-forks 4 \
         --species homo_sapiens \
