@@ -9,7 +9,8 @@ rule Strelka:
     outdir="results/Strelka/{sample}/{sample}",
   output:
     dir=directory("results/Strelka/{sample}/{sample}.myAnalysis"),
-    file="results/Strelka/{sample}/{sample}.myAnalysis/results/variants/somatic.indels.vcf.gz",
+    indel="results/Strelka/{sample}/{sample}.myAnalysis/results/variants/somatic.indels.vcf.gz",
+    snv="results/Strelka/{sample}/{sample}.myAnalysis/results/variants/somatic.snvs.vcf.gz",
   threads: 4
   conda:
     "/cluster/home/selghamr/workflows/ExomeSeq/workflow/envs/strelka.yaml",
@@ -21,7 +22,8 @@ rule Strelka:
     --tumor={input.tumor} \
     --ref={input.ref} \
     --config={input.conf} \
-    --runDir={output}
+    --runDir={output.dir}
+
     ## running pipeline
-    {output}/runWorkflow.py -m local -j 20
+    {output.dir}/runWorkflow.py -m local -j 20
     """
