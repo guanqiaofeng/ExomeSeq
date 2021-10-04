@@ -2,12 +2,13 @@ rule vcftoMAFindel:
   input:
     ref = 'ref/genome.fa',
     vcf_inter = "results/vcfIntersect/indel/{sample}/{indel}.vcf",
-    vcf_fil = "results/vcfIntersect/indel/{sample}/fil_{indel}.vcf"
   params:
     samp="{sample}",
     indels = "{indel}",
 #    indel = get_indels,
-  output:  "results/MAF_38_final/indel/{sample}/{indel}.maf",
+  output:
+    vcf_fil = "results/vcfIntersect/indel/{sample}/fil_{indel}.vcf"
+    maf = "results/MAF_38_final/indel/{sample}/{indel}.maf",
   threads: 4
   conda:
     "/cluster/home/selghamr/workflows/ExomeSeq/workflow/envs/VCFtoMAF.yaml",
@@ -15,10 +16,10 @@ rule vcftoMAFindel:
     """
     module load samtools vep/98
     if [ {params.indel} != '0001' ]; then
-      bcftools view -f PASS {input.vcf_inter} > {input.vcf_fil};
+      bcftools view -f PASS {input.vcf_inter} > {output.vcf_fil};
       perl scripts/vcf2maf.pl \
-        --input-vcf {input.vcf_fil} \
-        --output-maf {output} \
+        --input-vcf {output.vcf_fil} \
+        --output-maf {output.maf} \
         --vep-forks 4 \
         --species homo_sapiens \
         --buffer-size 1000 \
@@ -29,10 +30,10 @@ rule vcftoMAFindel:
         --vep-path=ref/98 \
         --vep-data=ref/98
     else
-      bcftools view -f PASS {input.vcf_inter} > {input.vcf_fil};
+      bcftools view -f PASS {input.vcf_inter} > {output.vcf_fil};
       perl scripts/vcf2maf.pl \
-        --input-vcf {input.vcf_fil} \
-        --output-maf {output} \
+        --input-vcf {output.vcf_fil} \
+        --output-maf {output.maf} \
         --vep-forks 4 \
         --species homo_sapiens \
         --buffer-size 1000 \

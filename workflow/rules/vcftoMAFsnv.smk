@@ -3,13 +3,14 @@ rule vcftoMAFsnv:
   input:
     ref = 'ref/genome.fa',
     vcf_inter = "results/vcfIntersect/snvs/{sample}/{snv}.vcf",
-    vcf_fil = "results/vcfIntersect/snvs/{sample}/fil_{snv}.vcf",
   params:
     samp="{sample}",
     snvs = "{snv}",
 #    snv = get_snvs,
 #    intersect = get_snv_intersects,
-  output:  "results/MAF_38_final/snv/{sample}/{snv}.maf",
+  output:
+    vcf_fil = "results/vcfIntersect/snvs/{sample}/fil_{snv}.vcf",
+    maf = "results/MAF_38_final/snv/{sample}/{snv}.maf",
   threads: 4
   conda:
     "../envs/VCFtoMAF.yaml",
@@ -17,10 +18,10 @@ rule vcftoMAFsnv:
     """
     module load samtools vep/98
     if [ {params.snvs} != '0002' ]; then
-      bcftools view -f PASS {input.vcf_inter} > {input.vcf_fil};
+      bcftools view -f PASS {input.vcf_inter} > {output.vcf_fil};
       perl scripts/vcf2maf.pl \
-        --input-vcf {input.vcf_fil} \
-        --output-maf {output} \
+        --input-vcf {output.vcf_fil} \
+        --output-maf {output.maf} \
         --vep-forks 4 \
         --species homo_sapiens \
         --buffer-size 1000 \
@@ -31,10 +32,10 @@ rule vcftoMAFsnv:
         --vep-path=ref/98 \
         --vep-data=ref/98
     else
-      bcftools view -f PASS {input.vcf_inter} > {input.vcf_fil};
+      bcftools view -f PASS {input.vcf_inter} > {output.vcf_fil};
       perl scripts/vcf2maf.pl \
-        --input-vcf {input.vcf_fil} \
-        --output-maf {output} \
+        --input-vcf {output.vcf_fil} \
+        --output-maf {output.maf} \
         --vep-forks 4 \
         --species homo_sapiens \
         --buffer-size 1000 \

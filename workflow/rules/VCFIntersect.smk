@@ -31,7 +31,6 @@ rule vcfIntersectSNV:
   output:
     #bash_snv="results/vcfIntersect/bash_scripts/{sample}_snvs_overlap.sh",
     vcf_file="results/vcfIntersect/indel/{sample}/{indel}.vcf",
-    vcf_fil="results/vcfIntersect/indel/{sample}/fil_{indel}.vcf"
   shell:
     "sh {params.script} "
     "{params.outdir}/snvs "
