@@ -5,14 +5,14 @@ rule vcftoMAFindel:
   params:
     samp="{sample}",
     indels = "{indel}",
-    indel = get_indels,
+#    indel = get_indels,
   output:  "results/MAF_38_f/indel/{sample}/{indel}.maf",
   threads: 4
   conda:
     "/cluster/home/selghamr/workflows/ExomeSeq/workflow/envs/VCFtoMAF.yaml",
   shell:
     """
-    if if [ {params.indel} != '0001' ]; then
+    if [ {params.indel} != '0001' ]; then
       bcftools view -f PASS {input.vcf_inter}/{params.indel}.vcf > {input.vcf_inter}/fil_{params.indel}.vcf;
       perl scripts/vcf2maf.pl \
         --input-vcf {input.vcf_inter}/fil_{params.indel}.vcf \

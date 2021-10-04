@@ -46,4 +46,4 @@ rule vcftoMAFsnv:
         --vep-path=ref/98 \
         --vep-data=ref/98
     fi
-        """
+    """
