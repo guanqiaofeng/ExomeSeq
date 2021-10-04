@@ -9,7 +9,7 @@ rule vcftoMAFsnv:
     snvs = "{snv}",
 #    snv = get_snvs,
 #    intersect = get_snv_intersects,
-  output:  "results/MAF_38_f/snv/{sample}/{intersect}.maf",
+  output:  "results/MAF_38_final/snv/{sample}/{intersect}.maf",
   threads: 4
   conda:
     "../envs/VCFtoMAF.yaml",
