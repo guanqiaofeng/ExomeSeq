@@ -7,15 +7,19 @@ rule vcfIntersectINDEL:
     sequenza="results/Sequenza/{sample}.gz"
   params:
     outdir="results/vcfIntersect",
-    script= "vcfIntersect.sh",
+    script= "scripts/vcfIntersect.sh",
     samp="{sample}"
   output:
-    bash_indel="results/vcfIntersect/bash_scripts/{sample}_Indel_overlap.sh",
+    #bash_indel="results/vcfIntersect/bash_scripts/{sample}_Indel_overlap.sh",
+    vcf_file="results/vcfIntersect/indel/{sample}/{indel}.vcf",
   shell:
-    """
-    echo "sh {params.script} {params.outdir}/indels {params.samp} {params.samp} {input.var_vcf} {input.mut2_vcf} {input.strelka_vcf}" > {output.bash_indel}
-    sh {output.bash_snv}
-    """
+    "sh {params.script} "
+    "{params.outdir}/indels "
+    "{params.samp} "
+    "{params.samp} "
+    "{input.var_vcf} "
+    "{input.mut2_vcf} "
+    "{input.strelka_vcf}"
 
 rule vcfIntersectSNV:
   input:
@@ -26,11 +30,11 @@ rule vcfIntersectSNV:
     ref = 'ref/genome.fa',
   params:
     outdir="results/vcfIntersect",
-    script= "vcfIntersect.sh",
+    script= "scripts/vcfIntersect.sh",
     samp="{sample}"
   output:
     #bash_snv="results/vcfIntersect/bash_scripts/{sample}_snvs_overlap.sh",
-    vcf_file="results/vcfIntersect/indel/{sample}/{indel}.vcf",
+    vcf_file="results/vcfIntersect/snvs/{sample}/{snv}.vcf",
   shell:
     "sh {params.script} "
     "{params.outdir}/snvs "
