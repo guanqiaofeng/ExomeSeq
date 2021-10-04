@@ -7,7 +7,9 @@ rule Strelka:
   params:
     strelka="/cluster/home/selghamr/workflows/ExomeSeq/.snakemake/conda/236aa367b1347b9561439ce4facd36c0/share/strelka-2.9.10-1/bin",
     outdir="results/Strelka/{sample}/{sample}",
-  output: directory("results/Strelka/{sample}/{sample}.myAnalysis")
+  output:
+    dir=directory("results/Strelka/{sample}/{sample}.myAnalysis"),
+    file="results/Strelka/{sample}/{sample}.myAnalysis/results/variants/somatic.indels.vcf.gz",
   threads: 4
   conda:
     "/cluster/home/selghamr/workflows/ExomeSeq/workflow/envs/strelka.yaml",
