@@ -15,9 +15,9 @@ rule vcftoMAFindel:
     """
     module load samtools vep/98
     if [ {params.indel} != '0001' ]; then
-      bcftools view -f PASS {input.vcf_inter}/{params.indel}.vcf > {input.vcf_inter}/fil_{params.indel}.vcf;
+      bcftools view -f PASS {input.vcf_inter} > {input.vcf_fil};
       perl scripts/vcf2maf.pl \
-        --input-vcf {input.vcf_inter}/fil_{params.indel}.vcf \
+        --input-vcf {input.vcf_fil} \
         --output-maf {output} \
         --vep-forks 4 \
         --species homo_sapiens \
@@ -29,9 +29,9 @@ rule vcftoMAFindel:
         --vep-path=ref/98 \
         --vep-data=ref/98
     else
-      bcftools view -f PASS {input.vcf_inter}/{params.indel}.vcf > {input.vcf_inter}/fil_{params.indel}.vcf;
+      bcftools view -f PASS {input.vcf_inter} > {input.vcf_fil};
       perl scripts/vcf2maf.pl \
-        --input-vcf {input.vcf_inter}/fil_{params.indel}.vcf \
+        --input-vcf {input.vcf_fil} \
         --output-maf {output} \
         --vep-forks 4 \
         --species homo_sapiens \
