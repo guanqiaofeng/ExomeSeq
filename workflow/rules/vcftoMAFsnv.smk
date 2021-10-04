@@ -5,7 +5,7 @@ rule vcftoMAFsnv:
     vcf_inter = "results/vcfIntersect/snvs/{sample}/{snv}.vcf",
   params:
     samp="{sample}",
-    snvs = "{input.snv}",
+    snvs = "{snv}",
 #    snv = get_snvs,
 #    intersect = get_snv_intersects,
   output:

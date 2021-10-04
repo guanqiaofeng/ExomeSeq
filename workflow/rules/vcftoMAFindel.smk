@@ -4,7 +4,7 @@ rule vcftoMAFindel:
     vcf_inter = "results/vcfIntersect/indel/{sample}/{indel}.vcf",
   params:
     samp="{sample}",
-    indels = "{input.indel}",
+    indel = "{indel}",
 #    indel = get_indels,
   output:
     vcf_fil = "results/vcfIntersect/indel/{sample}/fil_{indel}.vcf",
