@@ -14,7 +14,6 @@ rule vcftoMAFindel:
     "/cluster/home/selghamr/workflows/ExomeSeq/workflow/envs/VCFtoMAF.yaml",
   shell:
     """
-    module load samtools vep/98
     if [ {params.indel} != '0001' ]; then
       bcftools view -f PASS {input.vcf_inter} > {output.vcf_fil};
       perl scripts/vcf2maf.pl \

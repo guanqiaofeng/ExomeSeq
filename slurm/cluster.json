@@ -82,3 +82,13 @@ varscanToVCF:
   cpus-per-task : 4
   mem : 12G
   time : 1-00:00:00
+
+rule vcftoMAFindel:
+  cpus-per-task : 4
+  mem : 12G
+  time : 5-00:00:00
+
+rule vcftoMAFsnv:
+  cpus-per-task : 4
+  mem : 12G
+  time : 5-00:00:00
