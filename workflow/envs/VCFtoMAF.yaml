@@ -2,8 +2,9 @@ channels:
   - conda-forge
   - bioconda
 dependencies:
+  - python
   - ensembl-vep ==98.1
-  - samtools ==1.9
-  - vcftools ==0.1.16
-  - tabix ==0.2.6
-  - bcftools ==1.13
+  - samtools
+  - vcftools
+  - tabix
+  - bcftools
