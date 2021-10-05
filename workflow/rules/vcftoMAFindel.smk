@@ -7,7 +7,7 @@ rule vcftoMAFindel:
     indel = "{indel}",
 #    indel = get_indels,
   output:
-    vcf_fil = "results/vcfIntersect/indels{sample}/fil_{indel}.vcf",
+    vcf_fil = "results/vcfIntersect/indels/{sample}/fil_{indel}.vcf",
     maf = "results/MAF_38_final/indel/{sample}/{indel}.maf",
   threads: 4
   conda:
