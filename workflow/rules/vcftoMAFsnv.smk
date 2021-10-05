@@ -23,7 +23,7 @@ rule vcftoMAFsnv:
         --output-maf {output.maf} \
         --vep-forks 4 \
         --species homo_sapiens \
-        --buffer-size 1000 \
+        --buffer-size 100 \
         --ref-fasta={input.ref} \
         --filter-vcf ref/VEP_cache/ExAC_nonTCGA.r1.sites.hg19ToHg38.vep.vcf.gz \
         --tumor-id={params.samp} \
