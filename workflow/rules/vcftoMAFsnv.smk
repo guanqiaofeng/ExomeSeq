@@ -26,7 +26,7 @@ rule vcftoMAFsnv:
         --species homo_sapiens \
         --buffer-size 1000 \
         --ref-fasta={input.ref} \
-        --filter-vcf ref/ExAC_nonTCGA.r1.sites.hg19ToHg38.vep.vcf.gz \
+        --filter-vcf ref/VEP_cache/ExAC_nonTCGA.r1.sites.hg19ToHg38.vep.vcf.gz \
         --tumor-id={params.samp} \
         --ncbi-build GRCh38 \
         --vep-path=ref/98 \
@@ -40,7 +40,7 @@ rule vcftoMAFsnv:
         --species homo_sapiens \
         --buffer-size 1000 \
         --ref-fasta={input.ref} \
-        --filter-vcf ref/ExAC_nonTCGA.r1.sites.hg19ToHg38.vep.vcf.gz \
+        --filter-vcf ref/VEP_cache/ExAC_nonTCGA.r1.sites.hg19ToHg38.vep.vcf.gz \
         --tumor-id={params.samp} \
         --ncbi-build GRCh38 \
         --vep-path=ref/98 \
