@@ -23,10 +23,10 @@ rule vcftoMAFindel:
         --buffer-size 100 \
         --ref-fasta={input.ref} \
         --filter-vcf ref/VEP_cache/ExAC_nonTCGA.r1.sites.hg19ToHg38.vep.vcf.gz \
+        --tumor-id={params.samp} \
         --vep-path=ref/98 \
         --vep-data=ref/98 \
-        --ncbi-build GRCh38 \
-        --tumor-id={params.samp}
+        --ncbi-build GRCh38
     else
       bcftools view -f PASS {input.vcf_inter} > {output.vcf_fil};
       perl scripts/vcf2maf.pl \
