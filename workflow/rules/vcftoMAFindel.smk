@@ -5,7 +5,6 @@ rule vcftoMAFindel:
   params:
     samp="{sample}",
     indel = "{indel}",
-#    indel = get_indels,
   output:
     vcf_fil = "results/vcfIntersect/indels/{sample}/fil_{indel}.vcf",
     maf = "results/MAF_38_final/indel/{sample}/{indel}.maf",
@@ -44,6 +43,6 @@ rule vcftoMAFindel:
         --tumor-id={params.samp} \
         --normal-id unmatched \
         --vcf-tumor-id TUMOR \
-        --vcf-normal-id NORMAL \
+        --vcf-normal-id NORMAL
     fi
     """
