@@ -43,6 +43,6 @@ rule vcftoMAFindel:
         --tumor-id={params.samp} \
         --normal-id unmatched \
         --vcf-tumor-id {params.samp} \
-        --vcf-normal-id NORMAL
+        --vcf-normal-id {params.samp}
     fi
     """

@@ -46,6 +46,6 @@ rule vcftoMAFsnv:
         --vep-data=ref/98 \
         --normal-id unmatched \
         --vcf-tumor-id {params.samp} \
-        --vcf-normal-id NORMAL
+        --vcf-normal-id {params.samp}
     fi
     """
