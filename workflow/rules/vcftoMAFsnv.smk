@@ -26,9 +26,7 @@ rule vcftoMAFsnv:
         --buffer-size 100 \
         --ref-fasta={input.ref} \
         --filter-vcf ref/VEP_cache/ExAC_nonTCGA.r1.sites.hg19ToHg38.vep.vcf.gz \
-        --tumor-id={params.samp}
-        --normal-id unmatched
-        --vcf-tumor-id TUMOR \
+        --tumor-id={params.samp} \
         --ncbi-build GRCh38 \
         --vep-path=ref/98 \
         --vep-data=ref/98
