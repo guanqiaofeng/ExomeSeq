@@ -51,7 +51,6 @@ include: "rules/varscan.smk"
 include: "rules/Strelka.smk"
 include: "rules/Sequenza.smk"
 include: "rules/VCFIntersect.smk"
-#include: "rules/vcfIntersectSNV.smk"
 include: "rules/vcftoMAFindel.smk"
 include: "rules/vcftoMAFsnv.smk"
 
@@ -77,15 +76,6 @@ rule all:
     expand("results/Varscan/snv/{sample}/{sample}.indel.Somatic.hc", sample = samples["sample"]),
     expand("results/Varscan/snv/{sample}/{sample}.snp.Somatic.hc.vcf",sample = samples["sample"]),
     expand("results/Varscan/snv/{sample}/{sample}.indel.Somatic.hc.vcf",sample = samples["sample"]),
-#    expand("results/vcfIntersectINDEL/{sample}/{sample}_var_indel.gz", sample = samples["sample"]),
-#    expand("results/vcfIntersectINDEL/{sample}/{sample}_mut2_indel.gz",sample = samples["sample"]),
-#    expand("results/vcfIntersectINDEL/{sample}/{sample}_strelka_indel.gz",sample = samples["sample"]),
-#    expand("results/vcfIntersectSNV/{sample}/{sample}_mut1_snv.gz",sample = samples["sample"]),
-#    expand("results/vcfIntersectSNV/{sample}/{sample}_var_snv.gz", sample = samples["sample"]),
-#    expand("results/vcfIntersectSNV/{sample}/{sample}_mut2_snv.gz",sample = samples["sample"]),
-#    expand("results/vcfIntersectSNV/{sample}/{sample}_strelka_snv.gz",sample = samples["sample"]),
-#    expand("results/vcfIntersect/bash_scripts/{sample}_snvs_overlap.sh", sample = samples["sample"]),
-#    expand("results/vcfIntersect/bash_scripts/{sample}_Indel_overlap.sh", sample = samples["sample"]),
     expand("results/vcfIntersect/snvs/{sample}/{snv}.vcf", sample = samples["sample"], snv=snv_vcfs["snv"]),
     expand("results/vcfIntersect/indels/{sample}/{indel}.vcf", sample = samples["sample"], indel=indel_vcfs["indel"]),
     expand("results/MAF_38_final/indel/{sample}/{indel}.maf", sample = samples["sample"], indel=indel_vcfs["indel"]),
