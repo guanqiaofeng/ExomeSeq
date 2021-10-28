@@ -25,7 +25,7 @@ rule vcfIntersectSNV:
   input:
     var_vcf="results/Varscan/snv/{sample}/{sample}.snp.Somatic.hc.vcf",
     mut2_vcf="results/MuTect2Merge/{sample}/{sample}.snvs.recode.vcf",
-    strelka_vcf="results/Strelka/{sample}/{sample}.myAnalysis/results/{sample}_Slk_variants/somatic.snvs.vcf.gz",
+    strelka_vcf="results/Strelka/{sample}/{sample}.myAnalysis/results/Variants/{sample}_Slk_somatic.snvs.vcf.gz",
     mut1_vcf="results/MuTect1/{sample}/{sample}.mut1.vcf",
     ref = 'ref/genome.fa',
   params:
