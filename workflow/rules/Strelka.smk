@@ -29,7 +29,7 @@ rule Strelka:
     ## running pipeline
     {output.dir}/runWorkflow.py -m local -j 20
 
-    mv {output.snv} {output.snvname}
+    ln -s {output.snv} {output.snvname}
 
-    mv {output.indel} {output.indelname}
+    ln -s {output.indel} {output.indelname}
     """
