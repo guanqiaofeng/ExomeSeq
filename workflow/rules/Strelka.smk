@@ -9,10 +9,10 @@ rule Strelka:
     outdir="results/Strelka/{sample}/{sample}",
   output:
     dir=directory("results/Strelka/{sample}/{sample}.myAnalysis"),
-    indel="results/Strelka/{sample}/{sample}.myAnalysis/results/variants/somatic.indels.vcf.gz",
-    indelname="results/Strelka/{sample}/{sample}.myAnalysis/results/variants/{sample}_Slk_somatic.indels.vcf.gz",
-    snv="results/Strelka/{sample}/{sample}.myAnalysis/results/variants/somatic.snvs.vcf.gz",
-    snvname="results/Strelka/{sample}/{sample}.myAnalysis/results/variants/{sample}_Slk_somatic.snvs.vcf.gz",
+    indel="results/Strelka/{sample}/{sample}.myAnalysis/results/variants/{sample}_Slk_somatic.indels.vcf.gz",
+    snv="results/Strelka/{sample}/{sample}.myAnalysis/results/variants/{sample}_Slk_somatic.snvs.vcf.gz",
+    indeltbi="results/Strelka/{sample}/{sample}.myAnalysis/results/variants/{sample}_Slk_somatic.indels.vcf.gz.tbi",
+    snvtbi="results/Strelka/{sample}/{sample}.myAnalysis/results/variants/{sample}_Slk_somatic.snvs.vcf.gz.tbi",
   threads: 4
   conda:
     "/cluster/home/selghamr/workflows/ExomeSeq/workflow/envs/strelka.yaml",
@@ -29,6 +29,10 @@ rule Strelka:
     ## running pipeline
     {output.dir}/runWorkflow.py -m local -j 20
 
-    ln -s {output.snv} {output.snvname}
-    ln -s {output.indel} {output.indelname}
+    echo "Current Dir: "$(pdir)
+    mv {output.dir}/results/variants/somatic.indels.vcf.gz {output.indel}
+    mv {output.dir}/results/variants/somatic.snvs.vcf.gz {output.snv}
+    mv {output.dir}/results/variants/somatic.indels.vcf.gz.tbi {output.indeltbi}
+    mv {output.dir}/results/variants/somatic.snvs.vcf.gz.tbi {output.snvtbi}
+
     """
