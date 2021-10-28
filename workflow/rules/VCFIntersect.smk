@@ -2,7 +2,7 @@ rule vcfIntersectINDEL:
   input:
     var_vcf="results/Varscan/snv/{sample}/{sample}.indel.Somatic.hc.vcf",
     mut2_vcf="results/MuTect2Merge/{sample}/{sample}.indels.recode.vcf",
-    strelka_vcf="results/Strelka/{sample}/{sample}.myAnalysis/results/variants/somatic.indels.vcf.gz",
+    strelka_vcf="results/Strelka/{sample}/{sample}.myAnalysis/results/variants/{sample}_Slk_somatic.indels.vcf.gz",
     ref = 'ref/genome.fa',
     sequenza="results/Sequenza/{sample}.gz"
   params:
@@ -25,7 +25,7 @@ rule vcfIntersectSNV:
   input:
     var_vcf="results/Varscan/snv/{sample}/{sample}.snp.Somatic.hc.vcf",
     mut2_vcf="results/MuTect2Merge/{sample}/{sample}.snvs.recode.vcf",
-    strelka_vcf="results/Strelka/{sample}/{sample}.myAnalysis/results/variants/somatic.snvs.vcf.gz",
+    strelka_vcf="results/Strelka/{sample}/{sample}.myAnalysis/results/variants/{sample}_Slk_somatic.snvs.vcf.gz",
     mut1_vcf="results/MuTect1/{sample}/{sample}.mut1.vcf",
     ref = 'ref/genome.fa',
   params:

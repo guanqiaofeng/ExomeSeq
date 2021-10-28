@@ -10,7 +10,9 @@ rule Strelka:
   output:
     dir=directory("results/Strelka/{sample}/{sample}.myAnalysis"),
     indel="results/Strelka/{sample}/{sample}.myAnalysis/results/variants/somatic.indels.vcf.gz",
+    indelname="results/Strelka/{sample}/{sample}.myAnalysis/results/variants/{sample}_Slk_somatic.indels.vcf.gz"
     snv="results/Strelka/{sample}/{sample}.myAnalysis/results/variants/somatic.snvs.vcf.gz",
+    snvname="results/Strelka/{sample}/{sample}.myAnalysis/results/variants/{sample}_Slk_somatic.snvs.vcf.gz"
   threads: 4
   conda:
     "/cluster/home/selghamr/workflows/ExomeSeq/workflow/envs/strelka.yaml",
@@ -26,4 +28,6 @@ rule Strelka:
 
     ## running pipeline
     {output.dir}/runWorkflow.py -m local -j 20
+    mv {output.snv} {output.snvname}
+    mv {output.indel} {output.indelname}
     """
