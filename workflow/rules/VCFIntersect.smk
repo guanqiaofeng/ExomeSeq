@@ -13,14 +13,15 @@ rule vcfIntersectINDEL:
     #bash_indel="results/vcfIntersect/bash_scripts/{sample}_Indel_overlap.sh",
     vcf_file="results/vcfIntersect/indels/{sample}/{indel}.vcf",
   shell:
-    "sh {params.script} "
-    "{params.outdir}/indels "
-    "{params.samp} "
-    "{params.samp} "
-    "{input.var_vcf} "
-    "{input.mut2_vcf} "
-    "{input.strelka_vcf}"
-
+    """
+    sh {params.script} \
+    {params.outdir}/indels \
+    {params.samp} \
+    {params.samp} \
+    {input.var_vcf} \
+    {input.mut2_vcf} \
+    {input.strelka_vcf}
+    """
 rule vcfIntersectSNV:
   input:
     var_vcf="results/Varscan/snv/{sample}/{sample}.snp.Somatic.hc.vcf",
@@ -36,11 +37,13 @@ rule vcfIntersectSNV:
     #bash_snv="results/vcfIntersect/bash_scripts/{sample}_snvs_overlap.sh",
     vcf_file="results/vcfIntersect/snvs/{sample}/{snv}.vcf",
   shell:
-    "sh {params.script} "
-    "{params.outdir}/snvs "
-    "{params.samp} "
-    "{params.samp} "
-    "{input.mut1_vcf} "
-    "{input.var_vcf} "
-    "{input.mut2_vcf} "
-    "{input.strelka_vcf} "
+    """
+    sh {params.script} \
+    {params.outdir}/snvs \
+    {params.samp} \
+    {params.samp} \
+    {input.mut1_vcf} \
+    {input.var_vcf} \
+    {input.mut2_vcf} \
+    {input.strelka_vcf}
+    """
