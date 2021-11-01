@@ -2,7 +2,7 @@
 # with --use-conda --use-singularity
 #container: "docker://continuumio/miniconda3"
 #workdir: "/cluster/home/selghamr/workflows/intialize/ExomeSeq/"
-workdir: "/cluster/projects/cesconlab/Projects/CDK4-6iRES_ERposBCa/Exome-seq/Palbo-RExomeseq2020/ExomeSeq/"
+workdir: "/cluster/projects/cesconlab/Projects/TGL10_Oct2021/ExomeSeq/"
 
 configfile: "config/config.yaml"
 
