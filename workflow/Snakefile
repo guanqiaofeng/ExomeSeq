@@ -49,10 +49,12 @@ include: "rules/mutect2.smk"
 include: "rules/mutect1.smk"
 include: "rules/varscan.smk"
 include: "rules/Strelka.smk"
-include: "rules/Sequenza.smk"
+include: "rules/SequenzaFromVarscan.smk"
+#include: "rules/Sequenza.smk"
 include: "rules/VCFIntersect.smk"
 include: "rules/vcftoMAFindel.smk"
 include: "rules/vcftoMAFsnv.smk"
+
 
 
 ##### target rules #####
@@ -67,7 +69,7 @@ rule all:
     expand("results/MuTect2Merge/{sample}/{sample}_merged_mut2.vcf", sample = samples["sample"]),
     expand("results/MuTect2Merge/{sample}/{sample}.snvs.recode.vcf", sample = samples["sample"]),
     expand("results/MuTect2Merge/{sample}/{sample}.indels.recode.vcf", sample = samples["sample"]),
-    expand("results/Strelka/{sample}/{sample}.myAnalysis", sample = samples["sample"]),
+    expand("results/Strelka/{sample}", sample = samples["sample"]),
     expand("results/Sequenza/{sample}.gz", sample = samples["sample"]),
     expand("results/Varscan/cnv/{sample}/{sample}.vscn.copynumber", sample = samples["sample"]),
     expand("results/Varscan/snv/{sample}/{sample}.snp", sample = samples["sample"]),
