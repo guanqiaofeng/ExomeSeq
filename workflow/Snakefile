@@ -70,7 +70,7 @@ rule all:
     expand("results/MuTect2Merge/{sample}/{sample}.snvs.recode.vcf", sample = samples["sample"]),
     expand("results/MuTect2Merge/{sample}/{sample}.indels.recode.vcf", sample = samples["sample"]),
     expand("results/Strelka/{sample}.myAnalysis", sample = samples["sample"]),
-    expand("results/Sequenza/{sample}.gz", sample = samples["sample"]),
+    expand("results/Sequenza/{sample}_complete", sample = samples["sample"]),
     expand("results/Varscan/cnv/{sample}/{sample}.vscn.copynumber", sample = samples["sample"]),
     expand("results/Varscan/snv/{sample}/{sample}.snp", sample = samples["sample"]),
     expand("results/Varscan/snv/{sample}/{sample}.indel", sample = samples["sample"]),
