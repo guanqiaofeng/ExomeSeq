@@ -4,7 +4,7 @@ rule vcfIntersectINDEL:
     mut2_vcf="results/MuTect2Merge/{sample}/{sample}.indels.recode.vcf",
     strelka_vcf="results/Strelka/{sample}/{sample}.myAnalysis/results/variants/{sample}_Slk_somatic.indels.vcf.gz",
     ref = 'ref/genome.fa',
-    sequenza="results/Sequenza/{sample}.gz"
+    sequenza="results/Sequenza/{sample}_complete"
   params:
     outdir="results/vcfIntersect",
     script= "scripts/vcfIntersect.sh",
