@@ -11,6 +11,6 @@ rule Sequenza:
     shell:
      """
      module load R/3.3.0
-     Rscript {params.script} -s {input.snp} -c {input.copynum} -o {output.dir}
+     Rscript {params.script} -s {input.snp} -c {input.copynum} -o {output.dir} -f 10
      touch {output.complete}
      """
