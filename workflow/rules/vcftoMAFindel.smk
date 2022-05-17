@@ -42,7 +42,7 @@ rule vcftoMAFindel:
         --ncbi-build GRCh38 \
         --tumor-id={params.samp} \
         --normal-id unmatched \
-        --vcf-tumor-id {params.samp} \
-        --vcf-normal-id {params.samp}
+        --vcf-tumor-id TUMOR \
+        --vcf-normal-id NORMAL
     fi
     """

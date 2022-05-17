@@ -11,7 +11,7 @@ cd /cluster/home/selghamr/workflows/ExomeSeq
 condaprefix='/cluster/home/selghamr/workflows/ExomeSeq/.snakemake/conda'
 
 snakemake \
---jobs 6 \
+--jobs 12 \
 --profile slurm \
 --cluster-config slurm/cluster.json \
 --conda-frontend conda \
