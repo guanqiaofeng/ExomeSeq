@@ -178,7 +178,7 @@ def makeVcfRecord(nativeIp):
     elif alt[0] == '+':
         alt = ref + alt.replace('+', '')
 
-    print("%s\t%s\t%s\t%s\t%s\t%s\t%s\t%s" % (chrom, pos, id, ref, alt, qual, filter, info))
+    print("%s\t%s\t%s\t%s\t%s\t%s\t%s\t%s" % (chrom, pos, id, ref, alt, qual, filter, info,vcf_format, normal_format, tumor_format))
 
 ####
 def NativeToVcf(inputFile):
