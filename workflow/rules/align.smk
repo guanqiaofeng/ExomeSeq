@@ -12,6 +12,7 @@ rule mapFASTQ:
     """
     bwa mem -p -t4 -R "@RG\\tID:{wildcards.sample}\\tLB:Exome\\tSM:{wildcards.sample}\\tPL:ILLUMINA" {input.ref} {input.f1} {input.f2} > {output}
     """
+
 rule samtoolsSORT:
   input: "results/alignment/{sample}/{sample}.sam"
   output: "results/alignment/{sample}/{sample}_sorted.bam"
