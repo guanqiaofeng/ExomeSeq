@@ -42,7 +42,7 @@ def printVcfHeader():
           "##FORMAT=<ID=AD,Number=1,Type=Integer,Description=\"Depth of variant-supporting bases (reads2)\">\n"
           "##FORMAT=<ID=FREQ,Number=1,Type=String,Description=\"Variant allele frequency\">\n"
           "##FORMAT=<ID=DP4,Number=1,Type=String,Description=\"Strand read counts: ref/fwd, ref/rev, var/fwd, var/rev\">\n"
-          "#CHROM\tPOS\tID\tREF\tALT\tQUAL\tFILTER\tINFO")
+          "#CHROM\tPOS\tID\tREF\tALT\tQUAL\tFILTER\tINFO\tFORMAT\tNORMAL\tTUMOR")
 
 # Function to convert vcf record to NativeFormat record
 def makeNativeRec(vcfIp):
@@ -124,9 +124,9 @@ def makeVcfRecord(nativeIp):
 
     gpv = nIp[13]
     spv = nIp[14]
-    
+
     tumorAF = float(nIp[10].replace('%', '')) / 100
-    
+
     if ss == '2':
         info = "AF=" + str(tumorAF) + ";DP=" + str(dp) + ";SOMATIC;" + "SS=" + ss + ";" + "SSC=" + str(
             int(ssc)) + ";" + "GPV=" + gpv + ";" + "SPV=" + spv
@@ -177,7 +177,7 @@ def makeVcfRecord(nativeIp):
         alt = alt.replace('-', '')
     elif alt[0] == '+':
         alt = ref + alt.replace('+', '')
-        
+
     print("%s\t%s\t%s\t%s\t%s\t%s\t%s\t%s" % (chrom, pos, id, ref, alt, qual, filter, info))
 
 ####
