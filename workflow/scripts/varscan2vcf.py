@@ -112,26 +112,19 @@ def makeVcfRecord(nativeIp):
     pos = nIp[1]
     id = '.'
     ref = nIp[2]
+    alt = nIp[3]
     qual = '.'
     filter = 'PASS'
     dp = int(nIp[4]) + int(nIp[5]) + int(nIp[8]) + int(nIp[9])
     ss = somaticDict[nIp[12]]
-
-    try:
-        ssc = -10 * math.log10(float(nIp[14]))
-    except Exception:
-        ssc = 0
-
+    ssc = -10 * math.log10(float(nIp[14]))
     gpv = nIp[13]
     spv = nIp[14]
-
-    tumorAF = float(nIp[10].replace('%', '')) / 100
-
     if ss == '2':
-        info = "AF=" + str(tumorAF) + ";DP=" + str(dp) + ";SOMATIC;" + "SS=" + ss + ";" + "SSC=" + str(
+        info = "DP=" + str(dp) + ";SOMATIC;" + "SS=" + ss + ";" + "SSC=" + str(
             int(ssc)) + ";" + "GPV=" + gpv + ";" + "SPV=" + spv
     else:
-        info = "AF=" + str(tumorAF) + ";DP=" + str(dp) + ";SS=" + ss + ";" + "SSC=" + str(
+        info = "DP=" + str(dp) + ";" + "SS=" + ss + ";" + "SSC=" + str(
             int(ssc)) + ";" + "GPV=" + gpv + ";" + "SPV=" + spv
 
     vcf_format = "GT:GQ:DP:RD:AD:FREQ:DP4"
@@ -178,7 +171,7 @@ def makeVcfRecord(nativeIp):
     elif alt[0] == '+':
         alt = ref + alt.replace('+', '')
 
-    print("%s\t%s\t%s\t%s\t%s\t%s\t%s\t%s" % (chrom, pos, id, ref, alt, qual, filter, info,vcf_format, normal_format, tumor_format))
+    print("%s\t%s\t%s\t%s\t%s\t%s\t%s\t%s" % (chrom, pos, id, ref, alt, qual, filter, info, vcf_format, normal_format, tumor_format))
 
 ####
 def NativeToVcf(inputFile):
