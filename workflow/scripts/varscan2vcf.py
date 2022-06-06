@@ -55,7 +55,7 @@ def makeNativeRec(vcfIp):
     specialChars = "+-"
     for specialChar in specialChars:
         alt = nIp[3].replace(specialChar, "")
-    alt=alt.replace("/",",")    
+    alt = alt.replace("/",",")
     var = nativeLine[4]
 
     normalInfo = nativeLine[9]
