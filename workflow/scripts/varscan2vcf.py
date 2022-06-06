@@ -110,7 +110,7 @@ def makeVcfRecord(nativeIp):
     pos = nIp[1]
     id = '.'
     ref = nIp[2]
-    alt = alt.replace("/", ",")
+    alt = nIp[3].replace("/", ",")
     if alt[0] == '-':
         alt = alt.replace('-', '')
     elif alt[0] == '+':
