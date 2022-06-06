@@ -110,10 +110,11 @@ def makeVcfRecord(nativeIp):
     pos = nIp[1]
     id = '.'
     ref = nIp[2]
-    specialChars = "+-"
-    for specialChar in specialChars:
-        alt = nIp[3].replace(specialChar, '')
     alt = alt.replace("/", ",")
+    if alt[0] == '-':
+        alt = alt.replace('-', '')
+    elif alt[0] == '+':
+        alt = ref + alt.replace('+', '')
     qual = '.'
     filter = 'PASS'
     dp = int(nIp[4]) + int(nIp[5]) + int(nIp[8]) + int(nIp[9])
