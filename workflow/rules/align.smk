@@ -3,29 +3,46 @@ rule deconvolutexengsort:
     f1 =  get_r1,
     f2 =  get_r2
   output:
-    graftf1 =  "results/xengsort/{sample}.graft.1.fq.gz",
-    graftf2 =  "results/xengsort/{sample}.graft.2.fq.gz"
+    graftf1 =  "results/xengsort/{sample}-graft.1.fq.gz",
+    graftf2 =  "results/xengsort/{sample}-graft.2.fq.gz",
+    neitherf1 =  temp("results/xengsort/{sample}-neither.1.fq"),
+    neitherf2 =  temp("results/xengsort/{sample}-neither.2.fq"),
+    bothf1 =  temp("results/xengsort/{sample}-both.1.fq"),
+    bothf2 =  temp("results/xengsort/{sample}-both.2.fq"),
+    ambiguousf1 =  temp("results/xengsort/{sample}-ambiguous.1.fq"),
+    ambiguousf2 =  temp("results/xengsort/{sample}-ambiguous.2.fq"),
+    hostf1 =  temp("results/xengsort/{sample}-host.1.fq"),
+    hostf2 =  temp("results/xengsort/{sample}-host.2.fq")
   params:
-    xengsortindex=config["ref"]["xengsortidx"],
-    xengsortcontainer=config['env']['xengsort']
+    xengsortidx=config["ref"]["xengsortidx"],
+    xengsortcontainer=config['env']['xengsort'],
     sampleid="{sample}"
   threads: 4
   shell:
     """
     module load apptainer/1.0.2
-
+    module load pigz/2.6 
+    
     mkdir -p results/xengsort
-
+    mkdir tmp
+    zcat {input.f1} > tmp/{params.sampleid}_R1.fastq
+    zcat {input.f2} > tmp/{params.sampleid}_R2.fastq
+    
     apptainer run {params.xengsortcontainer} \
     xengsort classify \
     --index {params.xengsortidx} \
-    --fastq {input.f1} \
-    --pairs {input.f2} \
+    --fastq tmp/{params.sampleid}_R1.fastq \
+    --pairs tmp/{params.sampleid}_R2.fastq \
     --prefix results/xengsort/{params.sampleid} \
-    --compression gz \
+    --compression none \
     -T {threads} \
     --progress \
     --filter
+    
+    rm tmp/{params.sampleid}_R1.fastq
+    rm tmp/{params.sampleid}_R2.fastq
+    pigz -{threads} {output.graftf1}
+    pigz -{threads} {output.graftf2}
     """
 
 rule deconvolutexenograft:
@@ -51,10 +68,10 @@ rule deconvolutexenograft:
   shell:
     """
     module load xenome
-
+    
     mkdir -p ./tmp/{params.sampleid}
     mkdir -p results/xenome
-
+    
     xenome classify \
     -T {threads} \
     -P {params.xenomeindex} \
@@ -65,15 +82,15 @@ rule deconvolutexenograft:
     --output-filename-prefix {params.sampleid} \
     --max-memory 20 \
     --verbose
-
+    
     mv {params.sampleid}_*  results/xenome
     touch {output.flag}
     """
 
 rule mapFASTQ:
   input:
-    f1 =  "results/xengsort/{sample}.graft.1.fq.gz",
-    f2 =  "results/xengsort/{sample}.graft.2.fq.gz"
+    f1 =  "results/xengsort/{sample}-graft.1.fq.gz",
+    f2 =  "results/xengsort/{sample}-graft.2.fq.gz",
     ref = 'ref/BWAgenome.fa'
   output: temp("results/alignment/{sample}/{sample}.sam")
   params:

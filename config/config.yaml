@@ -5,7 +5,7 @@ snv_vcf: /cluster/projects/cesconlab/Projects/CDK4-6iRES_ERposBCa/Exome-seq/Palb
 
 ref:
     xenomeidx: "/cluster/projects/cesconlab/References/xenome/idx_grcm38_grch38/xenomeidx"
-    xengsortidx: "/cluster/projects/cesconlab/References/xenome/idx_grcm38_grch38/xenomeidx"
+    xengsortidx: "/cluster/projects/cesconlab/References/xengsortidx/idx_grcm38_grch38/xengsortidx"
 
 env:
     xengsort: '/cluster/projects/cesconlab/envs/containers/xengsort/xengsort.sif'
