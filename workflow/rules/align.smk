@@ -1,21 +1,21 @@
 rule deconvolutexenograft:
-   input:
-     f1 =  get_r1,
-     f2 =  get_r2
+  input:
+    f1 =  get_r1,
+    f2 =  get_r2
   output:
-     hostf1 =  temp("results/xenome/{sample}_host_1.fastq"),
-     hostf2 =  temp("results/xenome/{sample}_host_2.fastq"),
-     ambiguousf1 =  temp("results/xenome/{sample}_ambiguous_1.fastq"),
-     ambiguousf2 =  temp("results/xenome/{sample}_ambiguous_2.fastq"),
-     neitherf1 =  temp("results/xenome/{sample}_neither_1.fastq"),
-     neitherf2 =  temp("results/xenome/{sample}_neither_2.fastq"),
-     bothf1 =  temp("results/xenome/{sample}_both_1.fastq"),
-     bothf2 =  temp("results/xenome/{sample}_both_2.fastq"),
-     graftf1 =  "results/xenome/{sample}_graft_1.fastq",
-     graftf2 =  "results/xenome/{sample}_graft_2.fastq"
+    hostf1 =  temp("results/xenome/{sample}_host_1.fastq"),
+    hostf2 =  temp("results/xenome/{sample}_host_2.fastq"),
+    ambiguousf1 =  temp("results/xenome/{sample}_ambiguous_1.fastq"),
+    ambiguousf2 =  temp("results/xenome/{sample}_ambiguous_2.fastq"),
+    neitherf1 =  temp("results/xenome/{sample}_neither_1.fastq"),
+    neitherf2 =  temp("results/xenome/{sample}_neither_2.fastq"),
+    bothf1 =  temp("results/xenome/{sample}_both_1.fastq"),
+    bothf2 =  temp("results/xenome/{sample}_both_2.fastq"),
+    graftf1 =  "results/xenome/{sample}_graft_1.fastq",
+    graftf2 =  "results/xenome/{sample}_graft_2.fastq"
   params:
-     xenomeindex=config["ref"]["xenomeidx"],
-     sampleid="{sample}"
+    xenomeindex=config["ref"]["xenomeidx"],
+    sampleid="{sample}"
   threads: 4
   shell:
     """
