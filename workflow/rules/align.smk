@@ -1,7 +1,47 @@
+rule deconvolutexenograft:
+   input:
+     f1 =  get_r1,
+     f2 =  get_r2
+  output:
+     hostf1 =  temp("results/xenome/{sample}_host_1.fastq"),
+     hostf2 =  temp("results/xenome/{sample}_host_2.fastq"),
+     ambiguousf1 =  temp("results/xenome/{sample}_ambiguous_1.fastq"),
+     ambiguousf2 =  temp("results/xenome/{sample}_ambiguous_2.fastq"),
+     neitherf1 =  temp("results/xenome/{sample}_neither_1.fastq"),
+     neitherf2 =  temp("results/xenome/{sample}_neither_2.fastq"),
+     bothf1 =  temp("results/xenome/{sample}_both_1.fastq"),
+     bothf2 =  temp("results/xenome/{sample}_both_2.fastq"),
+     graftf1 =  "results/xenome/{sample}_graft_1.fastq",
+     graftf2 =  "results/xenome/{sample}_graft_2.fastq"
+  params:
+     xenomeindex=config["ref"]["xenomeidx"],
+     sampleid="{sample}"
+  threads: 4
+  shell:
+    """
+    module load xenome
+
+    mkdir ./tmp
+    mkdir -p results/xenome
+
+    xenome classify \
+    -T {threads} \
+    -P {params.xenomeindex} \
+    --pairs \
+    --fastq-in {input.f1} \
+    --fastq-in {input.f2} \
+    --tmp-dir ./tmp \
+    --output-filename-prefix {params.sampleid} \
+    --max-memory 20 \
+    --verbose
+
+    mv {params.sampleid}_*  results/xenome
+    """
+
 rule mapFASTQ:
   input:
-    f1 =  get_r1,
-    f2 =  get_r2,
+    f1 = "results/xenome/{sample}_graft_1.fastq",
+    f2 = "results/xenome/{sample}_graft_2.fastq",
     ref = 'ref/BWAgenome.fa'
   output: temp("results/alignment/{sample}/{sample}.sam")
   params:

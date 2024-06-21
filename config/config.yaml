@@ -3,6 +3,9 @@ bed_file: /cluster/projects/cesconlab/Projects/CDK4-6iRES_ERposBCa/Exome-seq/Pal
 indel_vcf: /cluster/projects/cesconlab/Projects/CDK4-6iRES_ERposBCa/Exome-seq/Palbo-RExomeseq2020/ExomeSeq/config/indels.tsv
 snv_vcf: /cluster/projects/cesconlab/Projects/CDK4-6iRES_ERposBCa/Exome-seq/Palbo-RExomeseq2020/ExomeSeq/config/snvs.tsv
 
+ref:
+    xenomeidx: "/cluster/projects/cesconlab/References/xenome/idx_grcm38_grch38/xenomeidx"
+
 intersects:
     snv:
         0001: +1
@@ -16,4 +19,3 @@ intersects:
 # bed_file: /cluster/home/selghamr/workflows/intialize/ExomeSeq/config/hg38_bed.tsv
 # indel_vcf: /cluster/home/selghamr/workflows/intialize/ExomeSeq/config/indels.tsv
 # snv_vcf: /cluster/home/selghamr/workflows/intialize/ExomeSeq/config/snvs.tsv
-
