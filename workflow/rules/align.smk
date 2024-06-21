@@ -1,3 +1,33 @@
+rule deconvolutexengsort:
+  input:
+    f1 =  get_r1,
+    f2 =  get_r2
+  output:
+    graftf1 =  "results/xengsort/{sample}.graft.1.fq.gz",
+    graftf2 =  "results/xengsort/{sample}.graft.2.fq.gz"
+  params:
+    xengsortindex=config["ref"]["xengsortidx"],
+    xengsortcontainer=config['env']['xengsort']
+    sampleid="{sample}"
+  threads: 4
+  shell:
+    """
+    module load apptainer/1.0.2
+
+    mkdir -p results/xengsort
+
+    apptainer run {params.xengsortcontainer} \
+    xengsort classify \
+    --index {params.xengsortidx} \
+    --fastq {input.f1} \
+    --pairs {input.f2} \
+    --prefix results/xengsort/{params.sampleid} \
+    --compression gz \
+    -T {threads} \
+    --progress \
+    --filter
+    """
+
 rule deconvolutexenograft:
   input:
     f1 =  get_r1,
@@ -42,9 +72,8 @@ rule deconvolutexenograft:
 
 rule mapFASTQ:
   input:
-    f1 = "results/xenome/{sample}_graft_1.fastq",
-    f2 = "results/xenome/{sample}_graft_2.fastq",
-    flag = "results/xenome/{sample}.done",
+    f1 =  "results/xengsort/{sample}.graft.1.fq.gz",
+    f2 =  "results/xengsort/{sample}.graft.2.fq.gz"
     ref = 'ref/BWAgenome.fa'
   output: temp("results/alignment/{sample}/{sample}.sam")
   params:

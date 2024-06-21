@@ -10,6 +10,12 @@ deconvolutexenograft:
   partition : 'veryhimem'
   time : 3-00:00:00
 
+deconvolutexengsort:
+  cpus-per-task : 4
+  mem : 81G
+  partition : 'veryhimem'
+  time : 3-00:00:00
+
 mapFASTQ:
   cpus-per-task : 4
   mem : 12G
