@@ -7,7 +7,7 @@ __default__:
 deconvolutexenograft:
   cpus-per-task : 4
   mem : 81G
-  partition : 'himem'
+  partition : 'veryhimem'
   time : 3-00:00:00
 
 mapFASTQ:

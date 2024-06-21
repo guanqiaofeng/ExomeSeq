@@ -12,7 +12,8 @@ rule deconvolutexenograft:
     bothf1 =  temp("results/xenome/{sample}_both_1.fastq"),
     bothf2 =  temp("results/xenome/{sample}_both_2.fastq"),
     graftf1 =  "results/xenome/{sample}_graft_1.fastq",
-    graftf2 =  "results/xenome/{sample}_graft_2.fastq"
+    graftf2 =  "results/xenome/{sample}_graft_2.fastq",
+    results = "/xenome/{sample}.done"
   params:
     xenomeindex=config["ref"]["xenomeidx"],
     sampleid="{sample}"
@@ -21,7 +22,7 @@ rule deconvolutexenograft:
     """
     module load xenome
 
-    mkdir ./tmp
+    mkdir -p ./tmp/{params.sampleid}
     mkdir -p results/xenome
 
     xenome classify \
@@ -30,18 +31,20 @@ rule deconvolutexenograft:
     --pairs \
     --fastq-in {input.f1} \
     --fastq-in {input.f2} \
-    --tmp-dir ./tmp \
+    --tmp-dir ./tmp/{params.sampleid} \
     --output-filename-prefix {params.sampleid} \
     --max-memory 20 \
     --verbose
 
     mv {params.sampleid}_*  results/xenome
+    touch results/xenome/{params.sampleid}.done
     """
 
 rule mapFASTQ:
   input:
     f1 = "results/xenome/{sample}_graft_1.fastq",
     f2 = "results/xenome/{sample}_graft_2.fastq",
+    flag = "/xenome/{sample}.done",
     ref = 'ref/BWAgenome.fa'
   output: temp("results/alignment/{sample}/{sample}.sam")
   params:
