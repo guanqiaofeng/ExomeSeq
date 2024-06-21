@@ -13,7 +13,7 @@ rule deconvolutexenograft:
     bothf2 =  temp("results/xenome/{sample}_both_2.fastq"),
     graftf1 =  "results/xenome/{sample}_graft_1.fastq",
     graftf2 =  "results/xenome/{sample}_graft_2.fastq",
-    results = "/xenome/{sample}.done"
+    flag = "results/xenome/{sample}.done"
   params:
     xenomeindex=config["ref"]["xenomeidx"],
     sampleid="{sample}"
@@ -37,14 +37,14 @@ rule deconvolutexenograft:
     --verbose
 
     mv {params.sampleid}_*  results/xenome
-    touch results/xenome/{params.sampleid}.done
+    touch {output.flag}
     """
 
 rule mapFASTQ:
   input:
     f1 = "results/xenome/{sample}_graft_1.fastq",
     f2 = "results/xenome/{sample}_graft_2.fastq",
-    flag = "/xenome/{sample}.done",
+    flag = "results/xenome/{sample}.done",
     ref = 'ref/BWAgenome.fa'
   output: temp("results/alignment/{sample}/{sample}.sam")
   params:
