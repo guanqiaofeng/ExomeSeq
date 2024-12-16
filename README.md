@@ -110,7 +110,7 @@ workdir: "/path/to/workflows/intialize/ExomeSeq"
 Once the Snakefile workdir path has been changed, you can run the entire snakemake workflow using `conda-create-envs-only`:
 
 ```
-cd ~/workflow/ExomeSeq
+cd ~/workflows/ExomeSeq
 condaprefix=$(readlink -f .)"/.snakemake/conda"
 
 snakemake \
