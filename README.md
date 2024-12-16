@@ -64,13 +64,13 @@ git clone git@github.com:elsamah/ExomeSeq.git
 The basic idea of this workflow is that we set up all the conda-envs using a set output path in our home directory. However, to run the `--create-env-only` command, we need to have a directory set up with all the files needed to execute the entire workflow. In the future, I will add a script to do this automatically, but for now, it must be made manually:
 
 ```
-wflowdir='~/workflow/ExomeSeq'
+wflowdir='~/workflows/ExomeSeq'
 mkdir -p ~/workflows/intialize/ExomeSeq
 cd ~/workflows/intialize/ExomeSeq
 
 mkdir config data resources
-ln -s $(readlink -f ${wflowdir}/scripts) .
-ln -s $(readlink -f ${wflowdir}/slurm) .
+ln -s ${wflowdir}/scripts .
+ln -s ${wflowdir}/slurm .
 
 cp ${wflowdir}/config/* config/
 ```
