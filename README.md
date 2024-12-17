@@ -98,6 +98,16 @@ In `data/` directory
 touch 1428_PAR_S8_L004_R1_001.fastq.gz B.2.fastq.gz MCF7_PAR_S5_L001_R1_001.fastq.gz 1428_PAR_S8_L004_R2_001.fastq.gz CAMA1_PAR_S3_L001_R1_001.fastq.gz MCF7_PAR_S5_L001_R2_001.fastq.gz 1428_RES_S9_L004_R1_001.fastq.gz CAMA1_PAR_S3_L001_R2_001.fastq.gz MCF7_RES_S1_L003_R1_001.fastq.gz 1428_RES_S9_L004_R2_001.fastq.gz CAMA1_RES_S4_L001_R1_001.fastq.gz MCF7_RES_S1_L003_R2_001.fastq.gz 361_PAR_S1_L001_R1_001.fastq.gz CAMA1_RES_S4_L001_R2_001.fastq.gz T47D_PAR_S4_L003_R1_001.fastq.gz 361_PAR_S1_L001_R2_001.fastq.gz KPL1_PAR_S2_L003_R1_001.fastq.gz T47D_PAR_S4_L003_R2_001.fastq.gz 361_RES_S2_L001_R1_001.fastq.gz KPL1_PAR_S2_L003_R2_001.fastq.gz T47D_RES_S5_L004_R1_001.fastq.gz 361_RES_S2_L001_R2_001.fastq.gz KPL1_RES_S3_L003_R1_001.fastq.gz T47D_RES_S5_L004_R2_001.fastq.gz A.1.fastq.gz KPL1_RES_S3_L003_R2_001.fastq.gz ZR_PAR_S10_L004_R1_001.fastq.gz A2.1.fastq.gz LY2_PAR_S6_L004_R1_001.fastq.gz ZR_PAR_S10_L004_R2_001.fastq.gz A2.2.fastq.gz LY2_PAR_S6_L004_R2_001.fastq.gz ZR_RES_S11_L004_R1_001.fastq.gz A.2.fastq.gz LY2_RES_S7_L004_R1_001.fastq.gz ZR_RES_S11_L004_R2_001.fastq.gz B.1.fastq.gz LY2_RES_S7_L004_R2_001.fastq.gz
 ```
 
+Next, you need to update file path for files in `~/workflows/ExomeSeq/workflow/rules`. Replace `t135250uhn` with your H4H username in the following command.
+```
+cd ~/workflows/ExomeSeq/workflow/rules
+for file in *; do
+    if [ -f "$file" ]; then
+        sed -i 's/selghamr/t135250uhn/g' "$file"
+    fi
+done
+```
+
 ### 3. Setup your project directory (Project node)
 Similary to Step 2, you will want to set up your project directory in your group directory using the same structure. However, this time you will need to add a meaningful `config/units.tsv`, `config/samples.tsv`, `config/config.yaml`, and populate your `data/` directory with symlinks to all the fastqs you will be working with.
 
