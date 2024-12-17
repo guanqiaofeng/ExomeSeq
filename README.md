@@ -132,7 +132,7 @@ Before you build your conda-envs, you'll need to switch the `workdir:` path in y
 workdir: "/path/to/workflows/intialize/ExomeSeq"
 ```
 
-Once the Snakefile workdir path has been changed, you can run the entire snakemake workflow using `conda-create-envs-only`:
+Once the Snakefile workdir path has been changed, you can run the entire snakemake workflow using `conda-create-envs-only`. Change `selghamr` to your H4H username and `v0.77.0` to the version you installed and renamed. 
 
 ```
 cd ~/workflows/ExomeSeq
