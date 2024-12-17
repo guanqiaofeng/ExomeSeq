@@ -69,7 +69,7 @@ mkdir -p ~/workflows/intialize/ExomeSeq
 cd ~/workflows/intialize/ExomeSeq
 
 mkdir config data resources
-ln -s ${wflowdir}/scripts .
+ln -s ${wflowdir}/workflow/scripts .
 ln -s ${wflowdir}/slurm .
 
 cp ${wflowdir}/config/* config/
