@@ -151,6 +151,27 @@ snakemake \
 
 The idea behind this is that snakemake will install the conda envs to `.snakemake/conda`. It creates a hash to label that environment it builds. However, the hash is generated based on the `conda-prefix` and the hash of the `env.yaml` that it is building. As long as the `conda-prefix` and `env.yaml` remain unchanged, it will use the pre-existing environment found in `.snakemake/conda/[HASH]`
 
+The run produce output like this:
+```
+Building DAG of jobs...
+Your conda installation is not configured to use strict channel priorities. This is however important for having robust and correct environments (for details, see https://conda-forge.org/docs/user/tipsandtricks.html). Please consider to configure strict priorities by executing 'conda config --set channel_priority strict'.
+Creating conda environment /cluster/home/t135250uhn/workflows/ExomeSeq/workflow/envs/VCFtoMAF.yaml...
+Downloading and installing remote packages.
+Environment for /cluster/home/t135250uhn/workflows/ExomeSeq/workflow/envs/VCFtoMAF.yaml created (location: ../../ExomeSeq/.snakemake/conda/c3b5c262786f38762625e23053b10c0d_)
+Creating conda environment /cluster/home/t135250uhn/workflows/ExomeSeq/workflow/envs/varscan.yaml...
+Downloading and installing remote packages.
+Environment for /cluster/home/t135250uhn/workflows/ExomeSeq/workflow/envs/varscan.yaml created (location: ../../ExomeSeq/.snakemake/conda/9ba3ec389f5c52412c63b92d960ca4d2_)
+Creating conda environment /cluster/home/t135250uhn/workflows/ExomeSeq/workflow/envs/bwa.yaml...
+Downloading and installing remote packages.
+Environment for /cluster/home/t135250uhn/workflows/ExomeSeq/workflow/envs/bwa.yaml created (location: ../../ExomeSeq/.snakemake/conda/6dc35e096b77973285eca956ccce5f25_)
+Creating conda environment /cluster/home/t135250uhn/workflows/ExomeSeq/workflow/envs/gatk.yaml...
+Downloading and installing remote packages.
+Environment for /cluster/home/t135250uhn/workflows/ExomeSeq/workflow/envs/gatk.yaml created (location: ../../ExomeSeq/.snakemake/conda/d60175db800670dacd03039ace714f1c_)
+Creating conda environment /cluster/home/t135250uhn/workflows/ExomeSeq/workflow/envs/strelka.yaml...
+Downloading and installing remote packages.
+Environment for /cluster/home/t135250uhn/workflows/ExomeSeq/workflow/envs/strelka.yaml created (location: ../../ExomeSeq/.snakemake/conda/1ddeb41f5a834906b3d0dd8e58905c65_)
+```
+
 ### 6. Run your workflow (Build/Project node)
 Once the workflow has been set up and the environments have been created, you can finally run your pre-configured workflow on your project directory. You will need to reconfigure some paths in your `scheduler.sh` script. Be sure to activate your `snakemake` env before queuing the scheduler.
 
