@@ -82,3 +82,106 @@ Solved by
 ```
 mamba install 'tabulate=0.8.10'
 ```
+Error2
+```
+$ more deconvolutexengsort_14530333.err
+Building DAG of jobs...
+Using shell: /usr/bin/bash
+Provided cores: 4
+Rules claiming more threads will be scaled down.
+Select jobs to execute...
+
+[Mon Jan  6 14:20:54 2025]
+rule deconvolutexengsort:
+    input: /cluster/projects/cesconlab/workspace/Guanqiao/workflow/WES_2024Dec/data/BPTO93T_5_S5_R1_001.fastq.gz, /cluster/projects/cesconlab/worksp
+ace/Guanqiao/workflow/WES_2024Dec/data/BPTO93T_5_S5_R2_001.fastq.gz
+    output: results/xengsort/BPTO93T-graft.1.fq.gz, results/xengsort/BPTO93T-graft.2.fq.gz, results/xengsort/BPTO93T-neither.1.fq, results/xengsort/
+BPTO93T-neither.2.fq, results/xengsort/BPTO93T-both.1.fq, results/xengsort/BPTO93T-both.2.fq, results/xengsort/BPTO93T-ambiguous.1.fq, results/xengs
+ort/BPTO93T-ambiguous.2.fq, results/xengsort/BPTO93T-host.1.fq, results/xengsort/BPTO93T-host.2.fq
+    jobid: 0
+    wildcards: sample=BPTO93T
+    threads: 4
+    resources: mem_mb=7124, disk_mb=7124, tmpdir=/tmp
+
+mkdir: cannot create directory ‘tmp’: File exists
+[Mon Jan  6 14:20:57 2025]
+Error in rule deconvolutexengsort:
+    jobid: 0
+    output: results/xengsort/BPTO93T-graft.1.fq.gz, results/xengsort/BPTO93T-graft.2.fq.gz, results/xengsort/BPTO93T-neither.1.fq, results/xengsort/
+BPTO93T-neither.2.fq, results/xengsort/BPTO93T-both.1.fq, results/xengsort/BPTO93T-both.2.fq, results/xengsort/BPTO93T-ambiguous.1.fq, results/xengs
+ort/BPTO93T-ambiguous.2.fq, results/xengsort/BPTO93T-host.1.fq, results/xengsort/BPTO93T-host.2.fq
+    shell:
+        
+    module load apptainer/1.0.2
+    module load pigz/2.6 
+    
+    mkdir -p results/xengsort
+    mkdir tmp
+    zcat /cluster/projects/cesconlab/workspace/Guanqiao/workflow/WES_2024Dec/data/BPTO93T_5_S5_R1_001.fastq.gz > tmp/BPTO93T_R1.fastq
+    zcat /cluster/projects/cesconlab/workspace/Guanqiao/workflow/WES_2024Dec/data/BPTO93T_5_S5_R2_001.fastq.gz > tmp/BPTO93T_R2.fastq
+    
+    apptainer run /cluster/projects/cesconlab/envs/containers/xengsort/xengsort.sif     xengsort classify     --index /cluster/projects/cesconlab/Re
+ferences/xengsort/idx_grcm38_grch38/xengsortidx     --fastq tmp/BPTO93T_R1.fastq     --pairs tmp/BPTO93T_R2.fastq     --prefix results/xengsort/BPTO
+93T     --compression none     -T 4     --progress     --filter
+    
+    rm tmp/BPTO93T_R1.fastq
+    rm tmp/BPTO93T_R2.fastq
+    pigz -4 results/xengsort/BPTO93T-graft.1.fq.gz
+    pigz -4 results/xengsort/BPTO93T-graft.2.fq.gz
+    
+        (one of the commands exited with non-zero exit code; note that snakemake uses bash strict mode!)
+
+Shutting down, this might take some time.
+Exiting because a job execution failed. Look above for error message
+```
+Fix:
+/cluster/home/t135250uhn/workflow/ExomeSeq/workflow/rules/align.smk
+```
+rule deconvolutexengsort:
+  input:
+    f1 =  get_r1,
+    f2 =  get_r2
+  output:
+    graftf1 =  "results/xengsort/{sample}-graft.1.fq.gz",
+    graftf2 =  "results/xengsort/{sample}-graft.2.fq.gz",
+    neitherf1 =  temp("results/xengsort/{sample}-neither.1.fq"),
+    neitherf2 =  temp("results/xengsort/{sample}-neither.2.fq"),
+    bothf1 =  temp("results/xengsort/{sample}-both.1.fq"),
+    bothf2 =  temp("results/xengsort/{sample}-both.2.fq"),
+    ambiguousf1 =  temp("results/xengsort/{sample}-ambiguous.1.fq"),
+    ambiguousf2 =  temp("results/xengsort/{sample}-ambiguous.2.fq"),
+    hostf1 =  temp("results/xengsort/{sample}-host.1.fq"),
+    hostf2 =  temp("results/xengsort/{sample}-host.2.fq")
+  params:
+    xengsortidx=config["ref"]["xengsortidx"],
+    xengsortcontainer=config['env']['xengsort'],
+    sampleid="{sample}"
+  threads: 4
+  shell:
+    """
+    module load apptainer/1.0.2
+    module load pigz/2.6
+
+    mkdir -p results/xengsort
+    mkdir tmp
+    zcat {input.f1} > tmp/{params.sampleid}_R1.fastq
+    zcat {input.f2} > tmp/{params.sampleid}_R2.fastq
+
+    apptainer run {params.xengsortcontainer} \
+    xengsort classify \
+    --index {params.xengsortidx} \
+    --fastq tmp/{params.sampleid}_R1.fastq \
+    --pairs tmp/{params.sampleid}_R2.fastq \
+    --prefix results/xengsort/{params.sampleid} \
+    --compression none \
+    -T {threads} \
+    --progress \
+    --filter
+
+    rm tmp/{params.sampleid}_R1.fastq
+    rm tmp/{params.sampleid}_R2.fastq
+    pigz -{threads} {output.graftf1}
+    pigz -{threads} {output.graftf2}
+    """
+```
+`mkdir tmp` --> `mkdir -p tmp`
