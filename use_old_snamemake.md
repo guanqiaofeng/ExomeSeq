@@ -185,3 +185,59 @@ rule deconvolutexengsort:
     """
 ```
 `mkdir tmp` --> `mkdir -p tmp`
+
+Error3:
+```
+$ more deconvolutexengsort_14530381.err 
+Building DAG of jobs...
+Using shell: /usr/bin/bash
+Provided cores: 4
+Rules claiming more threads will be scaled down.
+Select jobs to execute...
+
+[Mon Jan  6 14:27:25 2025]
+rule deconvolutexengsort:
+    input: /cluster/projects/cesconlab/workspace/Guanqiao/workflow/WES_2024Dec/data/DCBTO14N_14_S14_R1_001.fastq.gz, /cluster/projects/ces
+conlab/workspace/Guanqiao/workflow/WES_2024Dec/data/DCBTO14N_14_S14_R2_001.fastq.gz
+    output: results/xengsort/DCBTO14N-graft.1.fq.gz, results/xengsort/DCBTO14N-graft.2.fq.gz, results/xengsort/DCBTO14N-neither.1.fq, resu
+lts/xengsort/DCBTO14N-neither.2.fq, results/xengsort/DCBTO14N-both.1.fq, results/xengsort/DCBTO14N-both.2.fq, results/xengsort/DCBTO14N-am
+biguous.1.fq, results/xengsort/DCBTO14N-ambiguous.2.fq, results/xengsort/DCBTO14N-host.1.fq, results/xengsort/DCBTO14N-host.2.fq
+    jobid: 0
+    wildcards: sample=DCBTO14N
+    threads: 4
+    resources: mem_mb=7550, disk_mb=7550, tmpdir=/tmp
+
+pigz: skipping: results/xengsort/DCBTO14N-graft.1.fq.gz does not exist
+[Mon Jan  6 14:53:02 2025]
+Error in rule deconvolutexengsort:
+    jobid: 0
+    output: results/xengsort/DCBTO14N-graft.1.fq.gz, results/xengsort/DCBTO14N-graft.2.fq.gz, results/xengsort/DCBTO14N-neither.1.fq, resu
+lts/xengsort/DCBTO14N-neither.2.fq, results/xengsort/DCBTO14N-both.1.fq, results/xengsort/DCBTO14N-both.2.fq, results/xengsort/DCBTO14N-am
+biguous.1.fq, results/xengsort/DCBTO14N-ambiguous.2.fq, results/xengsort/DCBTO14N-host.1.fq, results/xengsort/DCBTO14N-host.2.fq
+    shell:
+        
+    module load apptainer/1.0.2
+    module load pigz/2.6 
+    
+    mkdir -p results/xengsort
+    mkdir -p tmp
+    zcat /cluster/projects/cesconlab/workspace/Guanqiao/workflow/WES_2024Dec/data/DCBTO14N_14_S14_R1_001.fastq.gz > tmp/DCBTO14N_R1.fastq
+    zcat /cluster/projects/cesconlab/workspace/Guanqiao/workflow/WES_2024Dec/data/DCBTO14N_14_S14_R2_001.fastq.gz > tmp/DCBTO14N_R2.fastq
+    
+    apptainer run /cluster/projects/cesconlab/envs/containers/xengsort/xengsort.sif     xengsort classify     --index /cluster/projects/ce
+sconlab/References/xengsort/idx_grcm38_grch38/xengsortidx     --fastq tmp/DCBTO14N_R1.fastq     --pairs tmp/DCBTO14N_R2.fastq     --prefix
+ results/xengsort/DCBTO14N     --compression none     -T 4     --progress     --filter
+    
+    rm tmp/DCBTO14N_R1.fastq
+    rm tmp/DCBTO14N_R2.fastq
+    pigz -4 results/xengsort/DCBTO14N-graft.1.fq.gz
+    pigz -4 results/xengsort/DCBTO14N-graft.2.fq.gz
+    
+        (one of the commands exited with non-zero exit code; note that snakemake uses bash strict mode!)
+
+Shutting down, this might take some time.
+Exiting because a job execution failed. Look above for error message
+```
+To fix in "rule deconvolutexengsort:"
+`--compression none` to `--compression gz`
+
