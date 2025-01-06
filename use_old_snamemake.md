@@ -36,6 +36,14 @@ touch 1000G_phase1.snps.high_confidence.hg38.vcf dbsnp_144.hg38.vcf Mills_and_10
 ```
 
 ```
+cd ~/workflows/ExomeSeq/workflow/rules
+for file in *; do
+    if [ -f "$file" ]; then
+        sed -i 's/selghamr/t135250uhn/g' "$file"
+    fi
+done
+```
+```
 cd ../resources
 touch genome.fa xenomeidx-both.kmers.high-bits xenomeidx-graft.kmers.low-bits.lwr INS-B-014-SB.processed.bam xenomeidx-both.kmers.low-bits.lwr xenomeidx-graft.kmers.low-bits.upr S04380110_Covered.headless.bed xenomeidx-both.kmers.low-bits.upr xenomeidx-host.header xengsortidx.hash xenomeidx-both.lhs-bits xenomeidx-host.kmers-d0 xengsortidx.info xenomeidx-both.rhs-bits xenomeidx-host.kmers-d1 xengsort.sif xenomeidx-graft.header xenomeidx-host.kmers.header xenomeidx-both.header xenomeidx-graft.kmers-d0 xenomeidx-host.kmers.high-bits xenomeidx-both.kmers-d0 xenomeidx-graft.kmers-d1 xenomeidx-host.kmers.low-bits.lwr xenomeidx-both.kmers-d1 xenomeidx-graft.kmers.header xenomeidx-host.kmers.low-bits.upr xenomeidx-both.kmers.header xenomeidx-graft.kmers.high-bits
 ```
