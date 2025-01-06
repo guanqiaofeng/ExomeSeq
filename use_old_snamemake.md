@@ -47,3 +47,38 @@ done
 cd ../resources
 touch genome.fa xenomeidx-both.kmers.high-bits xenomeidx-graft.kmers.low-bits.lwr INS-B-014-SB.processed.bam xenomeidx-both.kmers.low-bits.lwr xenomeidx-graft.kmers.low-bits.upr S04380110_Covered.headless.bed xenomeidx-both.kmers.low-bits.upr xenomeidx-host.header xengsortidx.hash xenomeidx-both.lhs-bits xenomeidx-host.kmers-d0 xengsortidx.info xenomeidx-both.rhs-bits xenomeidx-host.kmers-d1 xengsort.sif xenomeidx-graft.header xenomeidx-host.kmers.header xenomeidx-both.header xenomeidx-graft.kmers-d0 xenomeidx-host.kmers.high-bits xenomeidx-both.kmers-d0 xenomeidx-graft.kmers-d1 xenomeidx-host.kmers.low-bits.lwr xenomeidx-both.kmers-d1 xenomeidx-graft.kmers.header xenomeidx-host.kmers.low-bits.upr xenomeidx-both.kmers.header xenomeidx-graft.kmers.high-bits
 ```
+
+
+
+Error1:
+```
+more slurm-14530035.out 
+Building DAG of jobs...
+Using shell: /usr/bin/bash
+Provided cluster nodes: 12
+Traceback (most recent call last):
+  File "/cluster/home/t135250uhn/miniconda3/envs/snakemake6153/lib/python3.10/site-packages/snakemake/__init__.py", line 701, in snakemake
+    success = workflow.execute(
+  File "/cluster/home/t135250uhn/miniconda3/envs/snakemake6153/lib/python3.10/site-packages/snakemake/workflow.py", line 1060, in execute
+    logger.run_info("\n".join(dag.stats()))
+  File "/cluster/home/t135250uhn/miniconda3/envs/snakemake6153/lib/python3.10/site-packages/snakemake/dag.py", line 2191, in stats
+    yield tabulate(rows, headers="keys")
+  File "/cluster/home/t135250uhn/miniconda3/envs/snakemake6153/lib/python3.10/site-packages/tabulate/__init__.py", line 2048, in tabulate
+    list_of_lists, headers = _normalize_tabular_data(
+  File "/cluster/home/t135250uhn/miniconda3/envs/snakemake6153/lib/python3.10/site-packages/tabulate/__init__.py", line 1471, in _normaliz
+e_tabular_data
+    rows = list(map(lambda r: r if _is_separating_line(r) else list(r), rows))
+  File "/cluster/home/t135250uhn/miniconda3/envs/snakemake6153/lib/python3.10/site-packages/tabulate/__init__.py", line 1471, in <lambda>
+    rows = list(map(lambda r: r if _is_separating_line(r) else list(r), rows))
+  File "/cluster/home/t135250uhn/miniconda3/envs/snakemake6153/lib/python3.10/site-packages/tabulate/__init__.py", line 107, in _is_separa
+ting_line
+    (len(row) >= 1 and row[0] == SEPARATING_LINE)
+  File "/cluster/home/t135250uhn/miniconda3/envs/snakemake6153/lib/python3.10/site-packages/snakemake/rules.py", line 1138, in __eq__
+    return self.name == other.name and self.output == other.output
+AttributeError: 'str' object has no attribute 'name'
+```
+https://github.com/snakemake/snakemake/issues/1899
+Solved by 
+```
+mamba install 'tabulate=0.8.10'
+```
