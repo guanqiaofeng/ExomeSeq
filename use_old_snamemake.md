@@ -16,8 +16,11 @@ wflowdir='~/workflow/ExomeSeq'
 mkdir -p ~/workflow/intialize/ExomeSeq
 cd ~/workflow/intialize/ExomeSeq
 
-mkdir config data resources
+mkdir config data resources ref
+ln -s ${wflowdir}/workflow/scripts .
+ln -s ${wflowdir}/slurm .
 
+cp ~/workflow/ExomeSeq/config/* config/
 
 ```
 
