@@ -248,4 +248,57 @@ change to
 pigz -4 results/xengsort/DCBTO14N-graft.1.fq
 pigz -4 results/xengsort/DCBTO14N-graft.2.fq
 ```
+Error 4
+```
+$ more deconvolutexengsort_14531730.err
+Building DAG of jobs...
+Using shell: /usr/bin/bash
+Provided cores: 4
+Rules claiming more threads will be scaled down.
+Select jobs to execute...
+
+[Tue Jan  7 10:37:36 2025]
+rule deconvolutexengsort:
+    input: /cluster/projects/cesconlab/workspace/Guanqiao/workflow/WES_2024Dec/data/BPTO51_1_S1_R1_001.fastq.gz, /cluster/projects/cesconlab/
+workspace/Guanqiao/workflow/WES_2024Dec/data/BPTO51_1_S1_R2_001.fastq.gz
+    output: results/xengsort/BPTO51-graft.1.fq.gz, results/xengsort/BPTO51-graft.2.fq.gz, results/xengsort/BPTO51-neither.1.fq, results/xengs
+ort/BPTO51-neither.2.fq, results/xengsort/BPTO51-both.1.fq, results/xengsort/BPTO51-both.2.fq, results/xengsort/BPTO51-ambiguous.1.fq, result
+s/xengsort/BPTO51-ambiguous.2.fq, results/xengsort/BPTO51-host.1.fq, results/xengsort/BPTO51-host.2.fq
+    jobid: 0
+    wildcards: sample=BPTO51
+    threads: 4
+    resources: mem_mb=7888, disk_mb=7888, tmpdir=/tmp
+
+Waiting at most 60 seconds for missing files.
+MissingOutputException in line 1 of /cluster/home/t135250uhn/workflow/ExomeSeq/workflow/rules/align.smk:
+Job Missing files after 60 seconds:
+results/xengsort/BPTO51-neither.1.fq
+results/xengsort/BPTO51-neither.2.fq
+results/xengsort/BPTO51-both.1.fq
+results/xengsort/BPTO51-both.2.fq
+results/xengsort/BPTO51-ambiguous.1.fq
+results/xengsort/BPTO51-ambiguous.2.fq
+results/xengsort/BPTO51-host.1.fq
+results/xengsort/BPTO51-host.2.fq
+This might be due to filesystem latency. If that is the case, consider to increase the wait time with --latency-wait.
+Job id: 0 completed successfully, but some output files are missing. 0
+Removing output files of failed job deconvolutexengsort since they might be corrupted:
+results/xengsort/BPTO51-graft.1.fq.gz, results/xengsort/BPTO51-graft.2.fq.gz
+Shutting down, this might take some time.
+Exiting because a job execution failed. Look above for error message
+```
+To fix in "rule deconvolutexengsort:"
+```
+    apptainer run {params.xengsortcontainer} \
+    xengsort classify \
+    --index {params.xengsortidx} \
+    --fastq tmp/{params.sampleid}_R1.fastq \
+    --pairs tmp/{params.sampleid}_R2.fastq \
+    --prefix results/xengsort/{params.sampleid} \
+    --compression none \
+    -T {threads} \
+    --progress \
+    --filter
+```
+remove `--filter`
 
