@@ -239,5 +239,13 @@ Shutting down, this might take some time.
 Exiting because a job execution failed. Look above for error message
 ```
 To fix in "rule deconvolutexengsort:"
-`--compression none` to `--compression gz`
+```
+pigz -4 results/xengsort/DCBTO14N-graft.1.fq.gz
+pigz -4 results/xengsort/DCBTO14N-graft.2.fq.gz
+```
+change to 
+```
+pigz -4 results/xengsort/DCBTO14N-graft.1.fq
+pigz -4 results/xengsort/DCBTO14N-graft.2.fq
+```
 
