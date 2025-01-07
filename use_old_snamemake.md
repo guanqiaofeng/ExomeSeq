@@ -302,3 +302,66 @@ To fix in "rule deconvolutexengsort:"
 ```
 remove `--filter`
 
+Error 5
+```
+[Tue Jan  7 14:20:41 2025]
+rule picardMarkDuplicates:
+    input: results/alignment/BPNO51/BPNO51_sorted.bam, results/alignment/BPNO51/BPNO51_sorted.bam.bai
+    output: results/alignment/BPNO51/BPNO51_sorted.dedup.bam, results/alignment/BPNO51/BPNO51_picardmetrics.txt
+    jobid: 0
+    wildcards: sample=BPNO51
+    threads: 4
+    resources: mem_mb=1822, disk_mb=1822, tmpdir=/tmp
+
+Activating conda environment: /cluster/home/t135250uhn/workflow/ExomeSeq/.snakemake/conda/1b527edd50c39f616d401330675ce543
+Error: Unable to access jarfile /cluster/home/t135250uhn/workflows/ExomeSeq/.snakemake/conda/9b770440ff173434e53ee101c7452a0a/share/picard-2.
+26.0-0/picard.jar
+[Tue Jan  7 14:20:47 2025]
+Error in rule picardMarkDuplicates:
+    jobid: 0
+    output: results/alignment/BPNO51/BPNO51_sorted.dedup.bam, results/alignment/BPNO51/BPNO51_picardmetrics.txt
+    conda-env: /cluster/home/t135250uhn/workflow/ExomeSeq/.snakemake/conda/1b527edd50c39f616d401330675ce543
+    shell:
+        
+    java -Xmx12g -jar /cluster/home/t135250uhn/workflows/ExomeSeq/.snakemake/conda/9b770440ff173434e53ee101c7452a0a/share/picard-2.26.0-0/pic
+ard.jar MarkDuplicates INPUT=results/alignment/BPNO51/BPNO51_sorted.bam OUTPUT=results/alignment/BPNO51/BPNO51_sorted.dedup.bam METRICS_FILE=
+results/alignment/BPNO51/BPNO51_picardmetrics.txt ASSUME_SORTED=true MAX_RECORDS_IN_RAM=100000 VALIDATION_STRINGENCY=SILENT CREATE_INDEX=true
+ USE_JDK_DEFLATER=true USE_JDK_INFLATER=true
+    
+        (one of the commands exited with non-zero exit code; note that snakemake uses bash strict mode!)
+
+Shutting down, this might take some time.
+Exiting because a job execution failed. Look above for error message
+```
+To fix in rule picardMarkDuplicates of `rules/align.smk`
+```
+rule picardMarkDuplicates:
+  input:
+    bam="results/alignment/{sample}/{sample}_sorted.bam",
+    bai="results/alignment/{sample}/{sample}_sorted.bam.bai",
+  output:
+    dedup="results/alignment/{sample}/{sample}_sorted.dedup.bam",
+    metrics="results/alignment/{sample}/{sample}_picardmetrics.txt"
+  params:
+    picard="/cluster/home/t135250uhn/workflows/ExomeSeq/.snakemake/conda/9b770440ff173434e53ee101c7452a0a/share/picard-2.26.0-0"
+  threads: 4
+  conda:
+    "/cluster/home/t135250uhn/workflows/ExomeSeq/workflow/envs/bwa.yaml",
+  shell:
+    """
+    java -Xmx12g -jar {params.picard}/picard.jar MarkDuplicates INPUT={input.bam} OUTPUT={output.dedup} METRICS_FILE={output.metrics} ASSUME_SORTED=
+true MAX_RECORDS_IN_RAM=100000 VALIDATION_STRINGENCY=SILENT CREATE_INDEX=true USE_JDK_DEFLATER=true USE_JDK_INFLATER=true
+    """
+```
+update `picard` by find its correct path using:
+```
+conda activate /cluster/home/t135250uhn/workflow/ExomeSeq/.snakemake/conda/1b527edd50c39f616d401330675ce543
+conda list | grep picard
+find /cluster/home/t135250uhn/workflow/ExomeSeq/.snakemake/conda/1b527edd50c39f616d401330675ce543 -name "picard.jar"
+
+/cluster/home/t135250uhn/workflow/ExomeSeq/.snakemake/conda/1b527edd50c39f616d401330675ce543/share/picard-2.26.0-0/picard.jar
+```
+now update to 
+```
+picard="/cluster/home/t135250uhn/workflow/ExomeSeq/.snakemake/conda/1b527edd50c39f616d401330675ce543/share/picard-2.26.0-0"
+```
