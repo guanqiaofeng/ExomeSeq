@@ -445,3 +445,6 @@ to
 params:
     strelka="/cluster/home/t135250uhn/workflow/ExomeSeq/.snakemake/conda/ca496e3542c49ad4d5d8124e6f30f37f/share/strelka-2.9.10-2/bin",
 ```
+Error 7
+same error as Error 5/6, it is for varscan.smk. Correct it as same as above
+also update conda with the correct path
