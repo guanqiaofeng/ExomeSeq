@@ -365,3 +365,83 @@ now update to
 ```
 picard="/cluster/home/t135250uhn/workflow/ExomeSeq/.snakemake/conda/1b527edd50c39f616d401330675ce543/share/picard-2.26.0-0"
 ```
+Error 6
+```
+$ more Strelka_14533257.err
+Building DAG of jobs...
+Using shell: /usr/bin/bash
+Provided cores: 4
+Rules claiming more threads will be scaled down.
+Select jobs to execute...
+
+[Tue Jan  7 17:18:13 2025]
+rule Strelka:
+    input: results/alignment/BPNO51/BPNO51.realigned.recal.bam, ref/genome.fa, config/strelka_config_bwa.ini, resources/INS-B-014-SB.processe
+d.bam
+    output: results/Strelka/BPNO51/BPNO51.myAnalysis, results/Strelka/BPNO51/BPNO51.myAnalysis/results/variants/BPNO51_Slk_somatic.indels.vcf
+.gz, results/Strelka/BPNO51/BPNO51.myAnalysis/results/variants/BPNO51_Slk_somatic.snvs.vcf.gz, results/Strelka/BPNO51/BPNO51.myAnalysis/resul
+ts/variants/BPNO51_Slk_somatic.indels.vcf.gz.tbi, results/Strelka/BPNO51/BPNO51.myAnalysis/results/variants/BPNO51_Slk_somatic.snvs.vcf.gz.tb
+i
+    jobid: 0
+    wildcards: sample=BPNO51
+    threads: 4
+    resources: mem_mb=29222, disk_mb=29222, tmpdir=/tmp
+
+Activating conda environment: /cluster/home/t135250uhn/workflow/ExomeSeq/.snakemake/conda/ca496e3542c49ad4d5d8124e6f30f37f
+/usr/bin/bash: line 2: /cluster/home/t135250uhn/workflows/ExomeSeq/.snakemake/conda/236aa367b1347b9561439ce4facd36c0/share/strelka-2.9.10-1/b
+in/configureStrelkaSomaticWorkflow.py: No such file or directory
+[Tue Jan  7 17:18:16 2025]
+Error in rule Strelka:
+    jobid: 0
+    output: results/Strelka/BPNO51/BPNO51.myAnalysis, results/Strelka/BPNO51/BPNO51.myAnalysis/results/variants/BPNO51_Slk_somatic.indels.vcf
+.gz, results/Strelka/BPNO51/BPNO51.myAnalysis/results/variants/BPNO51_Slk_somatic.snvs.vcf.gz, results/Strelka/BPNO51/BPNO51.myAnalysis/resul
+ts/variants/BPNO51_Slk_somatic.indels.vcf.gz.tbi, results/Strelka/BPNO51/BPNO51.myAnalysis/results/variants/BPNO51_Slk_somatic.snvs.vcf.gz.tb
+i
+    conda-env: /cluster/home/t135250uhn/workflow/ExomeSeq/.snakemake/conda/ca496e3542c49ad4d5d8124e6f30f37f
+    shell:
+        
+    ## configuration
+    /cluster/home/t135250uhn/workflows/ExomeSeq/.snakemake/conda/236aa367b1347b9561439ce4facd36c0/share/strelka-2.9.10-1/bin/configureStrelka
+SomaticWorkflow.py     --normal=resources/INS-B-014-SB.processed.bam      --tumor=results/alignment/BPNO51/BPNO51.realigned.recal.bam     --r
+ef=ref/genome.fa     --config=config/strelka_config_bwa.ini     --runDir=results/Strelka/BPNO51/BPNO51.myAnalysis
+
+    ## running pipeline
+    results/Strelka/BPNO51/BPNO51.myAnalysis/runWorkflow.py -m local -j 20
+
+    echo "Current Dir: "$(pdir)
+    mv results/Strelka/BPNO51/BPNO51.myAnalysis/results/variants/somatic.indels.vcf.gz results/Strelka/BPNO51/BPNO51.myAnalysis/results/varia
+nts/BPNO51_Slk_somatic.indels.vcf.gz
+    mv results/Strelka/BPNO51/BPNO51.myAnalysis/results/variants/somatic.snvs.vcf.gz results/Strelka/BPNO51/BPNO51.myAnalysis/results/variant
+s/BPNO51_Slk_somatic.snvs.vcf.gz
+    mv results/Strelka/BPNO51/BPNO51.myAnalysis/results/variants/somatic.indels.vcf.gz.tbi results/Strelka/BPNO51/BPNO51.myAnalysis/results/v
+ariants/BPNO51_Slk_somatic.indels.vcf.gz.tbi
+    mv results/Strelka/BPNO51/BPNO51.myAnalysis/results/variants/somatic.snvs.vcf.gz.tbi results/Strelka/BPNO51/BPNO51.myAnalysis/results/var
+iants/BPNO51_Slk_somatic.snvs.vcf.gz.tbi
+
+    
+        (one of the commands exited with non-zero exit code; note that snakemake uses bash strict mode!)
+
+Removing output files of failed job Strelka since they might be corrupted:
+results/Strelka/BPNO51/BPNO51.myAnalysis
+Shutting down, this might take some time.
+Exiting because a job execution failed. Look above for error message
+```
+Solve it:
+```
+(base) [t135250uhn@node123 ExomeSeq]$ conda activate /cluster/home/t135250uhn/workflow/ExomeSeq/.snakemake/conda/ca496e3542c49ad4d5d8124e6f30f37f
+(/cluster/home/t135250uhn/workflow/ExomeSeq/.snakemake/conda/ca496e3542c49ad4d5d8124e6f30f37f) [t135250uhn@node123 ExomeSeq]$ conda list | grep strelka
+strelka                   2.9.10               hdfd78af_2    bioconda
+(/cluster/home/t135250uhn/workflow/ExomeSeq/.snakemake/conda/ca496e3542c49ad4d5d8124e6f30f37f) [t135250uhn@node123 ExomeSeq]$ find /cluster/home/t135250uhn/workflow/ExomeSeq/.snakemake/conda/ca496e3542c49ad4d5d8124e6f30f37f -name "configureStrelkaSomaticWorkflow.py"
+/cluster/home/t135250uhn/workflow/ExomeSeq/.snakemake/conda/ca496e3542c49ad4d5d8124e6f30f37f/bin/configureStrelkaSomaticWorkflow.py
+/cluster/home/t135250uhn/workflow/ExomeSeq/.snakemake/conda/ca496e3542c49ad4d5d8124e6f30f37f/share/strelka-2.9.10-2/bin/configureStrelkaSomaticWorkflow.py
+```
+Now update rule Strelka:
+```
+params:
+    strelka="/cluster/home/t135250uhn/workflows/ExomeSeq/.snakemake/conda/236aa367b1347b9561439ce4facd36c0/share/strelka-2.9.10-1/bin",
+```
+to 
+```
+params:
+    strelka="/cluster/home/t135250uhn/workflow/ExomeSeq/.snakemake/conda/ca496e3542c49ad4d5d8124e6f30f37f/share/strelka-2.9.10-2/bin",
+```
