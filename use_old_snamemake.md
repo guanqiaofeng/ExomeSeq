@@ -448,3 +448,63 @@ params:
 Error 7
 same error as Error 5/6, it is for varscan.smk. Correct it as same as above
 also update conda with the correct path
+
+Error 8
+```
+[2025-01-08T15:31:29.755024Z] [node77.h4h.uhnresearch.ca] [28080_1] [TaskManager] [ERROR] 
+Failed to complete command task: 'CallGenome+callGenomeSegment_chromId_000_chr1_0008' launched from sub-workflow 'CallGenome', error code: 1, 
+command: '
+/cluster/home/t135250uhn/workflow/ExomeSeq/.snakemake/conda/ca496e3542c49ad4d5d8124e6f30f37f/share/strelka-2.9.10-2/libexec/strelka2 
+--region chr1:94840545-106695612 
+--ref /cluster/projects/cesconlab/workspace/Guanqiao/workflow/WES_2024Dec/ref/genome.fa 
+--max-indel-size 49 
+--min-mapping-quality 20 
+--somatic-snv-rate 0.0001 
+--shared-site-error-rate 0.0000000005
+--shared-site-error-strand-bias-fraction 0.0 
+--somatic-indel-rate 0.000001 
+--shared-indel-error-factor 2.2 
+--tier2-min-mapping-quality 0 
+--strelka-snv
+-max-filtered-basecall-frac 0.4 
+--strelka-snv-max-spanning-deletion-frac 0.75 
+--strelka-snv-min-qss-ref 15 
+--strelka-indel-max-window-filtered-basecall
+-frac 0.3 
+--strelka-indel-min-qsi-ref 40 
+--ssnv-contam-tolerance 0.15 
+--indel-contam-tolerance 0.15 
+--somatic-snv-scoring-model-file /cluster/home/t135250uhn/workflow/ExomeSeq/.snakemake/conda/ca496e3542c49ad4d5d8124e6f30f37f/share/strelka-2.9.10-2/share/config/somaticSNVScoringModels.json 
+--somatic-indel-scoring-model-file /cluster/home/t135250uhn/workflow/ExomeSeq/.snakemake/conda/ca496e3542c49ad4d5d8124e6f30f37f/share/strelka-2.9.10-2/share/config/somaticIndelScoringModels.json 
+--normal-align-file /cluster/projects/cesconlab/workspace/Guanqiao/workflow/WES_2024Dec/resources/INS-B-014-SB.processed.bam 
+--tumor-align-file /cluster/projects/cesconlab/workspace/Guanqiao/workflow/WES_2024Dec/results/alignment/BPNO51/BPNO51.realigned.recal.bam 
+--somatic-snv-file /cluster/projects/cesconlab/workspace/Guanqiao/workflow/WES_2024Dec/results/Strelka/BPNO51/BPNO51.myAnalysis/workspace/genomeSegment.tmpdir/somatic.snvs.unfiltered.chromId_000_chr1_0008.vcf 
+--somatic-indel-file /cluster/projects/cesconlab/workspace/Guanqiao/workflow/WES_2024Dec/results/Strelka/BPNO51/BPNO51.myAnalysis/workspace/genomeSegment.tmpdir/somatic.indels.unfiltered.chromId_000_chr1_0008.vcf 
+--stats-file /cluster/projects/cesconlab/workspace/Guanqiao/workflow/WES_2024Dec/results/Strelka/BPNO51/BPNO51.myAnalysis/workspace/genomeSegment.tmpdir/runStats.chromId_000_chr1_0008.xml
+--strelka-skip-header 
+--strelka-chrom-depth-file /cluster/projects/cesconlab/workspace/Guanqiao/workflow/WES_2024Dec/results/Strelka/BPNO51/BPNO51.myAnalysis/workspace/chromDepth.tsv 
+--strelka-max-depth-factor 3.0
+'
+[2025-01-08T15:31:29.776880Z] [node77.h4h.uhnresearch.ca] [28080_1] [TaskManager] [ERROR] [CallGenome+callGenomeSegment_chromId_000_chr1_0008] Error Message:
+[2025-01-08T15:31:29.795050Z] [node77.h4h.uhnresearch.ca] [28080_1] [TaskManager] [ERROR] [CallGenome+callGenomeSegment_chromId_000_chr1_0008] Anomalous task wrapper stderr output. Wrapper signal file: '/cluster/projects/cesconlab/workspace/Guanqiao/workflow/WES_2024Dec/results/Strelka/BPNO51/BPNO51.myAnalysis/workspace/pyflow.data/logs/tmp/taskWrapperLogs/000/107/pyflowTaskWrapper.signal.txt'
+[2025-01-08T15:31:29.806699Z] [node77.h4h.uhnresearch.ca] [28080_1] [TaskManager] [ERROR] [CallGenome+callGenomeSegment_chromId_000_chr1_0008] Logging 5 line(s) of task wrapper log output below:
+[2025-01-08T15:31:29.824197Z] [node77.h4h.uhnresearch.ca] [28080_1] [TaskManager] [ERROR] [CallGenome+callGenomeSegment_chromId_000_chr1_0008] [taskWrapper-stderr] [2025-01-08T15:31:29.396861Z] [node77.h4h.uhnresearch.ca] [28080_1] [pyflowTaskWrapper:CallGenome+callGenomeSegment_chromId_000_chr1_0008] [wrapperSignal] wrapperStart
+[2025-01-08T15:31:29.839917Z] [node77.h4h.uhnresearch.ca] [28080_1] [TaskManager] [ERROR] [CallGenome+callGenomeSegment_chromId_000_chr1_0008] [taskWrapper-stderr] [2025-01-08T15:31:29.451702Z] [node77.h4h.uhnresearch.ca] [28080_1] [pyflowTaskWrapper:CallGenome+callGenomeSegment_chromId_000_chr1_0008] [wrapperSignal] taskStart
+[2025-01-08T15:31:29.844013Z] [node77.h4h.uhnresearch.ca] [28080_1] [TaskManager] [ERROR] [CallGenome+callGenomeSegment_chromId_000_chr1_0008] [taskWrapper-stderr] [2025-01-08T15:31:29.554423Z] [node77.h4h.uhnresearch.ca] [28080_1] [pyflowTaskWrapper:CallGenome+callGenomeSegment_chromId_000_chr1_0008] [wrapperSignal] taskExitCode -11
+[2025-01-08T15:31:29.856201Z] [node77.h4h.uhnresearch.ca] [28080_1] [TaskManager] [ERROR] [CallGenome+callGenomeSegment_chromId_000_chr1_0008] [taskWrapper-stderr] [2025-01-08T15:31:29.565490Z] [node77.h4h.uhnresearch.ca] [28080_1] [pyflowTaskWrapper:CallGenome+callGenomeSegment_chromId_000_chr1_0008] [wrapperSignal] taskStderrTail 1
+[2025-01-08T15:31:29.864091Z] [node77.h4h.uhnresearch.ca] [28080_1] [TaskManager] [ERROR] [CallGenome+callGenomeSegment_chromId_000_chr1_0008] [taskWrapper-stderr] Last 0 stderr lines from task (of 0 total lines):
+[2025-01-08T15:31:29.879082Z] [node77.h4h.uhnresearch.ca] [28080_1] [TaskManager] [ERROR] Shutting down task submission. Waiting for remaining tasks to complete.
+```
+Probably mem request is too low. In `slurm/cluster.json` change 
+```
+Strelka:
+  cpus-per-task : 4
+  time : 3-00:00:00
+```
+to
+```
+Strelka:
+  cpus-per-task : 4
+  mem : 20G
+  time : 3-00:00:00
+```
