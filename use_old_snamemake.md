@@ -505,6 +505,7 @@ to
 ```
 Strelka:
   cpus-per-task : 4
-  mem : 20G
+  mem : 16G
   time : 3-00:00:00
 ```
+default mem is 8G
