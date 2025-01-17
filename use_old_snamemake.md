@@ -592,4 +592,4 @@ Executing transaction: done
 (/cluster/home/t135250uhn/workflow/ExomeSeq/.snakemake/conda/ca496e3542c49ad4d5d8124e6f30f37f) [t135250uhn@h4huhnlogin1 softwares]$ conda list | grep strelka
 strelka                   2.9.10               h9ee0642_1    <unknown>
 ```
-
+after change to strelka 2.9.10 build 1, strelka is running smoothly
