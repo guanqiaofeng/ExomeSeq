@@ -509,3 +509,87 @@ Strelka:
   time : 3-00:00:00
 ```
 default mem is 8G
+not working
+downloaded strelka and use it directly, not working
+find out in my conda environment my strelka was 2.9.10 build 2. Samah used buid 1. So now changing my build to build1 by (login model)
+```
+(base) [t135250uhn@h4huhnlogin1 ~]$ conda activate /cluster/home/t135250uhn/workflow/ExomeSeq/.snakemake/conda/ca496e3542c49ad4d5d8124e6f30f37f
+(/cluster/home/t135250uhn/workflow/ExomeSeq/.snakemake/conda/ca496e3542c49ad4d5d8124e6f30f37f) [t135250uhn@h4huhnlogin1 ~]$ conda install strelka=2.9.10=1
+Retrieving notices: done
+Channels:
+ - conda-forge
+ - bioconda
+ - defaults
+Platform: linux-64
+Collecting package metadata (repodata.json): done
+Solving environment: failed
+
+PackagesNotFoundError: The following packages are not available from current channels:
+
+  - strelka==2.9.10=1
+
+Current channels:
+
+  - https://conda.anaconda.org/conda-forge
+  - https://conda.anaconda.org/bioconda
+  - defaults
+  - https://repo.anaconda.com/pkgs/main
+  - https://repo.anaconda.com/pkgs/r
+
+To search for alternate channels that may provide the conda package you're
+looking for, navigate to
+
+    https://anaconda.org
+
+and use the search bar at the top of the page.
+
+
+(/cluster/home/t135250uhn/workflow/ExomeSeq/.snakemake/conda/ca496e3542c49ad4d5d8124e6f30f37f) [t135250uhn@h4huhnlogin1 ~]$ ls
+miniconda3  strelka-2.9.10.centos6_x86_64  strelka-2.9.10.centos6_x86_64.tar.bz2  strelkaGermlineDemoAnalysis  strelkaSomaticDemoAnalysis  workflow  workflows
+(/cluster/home/t135250uhn/workflow/ExomeSeq/.snakemake/conda/ca496e3542c49ad4d5d8124e6f30f37f) [t135250uhn@h4huhnlogin1 ~]$ mkdir softwares
+(/cluster/home/t135250uhn/workflow/ExomeSeq/.snakemake/conda/ca496e3542c49ad4d5d8124e6f30f37f) [t135250uhn@h4huhnlogin1 ~]$ cd softwares/
+(/cluster/home/t135250uhn/workflow/ExomeSeq/.snakemake/conda/ca496e3542c49ad4d5d8124e6f30f37f) [t135250uhn@h4huhnlogin1 softwares]$ ls
+(/cluster/home/t135250uhn/workflow/ExomeSeq/.snakemake/conda/ca496e3542c49ad4d5d8124e6f30f37f) [t135250uhn@h4huhnlogin1 softwares]$ wget https://conda.anaconda.org/bioconda/linux-64/strelka-2.9.10-h9ee0642_1.tar.bz2
+--2025-01-17 09:24:53--  https://conda.anaconda.org/bioconda/linux-64/strelka-2.9.10-h9ee0642_1.tar.bz2
+Resolving conda.anaconda.org (conda.anaconda.org)... 104.19.145.37, 104.19.144.37, 2606:4700::6813:9025, ...
+Connecting to conda.anaconda.org (conda.anaconda.org)|104.19.145.37|:443... connected.
+HTTP request sent, awaiting response... 200 OK
+Length: 31256993 (30M) [application/x-tar]
+Saving to: ‘strelka-2.9.10-h9ee0642_1.tar.bz2’
+
+100%[=====================================================================================================================>] 31,256,993  94.2MB/s   in 0.3s   
+
+2025-01-17 09:24:53 (94.2 MB/s) - ‘strelka-2.9.10-h9ee0642_1.tar.bz2’ saved [31256993/31256993]
+
+(/cluster/home/t135250uhn/workflow/ExomeSeq/.snakemake/conda/ca496e3542c49ad4d5d8124e6f30f37f) [t135250uhn@h4huhnlogin1 softwares]$ pwd
+/cluster/home/t135250uhn/softwares
+(/cluster/home/t135250uhn/workflow/ExomeSeq/.snakemake/conda/ca496e3542c49ad4d5d8124e6f30f37f) [t135250uhn@h4huhnlogin1 softwares]$ ls
+strelka-2.9.10-h9ee0642_1.tar.bz2
+(/cluster/home/t135250uhn/workflow/ExomeSeq/.snakemake/conda/ca496e3542c49ad4d5d8124e6f30f37f) [t135250uhn@h4huhnlogin1 softwares]$ conda install strelka-2.9.10-h9ee0642_1.tar.bz2 
+
+Downloading and Extracting Packages:
+                                                                                                                                                               
+
+## Package Plan ##
+
+  environment location: /cluster/home/t135250uhn/workflow/ExomeSeq/.snakemake/conda/ca496e3542c49ad4d5d8124e6f30f37f
+
+  added / updated specs:
+    - strelka[url=file:///cluster/home/t135250uhn/softwares/strelka-2.9.10-h9ee0642_1.tar.bz2]
+
+
+The following packages will be SUPERSEDED by a higher-priority channel:
+
+  strelka            bioconda/noarch::strelka-2.9.10-hdfd7~ --> <unknown>/linux-64::strelka-2.9.10-h9ee0642_1 
+
+
+
+Downloading and Extracting Packages:
+
+Preparing transaction: done
+Verifying transaction: done
+Executing transaction: done
+(/cluster/home/t135250uhn/workflow/ExomeSeq/.snakemake/conda/ca496e3542c49ad4d5d8124e6f30f37f) [t135250uhn@h4huhnlogin1 softwares]$ conda list | grep strelka
+strelka                   2.9.10               h9ee0642_1    <unknown>
+```
+
