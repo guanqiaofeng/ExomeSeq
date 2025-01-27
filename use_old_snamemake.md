@@ -656,4 +656,4 @@ $ module spider R
      Other possible modules matches:
         Aracne  CIRCexplorer2  EXCAVATOR  ExpansionHunter  ExpansionHunterDenovo  FusionAnnotator  FusionInspector  ...
 ```
-change `R/3.3.0` to `R/3.6.1`
+change `R/3.3.0` to `R/3.6.1` in `SequenzaFromVarscan.smk`
