@@ -656,4 +656,4 @@ $ module spider R
      Other possible modules matches:
         Aracne  CIRCexplorer2  EXCAVATOR  ExpansionHunter  ExpansionHunterDenovo  FusionAnnotator  FusionInspector  ...
 ```
-change `R/3.3.0` to `R/3.6.1` in `SequenzaFromVarscan.smk`
+change `R/3.3.0` to `R/4.1.0` in `SequenzaFromVarscan.smk`  4.1.0 can load the 3 libraries with no error
