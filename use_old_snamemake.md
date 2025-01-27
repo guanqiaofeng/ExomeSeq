@@ -593,3 +593,67 @@ Executing transaction: done
 strelka                   2.9.10               h9ee0642_1    <unknown>
 ```
 after change to strelka 2.9.10 build 1, strelka is running smoothly
+
+Error 9
+```
+Building DAG of jobs...
+Using shell: /usr/bin/bash
+Provided cores: 4
+Rules claiming more threads will be scaled down.
+Select jobs to execute...
+
+[Mon Jan 27 11:55:50 2025]
+rule Sequenza:
+    input: results/Varscan/snv/BPTO93T/BPTO93T.snp, results/Varscan/cnv/BPTO93T/BPTO93T.vscn.copynumber
+    output: results/Sequenza/BPTO93T, results/Sequenza/BPTO93T_complete
+    jobid: 0
+    wildcards: sample=BPTO93T
+    threads: 4
+    resources: mem_mb=1000, disk_mb=1000, tmpdir=/tmp
+
+Lmod has detected the following error: The following module(s) are unknown:
+"R/3.3.0"
+
+Please check the spelling or version number. Also try "module spider ..."
+It is also possible your cache file is out-of-date; it may help to try:
+  $ module --ignore_cache load "R/3.3.0"
+
+Also make sure that all modulefiles written in TCL start with the string
+#%Module
+
+
+
+[Mon Jan 27 11:55:51 2025]
+Error in rule Sequenza:
+    jobid: 0
+    output: results/Sequenza/BPTO93T, results/Sequenza/BPTO93T_complete
+    shell:
+        
+     module load R/3.3.0
+     Rscript scripts/SequenzaSingleSample_v2.1_hg38.R -s results/Varscan/snv/BPTO93T/BPTO93T.snp -c results/Varscan/cnv/BPTO93T
+/BPTO93T.vscn.copynumber -o results/Sequenza/BPTO93T -f 10
+     touch results/Sequenza/BPTO93T_complete
+     
+        (one of the commands exited with non-zero exit code; note that snakemake uses bash strict mode!)
+
+Shutting down, this might take some time.
+Exiting because a job execution failed. Look above for error message
+```
+
+To check available R module in hpc now: 
+```
+$ module spider R
+
+---------------------------------------------------------------------------------------------------------------------------
+  R:
+---------------------------------------------------------------------------------------------------------------------------
+     Versions:
+        R/trchr
+        R/3.6.1
+        R/4.1.0
+        R/4.2.1
+        R/4.4.1
+     Other possible modules matches:
+        Aracne  CIRCexplorer2  EXCAVATOR  ExpansionHunter  ExpansionHunterDenovo  FusionAnnotator  FusionInspector  ...
+```
+change `R/3.3.0` to `R/3.6.1`
